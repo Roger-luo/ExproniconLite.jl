@@ -1,5 +1,11 @@
 module ExproniconLite
 
-# Write your package code here.
+using MatchCore
+using OrderedCollections
+
+include("types.jl")
+include("transform.jl")
+include("analysis.jl")
+include("codegen.jl")
 
 end
