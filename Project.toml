@@ -8,7 +8,7 @@ MatchCore = "5dd3f0b1-72a9-48ad-ae6e-79f673da005f"
 OrderedCollections = "bac558e1-5e72-5ebc-8fee-abe8a469f55d"
 
 [compat]
-julia = "1.6"
+julia = "1"
 MatchCore = "0.1"
 OrderedCollections = "1.4"
 
