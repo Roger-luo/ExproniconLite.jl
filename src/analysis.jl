@@ -33,8 +33,7 @@ end
 macro test_expr(type, ex)
     @gensym def generated_expr original_expr
     quote
-        $def = Expronicon.@expr $type $ex
-        println($def)
+        $def = ExproniconLite.@expr $type $ex
         $generated_expr = $prettify($codegen_ast($def))
         $original_expr = $prettify($(Expr(:quote, ex)))
         @test $compare_expr($generated_expr, $original_expr)
@@ -107,20 +106,20 @@ produce the same lowered code.
 function compare_expr(lhs, rhs)
     @sswitch (lhs, rhs) begin
         @case (::Symbol, ::Symbol)
-            lhs === rhs
+            return lhs === rhs
         @case (Expr(:curly, name, lhs_vars...), Expr(:curly, &name, rhs_vars...))
-            all(map(compare_vars, lhs_vars, rhs_vars))
+            return all(map(compare_vars, lhs_vars, rhs_vars))
         @case (Expr(:where, lbody, lparams...), Expr(:where, rbody, rparams...))
-            compare_expr(lbody, rbody) &&
+            return compare_expr(lbody, rbody) &&
                 all(map(compare_vars, lparams, rparams))
         @case (Expr(head, largs...), Expr(&head, rargs...))
-                isempty(largs) && isempty(rargs) ||
-            (length(largs) == length(rargs) && all(map(compare_expr, largs, rargs)))
+            return isempty(largs) && isempty(rargs) ||
+                (length(largs) == length(rargs) && all(map(compare_expr, largs, rargs)))
         # ignore LineNumberNode
         @case (::LineNumberNode, ::LineNumberNode)
-            true
+            return true
         @case _
-            lhs == rhs
+            return lhs == rhs
     end
 end
 
@@ -134,14 +133,14 @@ this assumption. See also [`compare_expr`](@ref).
 function compare_vars(lhs, rhs)
     @sswitch (lhs, rhs) begin
         @case (::Symbol, ::Symbol)
-            true
+            return true
         @case (Expr(head, largs...), Expr(&head, rargs...))
-            all(map(compare_vars, largs, rargs))
+            return all(map(compare_vars, largs, rargs))
         # ignore LineNumberNode
         @case (::LineNumberNode, ::LineNumberNode)
-            true
+            return true
         @case _
-            lhs == rhs
+            return lhs == rhs
     end
 end
 
