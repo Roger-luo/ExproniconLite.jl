@@ -1,5 +1,4 @@
 using ExproniconLite
-using Documenter
 using Test
 
 @testset "@test_expr" begin
@@ -23,5 +22,3 @@ end
 @testset "codegen" begin
     include("codegen.jl")
 end
-
-doctest(ExproniconLite)
