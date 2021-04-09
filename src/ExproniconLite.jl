@@ -1,6 +1,5 @@
 module ExproniconLite
 
-using MatchCore
 using OrderedCollections
 
 export 

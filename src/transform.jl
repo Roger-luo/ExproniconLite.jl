@@ -92,10 +92,20 @@ Remove `LineNumberNode` in a given expression.
     [issues/#9](https://github.com/Roger-luo/Expronicon.jl/issues/9).
 """
 function rm_lineinfo(ex)
-    @smatch ex begin
-        Expr(:macrocall, name, line, args...) => Expr(:macrocall, name, line, map(rm_lineinfo, args)...)
-        Expr(head, args...) => Expr(head, map(rm_lineinfo, filter(x->!(x isa LineNumberNode), args))...)
-        _ => ex
+    # @smatch ex begin
+    #     Expr(:macrocall, name, line, args...) => Expr(:macrocall, name, line, map(rm_lineinfo, args)...)
+    #     Expr(head, args...) => Expr(head, map(rm_lineinfo, filter(x->!(x isa LineNumberNode), args))...)
+    #     _ => ex
+    # end
+
+    ex isa Expr || return ex
+    if ex.head === :macrocall
+        name = ex.args[1]
+        line = ex.args[2]
+        args = ex.args[3:end]
+        return Expr(:macrocall, name, LineNumberNode(0), map(rm_lineinfo, args)...)
+    else
+        return Expr(ex.head, map(rm_lineinfo, filter(x->!(x isa LineNumberNode), ex.args))...)
     end
 end
 
@@ -160,10 +170,17 @@ end
 Remove the constant value `nothing` in given expression `ex`.
 """
 function rm_nothing(ex)
-    @smatch ex begin
-        Expr(:block, args...) => Expr(:block, filter(x->x!==nothing, args)...)
-        Expr(head, args...) => Expr(head, map(rm_nothing, args)...)
-        _ => ex
+    # @smatch ex begin
+    #     Expr(:block, args...) => Expr(:block, filter(x->x!==nothing, args)...)
+    #     Expr(head, args...) => Expr(head, map(rm_nothing, args)...)
+    #     _ => ex
+    # end
+
+    ex isa Expr || return ex
+    if ex.head === :block
+        return Expr(:block, filter(x->x!==nothing, ex.args)...)
+    else
+        return Expr(ex.head, map(rm_nothing, ex.args)...)
     end
 end
 

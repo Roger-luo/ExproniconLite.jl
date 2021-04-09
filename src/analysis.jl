@@ -104,22 +104,45 @@ although some details of the expression is different but they should
 produce the same lowered code.
 """
 function compare_expr(lhs, rhs)
-    @sswitch (lhs, rhs) begin
-        @case (::Symbol, ::Symbol)
-            return lhs === rhs
-        @case (Expr(:curly, name, lhs_vars...), Expr(:curly, &name, rhs_vars...))
-            return all(map(compare_vars, lhs_vars, rhs_vars))
-        @case (Expr(:where, lbody, lparams...), Expr(:where, rbody, rparams...))
-            return compare_expr(lbody, rbody) &&
-                all(map(compare_vars, lparams, rparams))
-        @case (Expr(head, largs...), Expr(&head, rargs...))
+    # @sswitch (lhs, rhs) begin
+    #     @case (::Symbol, ::Symbol)
+    #         return lhs === rhs
+    #     @case (Expr(:curly, name, lhs_vars...), Expr(:curly, &name, rhs_vars...))
+    #         return all(map(compare_vars, lhs_vars, rhs_vars))
+    #     @case (Expr(:where, lbody, lparams...), Expr(:where, rbody, rparams...))
+    #         return compare_expr(lbody, rbody) &&
+    #             all(map(compare_vars, lparams, rparams))
+    #     @case (Expr(head, largs...), Expr(&head, rargs...))
+    #         return isempty(largs) && isempty(rargs) ||
+    #             (length(largs) == length(rargs) && all(map(compare_expr, largs, rargs)))
+    #     # ignore LineNumberNode
+    #     @case (::LineNumberNode, ::LineNumberNode)
+    #         return true
+    #     @case _
+    #         return lhs == rhs
+    # end
+
+    if lhs isa Symbol && rhs isa Symbol
+        return lhs === rhs
+    elseif lhs isa Expr && rhs isa Expr
+        if (lhs.head === rhs.head === :curly) && (lhs.args[1] == rhs.args[1])
+            return all(map(compare_vars, lhs.args[2:end], rhs.args[2:end]))
+        elseif lhs.head === rhs.head === :where
+            lbody, rbody = lhs.args[1], rhs.args[1]
+            lparams, rparams = lhs.args[2:end], rhs.args[2:end]
+            compare_expr(lbody, rbody) || return false
+            return all(map(compare_vars, lparams, rparams))
+        else
+            lhs.head === rhs.head || return false
+            largs, rargs = lhs.args, rhs.args
             return isempty(largs) && isempty(rargs) ||
-                (length(largs) == length(rargs) && all(map(compare_expr, largs, rargs)))
-        # ignore LineNumberNode
-        @case (::LineNumberNode, ::LineNumberNode)
-            return true
-        @case _
-            return lhs == rhs
+                (length(largs) == length(rargs) &&
+                    all(map(compare_expr, largs, rargs)))
+        end
+    elseif lhs isa LineNumberNode && rhs isa LineNumberNode
+        return true
+    else
+        return lhs == rhs
     end
 end
 
@@ -131,16 +154,28 @@ thus their value doesn't matter, only where they are matters under
 this assumption. See also [`compare_expr`](@ref).
 """
 function compare_vars(lhs, rhs)
-    @sswitch (lhs, rhs) begin
-        @case (::Symbol, ::Symbol)
-            return true
-        @case (Expr(head, largs...), Expr(&head, rargs...))
-            return all(map(compare_vars, largs, rargs))
-        # ignore LineNumberNode
-        @case (::LineNumberNode, ::LineNumberNode)
-            return true
-        @case _
-            return lhs == rhs
+    # @sswitch (lhs, rhs) begin
+    #     @case (::Symbol, ::Symbol)
+    #         return true
+    #     @case (Expr(head, largs...), Expr(&head, rargs...))
+    #         return all(map(compare_vars, largs, rargs))
+    #     # ignore LineNumberNode
+    #     @case (::LineNumberNode, ::LineNumberNode)
+    #         return true
+    #     @case _
+    #         return lhs == rhs
+    # end
+
+    if lhs isa Symbol && rhs isa Symbol
+        return true
+    elseif lhs isa Expr && rhs isa Expr
+        lhs.head === rhs.head || return false
+        largs, rargs = lhs.args, rhs.args
+        return all(map(compare_vars, largs, rargs))
+    elseif lhs isa LineNumberNode && rhs isa LineNumberNode
+        return true
+    else
+        return lhs == rhs
     end
 end
 
@@ -240,13 +275,10 @@ end
 Check if given object is a function expression.
 """
 function is_function(@nospecialize(def))
-    @smatch def begin
-        ::JLFunction => true
-        Expr(:function, _, _) => true
-        Expr(:(=), _, _) => true
-        Expr(:(->), _, _) => true
-        _ => false
-    end
+    def isa JLFunction && return true
+    def isa Expr || return false
+    return def.head === :function ||
+        def.head === :(=) || def.head === :(->)
 end
 
 """
@@ -262,16 +294,26 @@ function is_kw_function(@nospecialize(def))
     end
 
     _, call, _ = split_function(def)
-    @smatch call begin
-        Expr(:tuple, Expr(:parameters, _...), _...) => true
-        Expr(:call, _, Expr(:parameters, _...), _...) => true
-        Expr(:block, _, ::LineNumberNode, _) => true
-        _ => false
+
+    # @smatch call begin
+    #     Expr(:tuple, Expr(:parameters, _...), _...) => true
+    #     Expr(:call, _, Expr(:parameters, _...), _...) => true
+    #     Expr(:block, _, ::LineNumberNode, _) => true
+    #     _ => false
+    # end
+
+    if call.head === :tuple
+        ex = call.args[1]
+        return ex isa Expr && ex.head === :parameters
+    elseif call.head === :call
+        ex = call.args[2]
+        return ex isa Expr && ex.head === :parameters
+    elseif call.head === :block
+        return length(call.args) == 3 && call.args[2] isa LineNumberNode
+    else
+        return false
     end
 end
-
-@deprecate is_kw_fn(def) is_kw_function(def)
-@deprecate is_fn(def) is_function(def)
 
 """
     is_struct(ex)
@@ -322,13 +364,32 @@ end
 Check if `ex` is a valid field expression.
 """
 function is_field(@nospecialize(ex))
-    @smatch ex begin
-        :($name::$type = $default) => false
-        :($(name::Symbol) = $default) => false
-        name::Symbol => true
-        :($name::$type) => true
-        _ => false
+    ex isa Symbol && return true
+    ex isa Expr || return false
+
+    # @smatch ex begin
+    #     :($name::$type = $default) => false
+    #     :($(name::Symbol) = $default) => false
+    #     name::Symbol => true
+    #     :($name::$type) => true
+    #     _ => false
+    # end
+
+    if ex.head === :(=)
+        fd = ex.args[1]
+        fd isa Symbol && return true
+        fd isa Expr || return false
+        return fd.head === :(::)
+    elseif ex.head === :(::)
+        return true
+    else
+        return false
     end
+end
+
+function is_kw_field(@nospecialize(ex))
+    ex isa Expr && ex.head === :(=) || return is_field(ex)
+    return is_field(ex.args[1])
 end
 
 """
@@ -337,10 +398,21 @@ end
 Check if `ex` is a `<field expr> = <default expr>` expression.
 """
 function is_field_default(@nospecialize(ex))
-    @smatch ex begin
-        :($name::$type = $default) => true
-        :($(name::Symbol) = $default) => true
-        _ => false
+    ex isa Expr || return false
+
+    # @smatch ex begin
+    #     :($name::$type = $default) => true
+    #     :($(name::Symbol) = $default) => true
+    #     _ => false
+    # end
+
+    if ex.head === :(=)
+        fd = ex.args[1]
+        fd isa Symbol && return true
+        fd isa Expr || return false
+        return fd.head === :(::)
+    else
+        return false
     end
 end
 
@@ -350,9 +422,16 @@ end
 Split doc string from given expression.
 """
 function split_doc(ex::Expr)
-    @smatch ex begin
-        Expr(:macrocall, GlobalRef(Core, Symbol("@doc")), line, doc, expr) => (line, doc, expr)
-        _ => (nothing, nothing, ex)
+    # @smatch ex begin
+    #     Expr(:macrocall, GlobalRef(Core, Symbol("@doc")), line, doc, expr) => (line, doc, expr)
+    #     _ => (nothing, nothing, ex)
+    # end
+
+    if ex.head === :macrocall &&
+        ex.args[1] === GlobalRef(Core, Symbol("@doc"))
+        return ex.args[2], ex.args[3], ex.args[4]
+    else
+        return nothing, nothing, ex
     end
 end
 
@@ -362,12 +441,16 @@ end
 Split function head declaration with function body.
 """
 function split_function(ex::Expr)
-    @smatch ex begin
-        Expr(:function, call, body) => (:function, call, body)
-        Expr(:(=), call, body) => (:(=), call, body)
-        Expr(:(->), call, body) => (:(->), call, body)
-        _ => anlys_error("function", ex)
+    if ex.head in (:function, :(=), :(->))
+        return ex.head, ex.args[1], ex.args[2]
+    else
+        anlys_error("function", ex)
     end
+end
+
+function is_parameters_expr(ex)
+    ex isa Expr || return false
+    ex.head === :parameters
 end
 
 """
@@ -376,18 +459,49 @@ end
 Split function head to name, arguments, keyword arguments and where parameters.
 """
 function split_function_head(ex::Expr)
-    @smatch ex begin
-        Expr(:tuple, Expr(:parameters, kw...), args...) => (nothing, args, kw, nothing)
-        Expr(:tuple, args...) => (nothing, args, nothing, nothing)
-        Expr(:call, name, Expr(:parameters, kw...), args...) => (name, args, kw, nothing)
-        Expr(:call, name, args...) => (name, args, nothing, nothing)
-        Expr(:block, x, ::LineNumberNode, Expr(:(=), kw, value)) => (nothing, Any[x], Any[Expr(:kw, kw, value)], nothing)
-        Expr(:block, x, ::LineNumberNode, kw) => (nothing, Any[x], Any[kw], nothing)
-        Expr(:where, call, whereparams...) => begin
-            name, args, kw, _ = split_function_head(call)
-            (name, args, kw, whereparams)
+    # @smatch ex begin
+    #     Expr(:tuple, Expr(:parameters, kw...), args...) => (nothing, args, kw, nothing)
+    #     Expr(:tuple, args...) => (nothing, args, nothing, nothing)
+    #     Expr(:call, name, Expr(:parameters, kw...), args...) => (name, args, kw, nothing)
+    #     Expr(:call, name, args...) => (name, args, nothing, nothing)
+    #     Expr(:block, x, ::LineNumberNode, Expr(:(=), kw, value)) => (nothing, Any[x], Any[Expr(:kw, kw, value)], nothing)
+    #     Expr(:block, x, ::LineNumberNode, kw) => (nothing, Any[x], Any[kw], nothing)
+    #     Expr(:where, call, whereparams...) => begin
+    #         name, args, kw, _ = split_function_head(call)
+    #         (name, args, kw, whereparams)
+    #     end
+    #     _ => anlys_error("function head expr", ex)
+    # end
+
+    if ex.head === :tuple
+        if is_parameters_expr(ex.args[1])
+            return nothing, ex.args[2:end], ex.args[1].args, nothing
+        else
+            return nothing, ex.args, nothing, nothing
         end
-        _ => anlys_error("function head expr", ex)
+    elseif ex.head === :call
+        name = ex.args[1]
+        if is_parameters_expr(ex.args[2])
+            return name, ex.args[3:end], ex.args[2].args, nothing
+        else
+            return name, ex.args[2:end], nothing, nothing
+        end
+    elseif ex.head === :block && length(ex.args) === 3
+        kw = ex.args[end]
+        if kw isa Expr && kw.head === :(=)
+            return nothing, [ex.args[1]], Any[Expr(:kw, kw.args[1], kw.args[2])], nothing
+        elseif kw isa Symbol
+            return nothing, Any[ex.args[1]], Any[kw], nothing
+        else
+            anlys_error("function head expr", ex)
+        end
+    elseif ex.head === :where
+        call = ex.args[1]
+        whereparams = ex.args[2:end]
+        name, args, kw, _ = split_function_head(call)
+        return name, args, kw, whereparams
+    else
+        anlys_error("function head expr", ex)
     end
 end
 
@@ -398,12 +512,32 @@ Split the name, type parameters and supertype definition from `struct`
 declaration head.
 """
 function split_struct_name(@nospecialize(ex))
-    return @smatch ex begin
-        :($name{$(typevars...)}) => (name, typevars, nothing)
-        :($name{$(typevars...)} <: $type) => (name, typevars, type)
-        ::Symbol => (ex, [], nothing)
-        :($name <: $type) => (name, [], type)
-        _ => anlys_error("struct", ex)
+    ex isa Symbol && return (ex, [], nothing)
+    ex isa Expr || anlys_error("struct", ex)
+
+    # @smatch ex begin
+    #     :($name{$(typevars...)}) => (name, typevars, nothing)
+    #     :($name{$(typevars...)} <: $type) => (name, typevars, type)
+    #     ::Symbol => (ex, [], nothing)
+    #     :($name <: $type) => (name, [], type)
+    #     _ => anlys_error("struct", ex)
+    # end
+
+    if ex.head === :curly
+        name = ex.args[1]
+        typevars = ex.args[2:end]
+        return name, typevars, nothing
+    elseif ex.head === :(<:)
+        head = ex.args[1]
+        type = ex.args[2]
+        head isa Symbol && return head, [], type
+        head isa Expr || anlys_error("struct", ex)
+        head.head === :curly || anlys_error("struct", ex)
+        name = head.args[1]
+        typevars = head.args[2:end]
+        return name, typevars, type
+    else
+        anlys_error("struct", ex)
     end
 end
 
@@ -528,22 +662,35 @@ function JLStruct(ex::Expr)
     fields, constructors, misc = JLField[], JLFunction[], []
     field_doc, field_line = nothing, nothing
 
+    # @sswitch each begin
+    #     @case :($name::$type)
+    #         push!(fields, JLField(name, type, field_doc, field_line))
+    #     @case name::Symbol
+    #         push!(fields, JLField(name, Any, field_doc, field_line))
+    #     @case ::String
+    #         field_doc = each
+    #     @case ::LineNumberNode
+    #         field_line = each
+    #     @case _
+    #         if is_function(each) && name_only(each) === typename
+    #             push!(constructors, JLFunction(each))
+    #         else
+    #             push!(misc, each)
+    #         end
+    # end
+
     for each in body.args
-        @sswitch each begin
-            @case :($name::$type)
-                push!(fields, JLField(name, type, field_doc, field_line))
-            @case name::Symbol
-                push!(fields, JLField(name, Any, field_doc, field_line))
-            @case ::String
-                field_doc = each
-            @case ::LineNumberNode
-                field_line = each
-            @case _
-                if is_function(each) && name_only(each) === typename
-                    push!(constructors, JLFunction(each))
-                else
-                    push!(misc, each)
-                end
+        if each isa String
+            field_doc = each
+        elseif each isa LineNumberNode
+            field_line = each
+        elseif is_field(each)
+            name, type = split_field(each)
+            push!(fields, JLField(name, type, field_doc, field_line))
+        elseif is_function(each) && name_only(each) === typename
+            push!(constructors, JLFunction(each))
+        else
+            push!(misc, each)
         end
     end
     JLStruct(typename, ismutable, typevars, supertype, fields, constructors, line, doc, misc)
@@ -574,29 +721,56 @@ function JLKwStruct(ex::Expr, typealias=nothing)
     fields, constructors, misc = JLKwField[], JLFunction[], []
     field_doc, field_line = nothing, nothing
 
+    # @sswitch each begin
+    #     @case :($name::$type = $default)
+    #         push!(fields, JLKwField(name, type, field_doc, field_line, default))
+    #     @case :($(name::Symbol) = $default)
+    #         push!(fields, JLKwField(name, Any, field_doc, field_line, default))
+    #     @case name::Symbol
+    #         push!(fields, JLKwField(name, Any, field_doc, field_line, no_default))
+    #     @case :($name::$type)
+    #         push!(fields, JLKwField(name, type, field_doc, field_line, no_default))
+    #     @case ::String
+    #         field_doc = each
+    #     @case ::LineNumberNode
+    #         field_line = each
+    #     @case _
+    #         if is_function(each) && name_only(each) === typename
+    #             push!(constructors, JLFunction(each))
+    #         else
+    #             push!(misc, each)
+    #         end
+    # end
+
     for each in body.args
-        @sswitch each begin
-            @case :($name::$type = $default)
-                push!(fields, JLKwField(name, type, field_doc, field_line, default))
-            @case :($(name::Symbol) = $default)
-                push!(fields, JLKwField(name, Any, field_doc, field_line, default))
-            @case name::Symbol
-                push!(fields, JLKwField(name, Any, field_doc, field_line, no_default))
-            @case :($name::$type)
-                push!(fields, JLKwField(name, type, field_doc, field_line, no_default))
-            @case ::String
-                field_doc = each
-            @case ::LineNumberNode
-                field_line = each
-            @case _
-                if is_function(each) && name_only(each) === typename
-                    push!(constructors, JLFunction(each))
-                else
-                    push!(misc, each)
-                end
+        if each isa String
+            field_doc = each
+        elseif each isa LineNumberNode
+            field_line = each
+        elseif is_kw_field(each)
+            field, default = split_default(each)
+            name, type = split_field(field)
+            push!(fields, JLKwField(name, type, field_doc, field_line, default))
+        elseif is_function(each) && name_only(each) === typename
+            push!(constructors, JLFunction(each))
+        else
+            push!(misc, each)
         end
     end
     JLKwStruct(typename, typealias, ismutable, typevars, supertype, fields, constructors, line, doc, misc)
+end
+
+function split_default(ex)
+    ex isa Expr && ex.head === :(=) || return ex, no_default
+    return ex.args[1], ex.args[2]
+end
+
+function split_field(ex)
+    ex isa Symbol && return ex, Any
+    if ex isa Expr && ex.head === :(::)
+        return ex.args[1], ex.args[2]
+    end
+    anlys_error("field", ex)
 end
 
 """
