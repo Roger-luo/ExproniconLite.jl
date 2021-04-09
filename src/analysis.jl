@@ -554,7 +554,7 @@ function split_struct(ex::Expr)
 end
 
 function split_ifelse(ex::Expr)
-    dmap = OrderedDict()
+    dmap = Dict()
     otherwise = split_ifelse!(dmap, ex)
     return dmap, otherwise
 end

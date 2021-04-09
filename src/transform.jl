@@ -126,6 +126,7 @@ function prettify(ex)
     ex = rm_lineinfo(ex)
     ex = flatten_blocks(ex)
     ex = rm_nothing(ex)
+    ex = rm_single_block(ex)
     return ex
 end
 
@@ -181,6 +182,15 @@ function rm_nothing(ex)
         return Expr(:block, filter(x->x!==nothing, ex.args)...)
     else
         return Expr(ex.head, map(rm_nothing, ex.args)...)
+    end
+end
+
+function rm_single_block(ex)
+    ex isa Expr || return ex
+    if ex.head === :block && length(ex.args) == 1
+        return ex.args[1]
+    else
+        Expr(ex.head, map(rm_single_block, ex.args)...)
     end
 end
 

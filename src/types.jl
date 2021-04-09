@@ -309,7 +309,7 @@ julia> codegen_ast(jl)
 ```
 """
 mutable struct JLIfElse <: JLExpr
-    map::OrderedDict{Any, Any}
+    map::Dict{Any, Any}
     otherwise::Any
 end
 
@@ -318,7 +318,7 @@ end
 
 Create an emptry `ifelse` syntax type instance.
 """
-JLIfElse() = JLIfElse(OrderedDict(), nothing)
+JLIfElse() = JLIfElse(Dict(), nothing)
 
 """
     JLFor <: JLExpr

@@ -1,7 +1,5 @@
 module ExproniconLite
 
-using OrderedCollections
-
 export 
     # types
     NoDefault, JLExpr, JLFor, JLIfElse,
