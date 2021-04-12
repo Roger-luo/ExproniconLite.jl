@@ -33,7 +33,7 @@ end
 macro test_expr(type, ex)
     @gensym def generated_expr original_expr
     quote
-        $def = ExproniconLite.@expr $type $ex
+        $def = $ExproniconLite.@expr $type $ex
         $generated_expr = $prettify($codegen_ast($def))
         $original_expr = $prettify($(Expr(:quote, ex)))
         @test $compare_expr($generated_expr, $original_expr)
