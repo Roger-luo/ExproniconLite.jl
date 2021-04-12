@@ -75,8 +75,9 @@ mutable struct JLFunction <: JLExpr
     head::Symbol  # function def must have a head
     name::Any  # name can be nothing, Symbol, Expr
     args::Vector{Any} 
-    kwargs::Maybe{Vector{Any}} 
-    whereparams::Maybe{Vector{Any}} 
+    kwargs::Maybe{Vector{Any}}
+    whereparams::Maybe{Vector{Any}}
+    rettype::Any
     body::Any
     line::Maybe{LineNumberNode} 
     doc::Maybe{String} 
@@ -85,10 +86,11 @@ end
 function JLFunction(;
         head=:function, name=nothing,
         args=[], kwargs=nothing,
-        whereparams=nothing, body=Expr(:block),
+        whereparams=nothing, rettype=nothing,
+        body=Expr(:block),
         line=nothing, doc=nothing
     )
-    JLFunction(head, name, args, kwargs, whereparams, body, line, doc)
+    JLFunction(head, name, args, kwargs, whereparams, rettype, body, line, doc)
 end
 
 """

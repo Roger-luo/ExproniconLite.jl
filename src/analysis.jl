@@ -454,7 +454,7 @@ function is_parameters_expr(ex)
 end
 
 """
-    split_function_head(ex::Expr) -> name, args, kw, whereparams
+    split_function_head(ex::Expr) -> name, args, kw, whereparams, rettype
 
 Split function head to name, arguments, keyword arguments and where parameters.
 """
@@ -475,31 +475,35 @@ function split_function_head(ex::Expr)
 
     if ex.head === :tuple
         if is_parameters_expr(ex.args[1])
-            return nothing, ex.args[2:end], ex.args[1].args, nothing
+            return nothing, ex.args[2:end], ex.args[1].args, nothing, nothing
         else
-            return nothing, ex.args, nothing, nothing
+            return nothing, ex.args, nothing, nothing, nothing
         end
     elseif ex.head === :call
         name = ex.args[1]
         if is_parameters_expr(ex.args[2])
-            return name, ex.args[3:end], ex.args[2].args, nothing
+            return name, ex.args[3:end], ex.args[2].args, nothing, nothing
         else
-            return name, ex.args[2:end], nothing, nothing
+            return name, ex.args[2:end], nothing, nothing, nothing
         end
     elseif ex.head === :block && length(ex.args) === 3
         kw = ex.args[end]
         if kw isa Expr && kw.head === :(=)
-            return nothing, [ex.args[1]], Any[Expr(:kw, kw.args[1], kw.args[2])], nothing
+            return nothing, [ex.args[1]], Any[Expr(:kw, kw.args[1], kw.args[2])], nothing, nothing
         elseif kw isa Symbol
-            return nothing, Any[ex.args[1]], Any[kw], nothing
+            return nothing, Any[ex.args[1]], Any[kw], nothing, nothing
         else
             anlys_error("function head expr", ex)
         end
+    elseif ex.head === :(::)
+        call, rettype = ex.args[1], ex.args[2]
+        name, args, kw, whereparams, _ = split_function_head(call)
+        return name, args, kw, whereparams, rettype
     elseif ex.head === :where
         call = ex.args[1]
         whereparams = ex.args[2:end]
-        name, args, kw, _ = split_function_head(call)
-        return name, args, kw, whereparams
+        name, args, kw, _, rettype = split_function_head(call)
+        return name, args, kw, whereparams, rettype
     else
         anlys_error("function head expr", ex)
     end
@@ -634,8 +638,8 @@ end
 function JLFunction(ex::Expr)
     line, doc, expr = split_doc(ex)
     head, call, body = split_function(expr)
-    name, args, kw, whereparams = split_function_head(call)
-    JLFunction(head, name, args, kw, whereparams, body, line, doc)
+    name, args, kw, whereparams, rettype = split_function_head(call)
+    JLFunction(head, name, args, kw, whereparams, rettype, body, line, doc)
 end
 
 """
