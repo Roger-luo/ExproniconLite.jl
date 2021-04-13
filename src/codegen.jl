@@ -45,13 +45,13 @@ function codegen_ast(def::JLFor)
 end
 
 function codegen_ast(def::JLIfElse)
-    isempty(def.map) && return def.otherwise
+    isempty(def.conds) && return def.otherwise
     stmt = ex = Expr(:if)
-    for (k, (cond, action)) in enumerate(def.map)
+    for (k, (cond, action)) in enumerate(def)
         push!(stmt.args, cond)
         push!(stmt.args, Expr(:block, codegen_ast(action)))
 
-        if k !== length(def.map)
+        if k !== length(def)
             push!(stmt.args, Expr(:elseif))
             stmt = stmt.args[end]
         end
@@ -485,15 +485,14 @@ Create a function call to `GlobalRef(m, name)`.
 !!! tip
 
     due to [Revise/#616](https://github.com/timholy/Revise.jl/issues/616),
-    to make your macro work with Revise, use the dot expression
-    `Expr(:., <module>, QuoteNode(<name>))` instead of `GlobalRef`.
+    to make your macro work with Revise, we use the dot expression
+    `Expr(:., <module>, QuoteNode(<name>))` instead of `GlobalRef` here.
 """
 function xcall(m::Module, name::Symbol, args...; kw...)
-    xcall(GlobalRef(m, name), args...; kw...)
+    # NOTE: not use GlobalRef due to Revise#616
+    xcall(Expr(:., m, QuoteNode(name)), args...; kw...)
 end
 
-# NOTE: not use GlobalRef due to Revise#616
-base_xcall(name, args...; kw...) = xcall(:($Base.$name), args...; kw...)
 
 """
     xpush(collection, items...)
@@ -501,7 +500,7 @@ base_xcall(name, args...; kw...) = xcall(:($Base.$name), args...; kw...)
 Create a function call expression to `Base.push!`.
 """
 function xpush(collection, items...)
-    base_xcall(:(push!), collection, items...)
+    xcall(Base, :(push!), collection, items...)
 end
 
 """
@@ -509,53 +508,53 @@ end
 
 Create a function call expression to `Base.first`.
 """
-xfirst(collection) = base_xcall(:first, collection)
+xfirst(collection) = xcall(Base, :first, collection)
 
 """
     xlast(collection)
 
 Create a function call expression to `Base.last`.
 """
-xlast(collection) = base_xcall(:last, collection)
+xlast(collection) = xcall(Base, :last, collection)
 
 """
     xprint(xs...)
 
 Create a function call expression to `Base.print`.
 """
-xprint(xs...) = base_xcall(:print, xs...)
+xprint(xs...) = xcall(Base, :print, xs...)
 
 """
     xprintln(xs...)
 
 Create a function call expression to `Base.println`.
 """
-xprintln(xs...) = base_xcall(:println, xs...)
+xprintln(xs...) = xcall(Base, :println, xs...)
 
 """
     xmap(f, xs...)
 
 Create a function call expression to `Base.map`.
 """
-xmap(f, xs...) = base_xcall(:map, f, xs...)
+xmap(f, xs...) = xcall(Base, :map, f, xs...)
 
 """
     xmapreduce(f, op, xs...)
 
 Create a function call expression to `Base.mapreduce`.
 """
-xmapreduce(f, op, xs...) = base_xcall(:mapreduce, f, op, xs...)
+xmapreduce(f, op, xs...) = xcall(Base, :mapreduce, f, op, xs...)
 
 """
     xiterate(it)
 
 Create a function call expression to `Base.iterate`.
 """
-xiterate(it) = base_xcall(:iterate, it)
+xiterate(it) = xcall(Base, :iterate, it)
 
 """
     xiterate(it, st)
 
 Create a function call expression to `Base.iterate`.
 """
-xiterate(it, st) = base_xcall(:iterate, it, st)
+xiterate(it, st) = xcall(Base, :iterate, it, st)

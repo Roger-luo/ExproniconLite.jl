@@ -76,8 +76,8 @@ mutable struct JLFunction <: JLExpr
     name::Any  # name can be nothing, Symbol, Expr
     args::Vector{Any} 
     kwargs::Maybe{Vector{Any}}
-    whereparams::Maybe{Vector{Any}}
     rettype::Any
+    whereparams::Maybe{Vector{Any}} 
     body::Any
     line::Maybe{LineNumberNode} 
     doc::Maybe{String} 
@@ -86,11 +86,11 @@ end
 function JLFunction(;
         head=:function, name=nothing,
         args=[], kwargs=nothing,
-        whereparams=nothing, rettype=nothing,
-        body=Expr(:block),
+        rettype=nothing,
+        whereparams=nothing, body=Expr(:block),
         line=nothing, doc=nothing
     )
-    JLFunction(head, name, args, kwargs, whereparams, rettype, body, line, doc)
+    JLFunction(head, name, args, kwargs, rettype, whereparams, body, line, doc)
 end
 
 """
@@ -128,7 +128,7 @@ mutable struct JLKwField <: JLExpr
 end
 
 """
-    JLKwField(;name, type=Any, doc=nothing, line=nothing, default=no_default)
+    JLKwField(;kw...)
 
 Create a `JLKwField` instance.
 """
@@ -196,18 +196,6 @@ end
     JLStruct(;kw...)
 
 Create a `JLStruct` instance.
-
-# Kwargs
-
-- `name`: **required** struct name.
-- `ismutable`: if it is a mutable struct.
-- `typevars`: type variables.
-- `supertype`: supertype of the struct.
-- `fields`: fields of the struct, must be in type [`JLField`](@ref).
-- `constructors`: constructors of the struct, must be in type [`JLFunction`](@ref).
-- `line`: `LineNumberNode` of the struct.
-- `doc`: doc string of the struct.
-- `misc`: other expressions inside the struct expression.
 """
 function JLStruct(;
     name, ismutable=false,
@@ -239,23 +227,10 @@ end
     JLKwStruct(;kw...)
 
 Create a `JLKwStruct` instance.
-
-# Kwargs
-
-- `name`: **required** struct name.
-- `typealias`: alias to the struct.
-- `ismutable`: if it is a mutable struct.
-- `typevars`: type variables.
-- `supertype`: supertype of the struct.
-- `fields`: fields of the struct, must be in type [`JLKwField`](@ref).
-- `constructors`: constructors of the struct, must be in type [`JLFunction`](@ref).
-- `line`: `LineNumberNode` of the struct.
-- `doc`: doc string of the struct.
-- `misc`: other expressions inside the struct expression.
 """
 function JLKwStruct(;name, typealias=nothing,
     ismutable=false, typevars=[], supertype=nothing,
-    fields=JLKwField[], constructors=JLFunction[],
+    fields=JLField[], constructors=JLFunction[],
     line=nothing, doc=nothing, misc=nothing)
     JLKwStruct(name, typealias, ismutable, typevars, supertype, fields, constructors, line, doc, misc)
 end
@@ -276,10 +251,10 @@ One can construct an `ifelse` as following
 julia> jl = JLIfElse()
 nothing
 
-julia> jl.map[:(foo(x))] = :(x = 1 + 1)
+julia> jl[:(foo(x))] = :(x = 1 + 1)
 :(x = 1 + 1)
 
-julia> jl.map[:(goo(x))] = :(y = 1 + 2)
+julia> jl[:(goo(x))] = :(y = 1 + 2)
 :(y = 1 + 2)
 
 julia> jl.otherwise = :(error("abc"))
@@ -311,7 +286,8 @@ julia> codegen_ast(jl)
 ```
 """
 mutable struct JLIfElse <: JLExpr
-    map::Dict{Any, Any}
+    conds::Vector{Any}
+    stmts::Vector{Any}
     otherwise::Any
 end
 
@@ -320,7 +296,34 @@ end
 
 Create an emptry `ifelse` syntax type instance.
 """
-JLIfElse() = JLIfElse(Dict(), nothing)
+JLIfElse() = JLIfElse([], [], nothing)
+
+function Base.getindex(jl::JLIfElse, cond)
+    idx = findfirst(jl.conds) do x
+        cond == x
+    end
+    idx === nothing && error("cannot find condition: $cond")
+    return jl.stmts[idx]
+end
+
+function Base.setindex!(jl::JLIfElse, stmt, cond)
+    idx = findfirst(jl.conds) do x
+        x == cond
+    end
+    if idx === nothing
+        push!(jl.conds, cond)
+        push!(jl.stmts, stmt)
+    else
+        jl.stmts[idx] = stmt
+    end
+    return stmt
+end
+
+Base.length(jl::JLIfElse) = length(jl.conds)
+function Base.iterate(jl::JLIfElse, st=1)
+    st > length(jl) && return
+    jl.conds[st] => jl.stmts[st], st + 1
+end
 
 """
     JLFor <: JLExpr

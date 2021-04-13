@@ -144,6 +144,7 @@ end
     end)
 
     jlstruct = JLStruct(ex)
+    println(jlstruct)
     @test jlstruct.name === :Foo
     @test jlstruct.ismutable === false
     @test length(jlstruct.fields) == 1
@@ -161,6 +162,7 @@ end
     end)
 
     jlstruct = JLStruct(ex)
+    println(jlstruct)
     @test jlstruct.ismutable == true
     @test jlstruct.name === :Foo
     @test jlstruct.typevars == Any[:T, :(S <: Real)]
@@ -194,6 +196,7 @@ end
     @test ast.args[3] == "Foo\n"
     @test ast.args[4].head === :struct
     @test is_function(ast.args[4].args[end].args[end-1])
+    println(jlstruct)
 
     @test_throws AnalysisError split_struct_name(:(function Foo end))
 end
@@ -217,6 +220,7 @@ end
     def = @expr JLKwStruct struct Foo1{N, T}
         x::T = 1
     end
+    println(def)
 
     @test_expr codegen_ast_kwfn(def, :create) == quote
         function create(::Type{S}; x = 1) where {N, T, S <: Foo}
@@ -274,6 +278,7 @@ end
     @test jlstruct.fields[2].name === :b
     @test jlstruct.constructors[1].name === :Foo
     @test jlstruct.misc[1] == :(1 + 1)
+    println(jlstruct)
 
     def = @expr JLKwStruct struct Foo3
         a::Int = 1
@@ -292,14 +297,15 @@ end
 
 @testset "JLIfElse" begin
     jl = JLIfElse()
-    jl.map[:(foo(x))] = :(x = 1 + 1)
-    jl.map[:(goo(x))] = :(y = 1 + 2)
+    jl[:(foo(x))] = :(x = 1 + 1)
+    jl[:(goo(x))] = :(y = 1 + 2)
     jl.otherwise = :(error("abc"))
+    println(jl)
 
     ex = codegen_ast(jl)
     dst = JLIfElse(ex)
-    @test_expr dst.map[:(foo(x))] == :(x = 1 + 1)
-    @test_expr dst.map[:(goo(x))] == :(y = 1 + 2)
+    @test_expr dst[:(foo(x))] == :(x = 1 + 1)
+    @test_expr dst[:(goo(x))] == :(y = 1 + 2)
     @test_expr dst.otherwise == :(error("abc"))
 end
 
@@ -309,6 +315,7 @@ end
         1 + 1
     end)
     jl = JLFor(ex)
+    println(jl)
     @test codegen_ast(jl) == ex
 
     jl = JLFor(;vars=[:x], iterators=[:itr], kernel=:(x + 1))
@@ -321,6 +328,7 @@ end
         1 + 1
     end)
     jl = JLFor(ex)
+    println(jl)
     @test jl.vars == [:i]
     @test jl.iterators == [:(1:10)]
 end

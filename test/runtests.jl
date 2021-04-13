@@ -1,4 +1,5 @@
 using ExproniconLite
+using Documenter
 using Test
 
 @testset "@test_expr" begin
@@ -11,6 +12,10 @@ using Test
     end
 end
 
+@testset "printings" begin
+    include("printing.jl")
+end
+
 @testset "analysis" begin
     include("analysis.jl")
 end
@@ -19,6 +24,12 @@ end
     include("transform.jl")
 end
 
+@testset "match" begin
+    nothing
+end
+
 @testset "codegen" begin
     include("codegen.jl")
 end
+
+doctest(ExproniconLite)
