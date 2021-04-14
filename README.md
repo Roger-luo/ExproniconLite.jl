@@ -5,7 +5,7 @@
 [![Build Status](https://github.com/Roger-luo/ExproniconLite.jl/workflows/CI/badge.svg)](https://github.com/Roger-luo/ExproniconLite.jl/actions)
 [![Coverage](https://codecov.io/gh/Roger-luo/ExproniconLite.jl/branch/master/graph/badge.svg)](https://codecov.io/gh/Roger-luo/ExproniconLite.jl)
 
-No pretty prints, no fancy pattern matching, minimum dependencies, Light-weight [Expronicon](https://github.com/Roger-luo/Expronicon.jl) for low latency.
+no fancy pattern matching, no dependencies, Light-weight [Expronicon](https://github.com/Roger-luo/Expronicon.jl) for low latency.
 
 ## Installation
 
