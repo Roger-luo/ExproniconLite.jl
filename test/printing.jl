@@ -184,3 +184,19 @@ ex = quote
 end
 
 print_expr(ex)
+
+ex = quote
+    try
+        ex = include_string(mod, "quote $code end", path)
+        mod.eval(mod.eval(ex))
+        return nothing
+    finally
+        if prev === nothing
+            delete!(tls, :SOURCE_PATH)
+        else
+            tls[:SOURCE_PATH] = prev
+        end
+    end
+end
+
+print_expr(ex)
