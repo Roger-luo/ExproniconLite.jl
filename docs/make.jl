@@ -2,9 +2,9 @@ using MLStyle
 using ExproniconLite
 using Documenter
 using ANSIColoredPrinters
-using DocumenterTools: Themes
+using DocThemeIndigo
 
-Themes.compile(joinpath(@__DIR__, "src/assets/main.scss"))
+indigo = DocThemeIndigo.install(ExproniconLite)
 
 makedocs(;
     modules=[ExproniconLite],
@@ -14,7 +14,7 @@ makedocs(;
     format=Documenter.HTML(;
         prettyurls=get(ENV, "CI", "false") == "true",
         canonical="https://Roger-luo.github.io/ExproniconLite.jl",
-        assets=String["assets/main.css", "assets/default.css"],
+        assets=String[indigo, "assets/default.css"],
     ),
     pages=[
         "Quick Start" => "index.md",
