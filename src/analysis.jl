@@ -332,6 +332,12 @@ begin
                 var"##cache#324" = nothing
                 var"##return#321" = nothing
                 var"##323" = def
+                if var"##323" isa JLFunction
+                    var"##return#321" = let
+                            true
+                        end
+                    $(Expr(:symbolicgoto, Symbol("####final#322#331")))
+                end
                 if var"##323" isa Expr
                     if begin
                                 if var"##cache#324" === nothing
@@ -372,12 +378,6 @@ begin
                             end
                         $(Expr(:symbolicgoto, Symbol("####final#322#331")))
                     end
-                end
-                if var"##323" isa JLFunction
-                    var"##return#321" = let
-                            true
-                        end
-                    $(Expr(:symbolicgoto, Symbol("####final#322#331")))
                 end
                 var"##return#321" = let
                         false
