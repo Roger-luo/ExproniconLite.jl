@@ -1100,6 +1100,7 @@ begin
             (ismutable, typename, typevars, supertype, body) = split_struct(expr)
             (fields, constructors, misc) = (JLField[], JLFunction[], [])
             (field_doc, field_line) = (nothing, nothing)
+            body = flatten_blocks(body)
             for each = body.args
                 cache_24 = nothing
                 x_177 = each
@@ -1159,17 +1160,18 @@ begin
                         push!(misc, each)
                     end
                 $(Expr(:symbolicgoto, Symbol("##final#484_1")))
-                (error)("matching non-exhaustive, at #= none:567 =#")
+                (error)("matching non-exhaustive, at #= none:569 =#")
                 $(Expr(:symboliclabel, Symbol("##final#484_1")))
                 return_10
             end
             JLStruct(typename, ismutable, typevars, supertype, fields, constructors, line, doc, misc)
         end
-    #= none:589 =# Core.@doc "    JLKwStruct(ex::Expr, typealias=nothing)\n\nCreate a `JLKwStruct` from given Julia struct `Expr`, with an option to attach\nan alias to this type name.\n\n# Example\n\n```julia\njulia> JLKwStruct(:(struct Foo\n           x::Int = 1\n       end))\n#= kw =# struct Foo\n    #= REPL[39]:2 =#\n    x::Int = 1\nend\n```\n" function JLKwStruct(ex::Expr, typealias = nothing)
+    #= none:591 =# Core.@doc "    JLKwStruct(ex::Expr, typealias=nothing)\n\nCreate a `JLKwStruct` from given Julia struct `Expr`, with an option to attach\nan alias to this type name.\n\n# Example\n\n```julia\njulia> JLKwStruct(:(struct Foo\n           x::Int = 1\n       end))\n#= kw =# struct Foo\n    #= REPL[39]:2 =#\n    x::Int = 1\nend\n```\n" function JLKwStruct(ex::Expr, typealias = nothing)
             (line, doc, expr) = split_doc(ex)
             (ismutable, typename, typevars, supertype, body) = split_struct(expr)
             (fields, constructors, misc) = (JLKwField[], JLFunction[], [])
             (field_doc, field_line) = (nothing, nothing)
+            body = flatten_blocks(body)
             for each = body.args
                 cache_25 = nothing
                 x_182 = each
@@ -1282,18 +1284,18 @@ begin
                         push!(misc, each)
                     end
                 $(Expr(:symbolicgoto, Symbol("##final#493_1")))
-                (error)("matching non-exhaustive, at #= none:615 =#")
+                (error)("matching non-exhaustive, at #= none:617 =#")
                 $(Expr(:symboliclabel, Symbol("##final#493_1")))
                 return_11
             end
             JLKwStruct(typename, typealias, ismutable, typevars, supertype, fields, constructors, line, doc, misc)
         end
-    #= none:641 =# Core.@doc "    JLIfElse(ex::Expr)\n\nCreate a `JLIfElse` from given Julia ifelse `Expr`.\n\n# Example\n\n```julia\njulia> ex = :(if foo(x)\n             x = 1 + 1\n         elseif goo(x)\n             y = 1 + 2\n         else\n             error(\"abc\")\n         end)\n:(if foo(x)\n      #= REPL[41]:2 =#\n      x = 1 + 1\n  elseif #= REPL[41]:3 =# goo(x)\n      #= REPL[41]:4 =#\n      y = 1 + 2\n  else\n      #= REPL[41]:6 =#\n      error(\"abc\")\n  end)\n\njulia> JLIfElse(ex)\nif foo(x)\n    begin\n        #= REPL[41]:2 =#        \n        x = 1 + 1        \n    end\nelseif begin\n    #= REPL[41]:3 =#    \n    goo(x)    \nend\n    begin\n        #= REPL[41]:4 =#        \n        y = 1 + 2        \n    end\nelse\n    begin\n        #= REPL[41]:6 =#        \n        error(\"abc\")        \n    end\nend\n```\n" function JLIfElse(ex::Expr)
+    #= none:643 =# Core.@doc "    JLIfElse(ex::Expr)\n\nCreate a `JLIfElse` from given Julia ifelse `Expr`.\n\n# Example\n\n```julia\njulia> ex = :(if foo(x)\n             x = 1 + 1\n         elseif goo(x)\n             y = 1 + 2\n         else\n             error(\"abc\")\n         end)\n:(if foo(x)\n      #= REPL[41]:2 =#\n      x = 1 + 1\n  elseif #= REPL[41]:3 =# goo(x)\n      #= REPL[41]:4 =#\n      y = 1 + 2\n  else\n      #= REPL[41]:6 =#\n      error(\"abc\")\n  end)\n\njulia> JLIfElse(ex)\nif foo(x)\n    begin\n        #= REPL[41]:2 =#        \n        x = 1 + 1        \n    end\nelseif begin\n    #= REPL[41]:3 =#    \n    goo(x)    \nend\n    begin\n        #= REPL[41]:4 =#        \n        y = 1 + 2        \n    end\nelse\n    begin\n        #= REPL[41]:6 =#        \n        error(\"abc\")        \n    end\nend\n```\n" function JLIfElse(ex::Expr)
             ex.head === :if || error("expect an if ... elseif ... else ... end expression")
             (conds, stmts, otherwise) = split_ifelse(ex)
             return JLIfElse(conds, stmts, otherwise)
         end
-    #= none:695 =# Core.@doc "    JLFor(ex::Expr)\n\nCreate a `JLFor` from given Julia for loop expression.\n\n# Example\n\n```julia\njulia> ex = @expr for i in 1:10, j in 1:j\n           M[i, j] += 1\n       end\n:(for i = 1:10, j = 1:j\n      #= REPL[3]:2 =#\n      M[i, j] += 1\n  end)\n\njulia> jl = JLFor(ex)\nfor i in 1 : 10,\n    j in 1 : j\n    #= loop body =#\n    begin\n        #= REPL[3]:2 =#        \n        M[i, j] += 1        \n    end\nend\n\njulia> jl.vars\n2-element Vector{Any}:\n :i\n :j\n\njulia> jl.iterators\n2-element Vector{Any}:\n :(1:10)\n :(1:j)\n```\n" function JLFor(ex::Expr)
+    #= none:697 =# Core.@doc "    JLFor(ex::Expr)\n\nCreate a `JLFor` from given Julia for loop expression.\n\n# Example\n\n```julia\njulia> ex = @expr for i in 1:10, j in 1:j\n           M[i, j] += 1\n       end\n:(for i = 1:10, j = 1:j\n      #= REPL[3]:2 =#\n      M[i, j] += 1\n  end)\n\njulia> jl = JLFor(ex)\nfor i in 1 : 10,\n    j in 1 : j\n    #= loop body =#\n    begin\n        #= REPL[3]:2 =#        \n        M[i, j] += 1        \n    end\nend\n\njulia> jl.vars\n2-element Vector{Any}:\n :i\n :j\n\njulia> jl.iterators\n2-element Vector{Any}:\n :(1:10)\n :(1:j)\n```\n" function JLFor(ex::Expr)
             (vars, itrs, body) = split_forloop(ex)
             return JLFor(vars, itrs, body)
         end
