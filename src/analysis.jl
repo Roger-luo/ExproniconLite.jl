@@ -345,6 +345,12 @@ begin
                 cache_9 = nothing
                 return_3 = nothing
                 x_51 = def
+                if x_51 isa JLFunction
+                    return_3 = let
+                            true
+                        end
+                    $(Expr(:symbolicgoto, Symbol("##final#322_1")))
+                end
                 if x_51 isa Expr
                     if begin
                                 if cache_9 === nothing
@@ -385,12 +391,6 @@ begin
                             end
                         $(Expr(:symbolicgoto, Symbol("##final#322_1")))
                     end
-                end
-                if x_51 isa JLFunction
-                    return_3 = let
-                            true
-                        end
-                    $(Expr(:symbolicgoto, Symbol("##final#322_1")))
                 end
                 return_3 = let
                         false
