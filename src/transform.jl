@@ -47,9 +47,10 @@ begin
             ex isa Expr || error("unsupported expression $(ex)")
             ex.head in [:call, :curly, :<:, :(::), :where, :function, :kw, :(=), :->] && return name_only(ex.args[1])
             ex.head === :. && return name_only(ex.args[2])
+            ex.head === :module && return name_only(ex.args[2])
             error("unsupported expression $(ex)")
         end
-    #= none:85 =# Core.@doc "    rm_lineinfo(ex)\n\nRemove `LineNumberNode` in a given expression.\n\n!!! tips\n\n    the `LineNumberNode` inside macro calls won't be removed since\n    the `macrocall` expression requires a `LineNumberNode`. See also\n    [issues/#9](https://github.com/Roger-luo/Expronicon.jl/issues/9).\n" function rm_lineinfo(ex)
+    #= none:86 =# Core.@doc "    rm_lineinfo(ex)\n\nRemove `LineNumberNode` in a given expression.\n\n!!! tips\n\n    the `LineNumberNode` inside macro calls won't be removed since\n    the `macrocall` expression requires a `LineNumberNode`. See also\n    [issues/#9](https://github.com/Roger-luo/Expronicon.jl/issues/9).\n" function rm_lineinfo(ex)
             let
                 cache_1 = nothing
                 return_1 = nothing
@@ -98,19 +99,19 @@ begin
                         ex
                     end
                 $(Expr(:symbolicgoto, Symbol("##final#728_1")))
-                (error)("matching non-exhaustive, at #= none:97 =#")
+                (error)("matching non-exhaustive, at #= none:98 =#")
                 $(Expr(:symboliclabel, Symbol("##final#728_1")))
                 return_1
             end
         end
-    #= none:104 =# Base.@kwdef struct PrettifyOptions
+    #= none:105 =# Base.@kwdef struct PrettifyOptions
             rm_lineinfo::Bool = true
             flatten_blocks::Bool = true
             rm_nothing::Bool = true
             rm_single_block::Bool = true
             alias_gensym::Bool = true
         end
-    #= none:112 =# Core.@doc "    prettify(ex; kw...)\n\nPrettify given expression, remove all `LineNumberNode` and\nextra code blocks.\n\n# Options (Kwargs)\n\nAll the options are `true` by default.\n\n- `rm_lineinfo`: remove `LineNumberNode`.\n- `flatten_blocks`: flatten `begin ... end` code blocks.\n- `rm_nothing`: remove `nothing` in the `begin ... end`.\n- `rm_single_block`: remove single `begin ... end`.\n- `alias_gensym`: replace `##<name>#<num>` with `<name>_<id>`.\n\n!!! tips\n\n    the `LineNumberNode` inside macro calls won't be removed since\n    the `macrocall` expression requires a `LineNumberNode`. See also\n    [issues/#9](https://github.com/Roger-luo/Expronicon.jl/issues/9).\n" function prettify(ex; kw...)
+    #= none:113 =# Core.@doc "    prettify(ex; kw...)\n\nPrettify given expression, remove all `LineNumberNode` and\nextra code blocks.\n\n# Options (Kwargs)\n\nAll the options are `true` by default.\n\n- `rm_lineinfo`: remove `LineNumberNode`.\n- `flatten_blocks`: flatten `begin ... end` code blocks.\n- `rm_nothing`: remove `nothing` in the `begin ... end`.\n- `rm_single_block`: remove single `begin ... end`.\n- `alias_gensym`: replace `##<name>#<num>` with `<name>_<id>`.\n\n!!! tips\n\n    the `LineNumberNode` inside macro calls won't be removed since\n    the `macrocall` expression requires a `LineNumberNode`. See also\n    [issues/#9](https://github.com/Roger-luo/Expronicon.jl/issues/9).\n" function prettify(ex; kw...)
             prettify(ex, PrettifyOptions(; kw...))
         end
     function prettify(ex, options::PrettifyOptions)
@@ -150,7 +151,7 @@ begin
             end
         return ex
     end
-    #= none:157 =# Core.@doc "    flatten_blocks(ex)\n\nRemove hierachical expression blocks.\n" function flatten_blocks(ex)
+    #= none:158 =# Core.@doc "    flatten_blocks(ex)\n\nRemove hierachical expression blocks.\n" function flatten_blocks(ex)
             ex isa Expr || return ex
             ex.head === :block || return Expr(ex.head, map(_flatten_blocks, ex.args)...)
             has_block = any(ex.args) do x
@@ -176,7 +177,7 @@ begin
         end
         return Expr(:block, args...)
     end
-    #= none:192 =# Core.@doc "    rm_nothing(ex)\n\nRemove the constant value `nothing` in given expression `ex`.\n" function rm_nothing(ex)
+    #= none:193 =# Core.@doc "    rm_nothing(ex)\n\nRemove the constant value `nothing` in given expression `ex`.\n" function rm_nothing(ex)
             let
                 cache_2 = nothing
                 return_2 = nothing
@@ -223,7 +224,7 @@ begin
                         ex
                     end
                 $(Expr(:symbolicgoto, Symbol("##final#742_1")))
-                (error)("matching non-exhaustive, at #= none:198 =#")
+                (error)("matching non-exhaustive, at #= none:199 =#")
                 $(Expr(:symboliclabel, Symbol("##final#742_1")))
                 return_2
             end
@@ -484,12 +485,12 @@ begin
                     ex
                 end
             $(Expr(:symbolicgoto, Symbol("##final#754_1")))
-            (error)("matching non-exhaustive, at #= none:206 =#")
+            (error)("matching non-exhaustive, at #= none:207 =#")
             $(Expr(:symboliclabel, Symbol("##final#754_1")))
             return_3
         end
     end
-    #= none:234 =# Core.@doc "    rm_annotations(x)\n\nRemove type annotation of given expression.\n" function rm_annotations(x)
+    #= none:235 =# Core.@doc "    rm_annotations(x)\n\nRemove type annotation of given expression.\n" function rm_annotations(x)
             x isa Expr || return x
             if x.head == :(::)
                 if length(x.args) == 1
@@ -503,7 +504,7 @@ begin
                 return Expr(x.head, map(rm_annotations, x.args)...)
             end
         end
-    #= none:254 =# Core.@doc "    alias_gensym(ex)\n\nReplace gensym with `<name>_<id>`.\n\n!!! note\n    Borrowed from [MacroTools](https://github.com/FluxML/MacroTools.jl).\n" alias_gensym(ex) = begin
+    #= none:255 =# Core.@doc "    alias_gensym(ex)\n\nReplace gensym with `<name>_<id>`.\n\n!!! note\n    Borrowed from [MacroTools](https://github.com/FluxML/MacroTools.jl).\n" alias_gensym(ex) = begin
                 alias_gensym!(Dict{Symbol, Symbol}(), Dict{Symbol, Int}(), ex)
             end
     function alias_gensym!(d::Dict{Symbol, Symbol}, count::Dict{Symbol, Int}, ex)

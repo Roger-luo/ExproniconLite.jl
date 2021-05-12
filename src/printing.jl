@@ -663,6 +663,12 @@ begin
         within_line(io, ps) do 
             cache_3 = nothing
             x_91 = ex
+            if x_91 isa Number
+                return_2 = begin
+                        printstyled(io, ex; color = theme.literal)
+                    end
+                $(Expr(:symbolicgoto, Symbol("##final#610_1")))
+            end
             if x_91 isa GlobalRef
                 return_2 = begin
                         printstyled(io, ex.mod, "."; color = ps.color)
@@ -1277,12 +1283,6 @@ begin
                         end
                     $(Expr(:symbolicgoto, Symbol("##final#610_1")))
                 end
-            end
-            if x_91 isa Number
-                return_2 = begin
-                        printstyled(io, ex; color = theme.literal)
-                    end
-                $(Expr(:symbolicgoto, Symbol("##final#610_1")))
             end
             if x_91 isa Nothing
                 return_2 = begin
