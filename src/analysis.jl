@@ -39,152 +39,152 @@ begin
     #= none:95 =# Core.@doc "    compare_expr(lhs, rhs)\n\nCompare two expression of type `Expr` or `Symbol` semantically, which:\n\n1. ignore the detail value `LineNumberNode` in comparision\n2. ignore the detailed name of typevars in `Expr(:curly, ...)` or `Expr(:where, ...)`\n\nThis gives a way to compare two Julia expression semantically which means\nalthough some details of the expression is different but they should\nproduce the same lowered code.\n" function compare_expr(lhs, rhs)
             true
             x_1 = (lhs, rhs)
-            if x_1 isa Tuple{Expr, Expr}
-                if begin
-                            cache_1 = nothing
-                            x_2 = x_1[1]
-                            x_2 isa Expr
-                        end && (begin
-                                if cache_1 === nothing
-                                    cache_1 = Some((x_2.head, x_2.args))
-                                end
-                                x_3 = cache_1.value
-                                x_3 isa Tuple{Symbol, var2} where var2<:AbstractArray
-                            end && (x_3[1] == :curly && (begin
-                                        x_4 = x_3[2]
-                                        x_4 isa AbstractArray
-                                    end && ((ndims(x_4) === 1 && length(x_4) >= 1) && (begin
-                                                x_5 = x_4[1]
-                                                x_6 = (SubArray)(x_4, (2:length(x_4),))
-                                                cache_2 = nothing
-                                                x_7 = x_1[2]
-                                                x_7 isa Expr
-                                            end && (begin
-                                                    if cache_2 === nothing
-                                                        cache_2 = Some((x_7.head, x_7.args))
-                                                    end
-                                                    x_8 = cache_2.value
-                                                    x_8 isa Tuple{Symbol, var2} where var2<:AbstractArray
-                                                end && (x_8[1] == :curly && (begin
-                                                            x_9 = x_8[2]
-                                                            x_9 isa AbstractArray
-                                                        end && ((ndims(x_9) === 1 && length(x_9) >= 1) && (begin
-                                                                    x_10 = x_9[1]
-                                                                    let name = x_5, lhs_vars = x_6
-                                                                        x_10 == name
-                                                                    end
-                                                                end && begin
-                                                                    x_11 = (SubArray)(x_9, (2:length(x_9),))
-                                                                    true
-                                                                end))))))))))
-                    rhs_vars = x_11
-                    name = x_5
-                    lhs_vars = x_6
-                    return_1 = begin
-                            all(map(compare_vars, lhs_vars, rhs_vars))
-                        end
-                    $(Expr(:symbolicgoto, Symbol("##final#258_1")))
-                end
-                if begin
-                            cache_3 = nothing
-                            x_12 = x_1[1]
-                            x_12 isa Expr
-                        end && (begin
-                                if cache_3 === nothing
-                                    cache_3 = Some((x_12.head, x_12.args))
-                                end
-                                x_13 = cache_3.value
-                                x_13 isa Tuple{Symbol, var2} where var2<:AbstractArray
-                            end && (x_13[1] == :where && (begin
-                                        x_14 = x_13[2]
-                                        x_14 isa AbstractArray
-                                    end && ((ndims(x_14) === 1 && length(x_14) >= 1) && (begin
-                                                x_15 = x_14[1]
-                                                x_16 = (SubArray)(x_14, (2:length(x_14),))
-                                                cache_4 = nothing
-                                                x_17 = x_1[2]
-                                                x_17 isa Expr
-                                            end && (begin
-                                                    if cache_4 === nothing
-                                                        cache_4 = Some((x_17.head, x_17.args))
-                                                    end
-                                                    x_18 = cache_4.value
-                                                    x_18 isa Tuple{Symbol, var2} where var2<:AbstractArray
-                                                end && (x_18[1] == :where && (begin
-                                                            x_19 = x_18[2]
-                                                            x_19 isa AbstractArray
-                                                        end && ((ndims(x_19) === 1 && length(x_19) >= 1) && begin
-                                                                x_20 = x_19[1]
-                                                                x_21 = (SubArray)(x_19, (2:length(x_19),))
-                                                                true
-                                                            end)))))))))
-                    lbody = x_15
-                    rbody = x_20
-                    rparams = x_21
-                    lparams = x_16
-                    return_1 = begin
-                            compare_expr(lbody, rbody) && all(map(compare_vars, lparams, rparams))
-                        end
-                    $(Expr(:symbolicgoto, Symbol("##final#258_1")))
-                end
-                if begin
-                            cache_5 = nothing
-                            x_22 = x_1[1]
-                            x_22 isa Expr
-                        end && (begin
-                                if cache_5 === nothing
-                                    cache_5 = Some((x_22.head, x_22.args))
-                                end
-                                x_23 = cache_5.value
-                                x_23 isa Tuple{var1, var2} where {var2<:AbstractArray, var1}
-                            end && (begin
-                                    x_24 = x_23[1]
-                                    x_25 = x_23[2]
-                                    x_25 isa AbstractArray
-                                end && ((ndims(x_25) === 1 && length(x_25) >= 0) && (begin
-                                            x_26 = (SubArray)(x_25, (1:length(x_25),))
-                                            cache_6 = nothing
-                                            x_27 = x_1[2]
-                                            x_27 isa Expr
-                                        end && (begin
-                                                if cache_6 === nothing
-                                                    cache_6 = Some((x_27.head, x_27.args))
-                                                end
-                                                x_28 = cache_6.value
-                                                x_28 isa Tuple{var1, var2} where {var2<:AbstractArray, var1}
-                                            end && (begin
-                                                    x_29 = x_28[1]
-                                                    let head = x_24, largs = x_26
-                                                        x_29 == head
-                                                    end
-                                                end && (begin
-                                                        x_30 = x_28[2]
-                                                        x_30 isa AbstractArray
-                                                    end && ((ndims(x_30) === 1 && length(x_30) >= 0) && begin
-                                                            x_31 = (SubArray)(x_30, (1:length(x_30),))
-                                                            true
-                                                        end))))))))
-                    head = x_24
-                    largs = x_26
-                    rargs = x_31
-                    return_1 = begin
-                            isempty(largs) && isempty(rargs) || length(largs) == length(rargs) && all(map(compare_expr, largs, rargs))
-                        end
-                    $(Expr(:symbolicgoto, Symbol("##final#258_1")))
-                end
-            end
             if x_1 isa Tuple{Symbol, Symbol}
                 if begin
-                            x_32 = x_1[1]
-                            x_32 isa Symbol
+                            x_2 = x_1[1]
+                            x_2 isa Symbol
                         end && begin
-                            x_33 = x_1[2]
-                            x_33 isa Symbol
+                            x_3 = x_1[2]
+                            x_3 isa Symbol
                         end
                     return_1 = begin
                             lhs === rhs
                         end
-                    $(Expr(:symbolicgoto, Symbol("##final#258_1")))
+                    $(Expr(:symbolicgoto, Symbol("##final#273_1")))
+                end
+            end
+            if x_1 isa Tuple{Expr, Expr}
+                if begin
+                            cache_1 = nothing
+                            x_4 = x_1[1]
+                            x_4 isa Expr
+                        end && (begin
+                                if cache_1 === nothing
+                                    cache_1 = Some((x_4.head, x_4.args))
+                                end
+                                x_5 = cache_1.value
+                                x_5 isa Tuple{Symbol, var2} where var2<:AbstractArray
+                            end && (x_5[1] == :curly && (begin
+                                        x_6 = x_5[2]
+                                        x_6 isa AbstractArray
+                                    end && ((ndims(x_6) === 1 && length(x_6) >= 1) && (begin
+                                                x_7 = x_6[1]
+                                                x_8 = (SubArray)(x_6, (2:length(x_6),))
+                                                cache_2 = nothing
+                                                x_9 = x_1[2]
+                                                x_9 isa Expr
+                                            end && (begin
+                                                    if cache_2 === nothing
+                                                        cache_2 = Some((x_9.head, x_9.args))
+                                                    end
+                                                    x_10 = cache_2.value
+                                                    x_10 isa Tuple{Symbol, var2} where var2<:AbstractArray
+                                                end && (x_10[1] == :curly && (begin
+                                                            x_11 = x_10[2]
+                                                            x_11 isa AbstractArray
+                                                        end && ((ndims(x_11) === 1 && length(x_11) >= 1) && (begin
+                                                                    x_12 = x_11[1]
+                                                                    let name = x_7, lhs_vars = x_8
+                                                                        x_12 == name
+                                                                    end
+                                                                end && begin
+                                                                    x_13 = (SubArray)(x_11, (2:length(x_11),))
+                                                                    true
+                                                                end))))))))))
+                    rhs_vars = x_13
+                    name = x_7
+                    lhs_vars = x_8
+                    return_1 = begin
+                            all(map(compare_vars, lhs_vars, rhs_vars))
+                        end
+                    $(Expr(:symbolicgoto, Symbol("##final#273_1")))
+                end
+                if begin
+                            cache_3 = nothing
+                            x_14 = x_1[1]
+                            x_14 isa Expr
+                        end && (begin
+                                if cache_3 === nothing
+                                    cache_3 = Some((x_14.head, x_14.args))
+                                end
+                                x_15 = cache_3.value
+                                x_15 isa Tuple{Symbol, var2} where var2<:AbstractArray
+                            end && (x_15[1] == :where && (begin
+                                        x_16 = x_15[2]
+                                        x_16 isa AbstractArray
+                                    end && ((ndims(x_16) === 1 && length(x_16) >= 1) && (begin
+                                                x_17 = x_16[1]
+                                                x_18 = (SubArray)(x_16, (2:length(x_16),))
+                                                cache_4 = nothing
+                                                x_19 = x_1[2]
+                                                x_19 isa Expr
+                                            end && (begin
+                                                    if cache_4 === nothing
+                                                        cache_4 = Some((x_19.head, x_19.args))
+                                                    end
+                                                    x_20 = cache_4.value
+                                                    x_20 isa Tuple{Symbol, var2} where var2<:AbstractArray
+                                                end && (x_20[1] == :where && (begin
+                                                            x_21 = x_20[2]
+                                                            x_21 isa AbstractArray
+                                                        end && ((ndims(x_21) === 1 && length(x_21) >= 1) && begin
+                                                                x_22 = x_21[1]
+                                                                x_23 = (SubArray)(x_21, (2:length(x_21),))
+                                                                true
+                                                            end)))))))))
+                    lbody = x_17
+                    rbody = x_22
+                    rparams = x_23
+                    lparams = x_18
+                    return_1 = begin
+                            compare_expr(lbody, rbody) && all(map(compare_vars, lparams, rparams))
+                        end
+                    $(Expr(:symbolicgoto, Symbol("##final#273_1")))
+                end
+                if begin
+                            cache_5 = nothing
+                            x_24 = x_1[1]
+                            x_24 isa Expr
+                        end && (begin
+                                if cache_5 === nothing
+                                    cache_5 = Some((x_24.head, x_24.args))
+                                end
+                                x_25 = cache_5.value
+                                x_25 isa Tuple{var1, var2} where {var2<:AbstractArray, var1}
+                            end && (begin
+                                    x_26 = x_25[1]
+                                    x_27 = x_25[2]
+                                    x_27 isa AbstractArray
+                                end && ((ndims(x_27) === 1 && length(x_27) >= 0) && (begin
+                                            x_28 = (SubArray)(x_27, (1:length(x_27),))
+                                            cache_6 = nothing
+                                            x_29 = x_1[2]
+                                            x_29 isa Expr
+                                        end && (begin
+                                                if cache_6 === nothing
+                                                    cache_6 = Some((x_29.head, x_29.args))
+                                                end
+                                                x_30 = cache_6.value
+                                                x_30 isa Tuple{var1, var2} where {var2<:AbstractArray, var1}
+                                            end && (begin
+                                                    x_31 = x_30[1]
+                                                    let head = x_26, largs = x_28
+                                                        x_31 == head
+                                                    end
+                                                end && (begin
+                                                        x_32 = x_30[2]
+                                                        x_32 isa AbstractArray
+                                                    end && ((ndims(x_32) === 1 && length(x_32) >= 0) && begin
+                                                            x_33 = (SubArray)(x_32, (1:length(x_32),))
+                                                            true
+                                                        end))))))))
+                    head = x_26
+                    largs = x_28
+                    rargs = x_33
+                    return_1 = begin
+                            isempty(largs) && isempty(rargs) || length(largs) == length(rargs) && all(map(compare_expr, largs, rargs))
+                        end
+                    $(Expr(:symbolicgoto, Symbol("##final#273_1")))
                 end
             end
             if x_1 isa Tuple{LineNumberNode, LineNumberNode}
@@ -198,79 +198,79 @@ begin
                     return_1 = begin
                             true
                         end
-                    $(Expr(:symbolicgoto, Symbol("##final#258_1")))
+                    $(Expr(:symbolicgoto, Symbol("##final#273_1")))
                 end
             end
             return_1 = begin
                     lhs == rhs
                 end
-            $(Expr(:symbolicgoto, Symbol("##final#258_1")))
+            $(Expr(:symbolicgoto, Symbol("##final#273_1")))
             (error)("matching non-exhaustive, at #= none:108 =#")
-            $(Expr(:symboliclabel, Symbol("##final#258_1")))
+            $(Expr(:symboliclabel, Symbol("##final#273_1")))
             return_1
         end
     #= none:127 =# Core.@doc "    compare_vars(lhs, rhs)\n\nCompare two expression by assuming all `Symbol`s are variables,\nthus their value doesn't matter, only where they are matters under\nthis assumption. See also [`compare_expr`](@ref).\n" function compare_vars(lhs, rhs)
             true
             x_36 = (lhs, rhs)
-            if x_36 isa Tuple{Expr, Expr}
-                if begin
-                            cache_7 = nothing
-                            x_37 = x_36[1]
-                            x_37 isa Expr
-                        end && (begin
-                                if cache_7 === nothing
-                                    cache_7 = Some((x_37.head, x_37.args))
-                                end
-                                x_38 = cache_7.value
-                                x_38 isa Tuple{var1, var2} where {var2<:AbstractArray, var1}
-                            end && (begin
-                                    x_39 = x_38[1]
-                                    x_40 = x_38[2]
-                                    x_40 isa AbstractArray
-                                end && ((ndims(x_40) === 1 && length(x_40) >= 0) && (begin
-                                            x_41 = (SubArray)(x_40, (1:length(x_40),))
-                                            cache_8 = nothing
-                                            x_42 = x_36[2]
-                                            x_42 isa Expr
-                                        end && (begin
-                                                if cache_8 === nothing
-                                                    cache_8 = Some((x_42.head, x_42.args))
-                                                end
-                                                x_43 = cache_8.value
-                                                x_43 isa Tuple{var1, var2} where {var2<:AbstractArray, var1}
-                                            end && (begin
-                                                    x_44 = x_43[1]
-                                                    let head = x_39, largs = x_41
-                                                        x_44 == head
-                                                    end
-                                                end && (begin
-                                                        x_45 = x_43[2]
-                                                        x_45 isa AbstractArray
-                                                    end && ((ndims(x_45) === 1 && length(x_45) >= 0) && begin
-                                                            x_46 = (SubArray)(x_45, (1:length(x_45),))
-                                                            true
-                                                        end))))))))
-                    head = x_39
-                    largs = x_41
-                    rargs = x_46
-                    return_2 = begin
-                            all(map(compare_vars, largs, rargs))
-                        end
-                    $(Expr(:symbolicgoto, Symbol("##final#302_1")))
-                end
-            end
             if x_36 isa Tuple{Symbol, Symbol}
                 if begin
-                            x_47 = x_36[1]
-                            x_47 isa Symbol
+                            x_37 = x_36[1]
+                            x_37 isa Symbol
                         end && begin
-                            x_48 = x_36[2]
-                            x_48 isa Symbol
+                            x_38 = x_36[2]
+                            x_38 isa Symbol
                         end
                     return_2 = begin
                             true
                         end
-                    $(Expr(:symbolicgoto, Symbol("##final#302_1")))
+                    $(Expr(:symbolicgoto, Symbol("##final#317_1")))
+                end
+            end
+            if x_36 isa Tuple{Expr, Expr}
+                if begin
+                            cache_7 = nothing
+                            x_39 = x_36[1]
+                            x_39 isa Expr
+                        end && (begin
+                                if cache_7 === nothing
+                                    cache_7 = Some((x_39.head, x_39.args))
+                                end
+                                x_40 = cache_7.value
+                                x_40 isa Tuple{var1, var2} where {var2<:AbstractArray, var1}
+                            end && (begin
+                                    x_41 = x_40[1]
+                                    x_42 = x_40[2]
+                                    x_42 isa AbstractArray
+                                end && ((ndims(x_42) === 1 && length(x_42) >= 0) && (begin
+                                            x_43 = (SubArray)(x_42, (1:length(x_42),))
+                                            cache_8 = nothing
+                                            x_44 = x_36[2]
+                                            x_44 isa Expr
+                                        end && (begin
+                                                if cache_8 === nothing
+                                                    cache_8 = Some((x_44.head, x_44.args))
+                                                end
+                                                x_45 = cache_8.value
+                                                x_45 isa Tuple{var1, var2} where {var2<:AbstractArray, var1}
+                                            end && (begin
+                                                    x_46 = x_45[1]
+                                                    let head = x_41, largs = x_43
+                                                        x_46 == head
+                                                    end
+                                                end && (begin
+                                                        x_47 = x_45[2]
+                                                        x_47 isa AbstractArray
+                                                    end && ((ndims(x_47) === 1 && length(x_47) >= 0) && begin
+                                                            x_48 = (SubArray)(x_47, (1:length(x_47),))
+                                                            true
+                                                        end))))))))
+                    head = x_41
+                    largs = x_43
+                    rargs = x_48
+                    return_2 = begin
+                            all(map(compare_vars, largs, rargs))
+                        end
+                    $(Expr(:symbolicgoto, Symbol("##final#317_1")))
                 end
             end
             if x_36 isa Tuple{LineNumberNode, LineNumberNode}
@@ -284,15 +284,15 @@ begin
                     return_2 = begin
                             true
                         end
-                    $(Expr(:symbolicgoto, Symbol("##final#302_1")))
+                    $(Expr(:symbolicgoto, Symbol("##final#317_1")))
                 end
             end
             return_2 = begin
                     lhs == rhs
                 end
-            $(Expr(:symbolicgoto, Symbol("##final#302_1")))
+            $(Expr(:symbolicgoto, Symbol("##final#317_1")))
             (error)("matching non-exhaustive, at #= none:135 =#")
-            $(Expr(:symboliclabel, Symbol("##final#302_1")))
+            $(Expr(:symboliclabel, Symbol("##final#317_1")))
             return_2
         end
     #= none:148 =# Core.@doc "    is_literal(x)\n\nCheck if `x` is a literal value.\n" function is_literal(x)
@@ -345,12 +345,6 @@ begin
                 cache_9 = nothing
                 return_3 = nothing
                 x_51 = def
-                if x_51 isa JLFunction
-                    return_3 = let
-                            true
-                        end
-                    $(Expr(:symbolicgoto, Symbol("##final#322_1")))
-                end
                 if x_51 isa Expr
                     if begin
                                 if cache_9 === nothing
@@ -365,7 +359,7 @@ begin
                         return_3 = let
                                 true
                             end
-                        $(Expr(:symbolicgoto, Symbol("##final#322_1")))
+                        $(Expr(:symbolicgoto, Symbol("##final#337_1")))
                     end
                     if begin
                                 x_54 = cache_9.value
@@ -377,7 +371,7 @@ begin
                         return_3 = let
                                 true
                             end
-                        $(Expr(:symbolicgoto, Symbol("##final#322_1")))
+                        $(Expr(:symbolicgoto, Symbol("##final#337_1")))
                     end
                     if begin
                                 x_56 = cache_9.value
@@ -389,15 +383,21 @@ begin
                         return_3 = let
                                 true
                             end
-                        $(Expr(:symbolicgoto, Symbol("##final#322_1")))
+                        $(Expr(:symbolicgoto, Symbol("##final#337_1")))
                     end
+                end
+                if x_51 isa JLFunction
+                    return_3 = let
+                            true
+                        end
+                    $(Expr(:symbolicgoto, Symbol("##final#337_1")))
                 end
                 return_3 = let
                         false
                     end
-                $(Expr(:symbolicgoto, Symbol("##final#322_1")))
+                $(Expr(:symbolicgoto, Symbol("##final#337_1")))
                 (error)("matching non-exhaustive, at #= none:271 =#")
-                $(Expr(:symboliclabel, Symbol("##final#322_1")))
+                $(Expr(:symboliclabel, Symbol("##final#337_1")))
                 return_3
             end
         end
@@ -438,7 +438,7 @@ begin
                         return_4 = let
                                 true
                             end
-                        $(Expr(:symbolicgoto, Symbol("##final#333_1")))
+                        $(Expr(:symbolicgoto, Symbol("##final#348_1")))
                     end
                     if begin
                                 x_64 = cache_10.value
@@ -463,7 +463,7 @@ begin
                         return_4 = let
                                 true
                             end
-                        $(Expr(:symbolicgoto, Symbol("##final#333_1")))
+                        $(Expr(:symbolicgoto, Symbol("##final#348_1")))
                     end
                     if begin
                                 x_69 = cache_10.value
@@ -478,15 +478,15 @@ begin
                         return_4 = let
                                 true
                             end
-                        $(Expr(:symbolicgoto, Symbol("##final#333_1")))
+                        $(Expr(:symbolicgoto, Symbol("##final#348_1")))
                     end
                 end
                 return_4 = let
                         false
                     end
-                $(Expr(:symbolicgoto, Symbol("##final#333_1")))
+                $(Expr(:symbolicgoto, Symbol("##final#348_1")))
                 (error)("matching non-exhaustive, at #= none:293 =#")
-                $(Expr(:symboliclabel, Symbol("##final#333_1")))
+                $(Expr(:symboliclabel, Symbol("##final#348_1")))
                 return_4
             end
         end
@@ -516,12 +516,6 @@ begin
                 cache_13 = nothing
                 return_5 = nothing
                 x_72 = ex
-                if x_72 isa Symbol
-                    return_5 = let name = x_72
-                            true
-                        end
-                    $(Expr(:symbolicgoto, Symbol("##final#353_1")))
-                end
                 if x_72 isa Expr
                     if begin
                                 if cache_13 === nothing
@@ -554,7 +548,7 @@ begin
                         return_5 = let default = x_80, type = x_79, name = x_78
                                 false
                             end
-                        $(Expr(:symbolicgoto, Symbol("##final#353_1")))
+                        $(Expr(:symbolicgoto, Symbol("##final#368_1")))
                     end
                     if begin
                                 x_81 = cache_13.value
@@ -572,7 +566,7 @@ begin
                         return_5 = let default = x_84, name = x_83
                                 false
                             end
-                        $(Expr(:symbolicgoto, Symbol("##final#353_1")))
+                        $(Expr(:symbolicgoto, Symbol("##final#368_1")))
                     end
                     if begin
                                 x_85 = cache_13.value
@@ -588,15 +582,21 @@ begin
                         return_5 = let type = x_88, name = x_87
                                 true
                             end
-                        $(Expr(:symbolicgoto, Symbol("##final#353_1")))
+                        $(Expr(:symbolicgoto, Symbol("##final#368_1")))
                     end
+                end
+                if x_72 isa Symbol
+                    return_5 = let name = x_72
+                            true
+                        end
+                    $(Expr(:symbolicgoto, Symbol("##final#368_1")))
                 end
                 return_5 = let
                         false
                     end
-                $(Expr(:symbolicgoto, Symbol("##final#353_1")))
+                $(Expr(:symbolicgoto, Symbol("##final#368_1")))
                 (error)("matching non-exhaustive, at #= none:353 =#")
-                $(Expr(:symboliclabel, Symbol("##final#353_1")))
+                $(Expr(:symboliclabel, Symbol("##final#368_1")))
                 return_5
             end
         end
@@ -637,7 +637,7 @@ begin
                         return_6 = let default = x_97, type = x_96, name = x_95
                                 true
                             end
-                        $(Expr(:symbolicgoto, Symbol("##final#375_1")))
+                        $(Expr(:symbolicgoto, Symbol("##final#390_1")))
                     end
                     if begin
                                 x_98 = cache_15.value
@@ -655,15 +655,15 @@ begin
                         return_6 = let default = x_101, name = x_100
                                 true
                             end
-                        $(Expr(:symbolicgoto, Symbol("##final#375_1")))
+                        $(Expr(:symbolicgoto, Symbol("##final#390_1")))
                     end
                 end
                 return_6 = let
                         false
                     end
-                $(Expr(:symbolicgoto, Symbol("##final#375_1")))
+                $(Expr(:symbolicgoto, Symbol("##final#390_1")))
                 (error)("matching non-exhaustive, at #= none:368 =#")
-                $(Expr(:symboliclabel, Symbol("##final#375_1")))
+                $(Expr(:symboliclabel, Symbol("##final#390_1")))
                 return_6
             end
         end
@@ -697,7 +697,7 @@ begin
                         return_7 = let call = x_105, body = x_106
                                 (:function, call, body)
                             end
-                        $(Expr(:symbolicgoto, Symbol("##final#393_1")))
+                        $(Expr(:symbolicgoto, Symbol("##final#408_1")))
                     end
                     if begin
                                 x_107 = cache_17.value
@@ -713,7 +713,7 @@ begin
                         return_7 = let call = x_109, body = x_110
                                 (:(=), call, body)
                             end
-                        $(Expr(:symbolicgoto, Symbol("##final#393_1")))
+                        $(Expr(:symbolicgoto, Symbol("##final#408_1")))
                     end
                     if begin
                                 x_111 = cache_17.value
@@ -729,15 +729,15 @@ begin
                         return_7 = let call = x_113, body = x_114
                                 (:->, call, body)
                             end
-                        $(Expr(:symbolicgoto, Symbol("##final#393_1")))
+                        $(Expr(:symbolicgoto, Symbol("##final#408_1")))
                     end
                 end
                 return_7 = let
                         anlys_error("function", ex)
                     end
-                $(Expr(:symbolicgoto, Symbol("##final#393_1")))
+                $(Expr(:symbolicgoto, Symbol("##final#408_1")))
                 (error)("matching non-exhaustive, at #= none:394 =#")
-                $(Expr(:symboliclabel, Symbol("##final#393_1")))
+                $(Expr(:symboliclabel, Symbol("##final#408_1")))
                 return_7
             end
         end
@@ -777,7 +777,7 @@ begin
                         return_8 = let args = x_122, kw = x_121
                                 (nothing, args, kw, nothing, nothing)
                             end
-                        $(Expr(:symbolicgoto, Symbol("##final#410_1")))
+                        $(Expr(:symbolicgoto, Symbol("##final#425_1")))
                     end
                     if begin
                                 x_123 = cache_18.value
@@ -792,7 +792,7 @@ begin
                         return_8 = let args = x_125
                                 (nothing, args, nothing, nothing, nothing)
                             end
-                        $(Expr(:symbolicgoto, Symbol("##final#410_1")))
+                        $(Expr(:symbolicgoto, Symbol("##final#425_1")))
                     end
                     if begin
                                 x_126 = cache_18.value
@@ -822,7 +822,7 @@ begin
                         return_8 = let name = x_128, args = x_133, kw = x_132
                                 (name, args, kw, nothing, nothing)
                             end
-                        $(Expr(:symbolicgoto, Symbol("##final#410_1")))
+                        $(Expr(:symbolicgoto, Symbol("##final#425_1")))
                     end
                     if begin
                                 x_134 = cache_18.value
@@ -838,7 +838,7 @@ begin
                         return_8 = let name = x_136, args = x_137
                                 (name, args, nothing, nothing, nothing)
                             end
-                        $(Expr(:symbolicgoto, Symbol("##final#410_1")))
+                        $(Expr(:symbolicgoto, Symbol("##final#425_1")))
                     end
                     if begin
                                 x_138 = cache_18.value
@@ -871,7 +871,7 @@ begin
                         return_8 = let value = x_146, kw = x_145, x = x_140
                                 (nothing, Any[x], Any[Expr(:kw, kw, value)], nothing, nothing)
                             end
-                        $(Expr(:symbolicgoto, Symbol("##final#410_1")))
+                        $(Expr(:symbolicgoto, Symbol("##final#425_1")))
                     end
                     if begin
                                 x_147 = cache_18.value
@@ -890,7 +890,7 @@ begin
                         return_8 = let kw = x_151, x = x_149
                                 (nothing, Any[x], Any[kw], nothing, nothing)
                             end
-                        $(Expr(:symbolicgoto, Symbol("##final#410_1")))
+                        $(Expr(:symbolicgoto, Symbol("##final#425_1")))
                     end
                     if begin
                                 x_152 = cache_18.value
@@ -907,7 +907,7 @@ begin
                                 (name, args, kw, whereparams, _) = split_function_head(call)
                                 (name, args, kw, whereparams, rettype)
                             end
-                        $(Expr(:symbolicgoto, Symbol("##final#410_1")))
+                        $(Expr(:symbolicgoto, Symbol("##final#425_1")))
                     end
                     if begin
                                 x_156 = cache_18.value
@@ -924,15 +924,15 @@ begin
                                 (name, args, kw, _, rettype) = split_function_head(call)
                                 (name, args, kw, whereparams, rettype)
                             end
-                        $(Expr(:symbolicgoto, Symbol("##final#410_1")))
+                        $(Expr(:symbolicgoto, Symbol("##final#425_1")))
                     end
                 end
                 return_8 = let
                         anlys_error("function head expr", ex)
                     end
-                $(Expr(:symbolicgoto, Symbol("##final#410_1")))
+                $(Expr(:symbolicgoto, Symbol("##final#425_1")))
                 (error)("matching non-exhaustive, at #= none:408 =#")
-                $(Expr(:symboliclabel, Symbol("##final#410_1")))
+                $(Expr(:symboliclabel, Symbol("##final#425_1")))
                 return_8
             end
         end
@@ -941,12 +941,6 @@ begin
                     cache_22 = nothing
                     return_9 = nothing
                     x_160 = ex
-                    if x_160 isa Symbol
-                        return_9 = let
-                                (ex, [], nothing)
-                            end
-                        $(Expr(:symbolicgoto, Symbol("##final#462_1")))
-                    end
                     if x_160 isa Expr
                         if begin
                                     if cache_22 === nothing
@@ -965,7 +959,7 @@ begin
                             return_9 = let typevars = x_164, name = x_163
                                     (name, typevars, nothing)
                                 end
-                            $(Expr(:symbolicgoto, Symbol("##final#462_1")))
+                            $(Expr(:symbolicgoto, Symbol("##final#477_1")))
                         end
                         if begin
                                     x_165 = cache_22.value
@@ -995,7 +989,7 @@ begin
                             return_9 = let typevars = x_171, type = x_172, name = x_170
                                     (name, typevars, type)
                                 end
-                            $(Expr(:symbolicgoto, Symbol("##final#462_1")))
+                            $(Expr(:symbolicgoto, Symbol("##final#477_1")))
                         end
                         if begin
                                     x_173 = cache_22.value
@@ -1011,15 +1005,21 @@ begin
                             return_9 = let type = x_176, name = x_175
                                     (name, [], type)
                                 end
-                            $(Expr(:symbolicgoto, Symbol("##final#462_1")))
+                            $(Expr(:symbolicgoto, Symbol("##final#477_1")))
                         end
+                    end
+                    if x_160 isa Symbol
+                        return_9 = let
+                                (ex, [], nothing)
+                            end
+                        $(Expr(:symbolicgoto, Symbol("##final#477_1")))
                     end
                     return_9 = let
                             anlys_error("struct", ex)
                         end
-                    $(Expr(:symbolicgoto, Symbol("##final#462_1")))
+                    $(Expr(:symbolicgoto, Symbol("##final#477_1")))
                     (error)("matching non-exhaustive, at #= none:434 =#")
-                    $(Expr(:symboliclabel, Symbol("##final#462_1")))
+                    $(Expr(:symboliclabel, Symbol("##final#477_1")))
                     return_9
                 end
         end
@@ -1104,13 +1104,6 @@ begin
             for each = body.args
                 cache_24 = nothing
                 x_177 = each
-                if x_177 isa Symbol
-                    name = x_177
-                    return_10 = begin
-                            push!(fields, JLField(name, Any, field_doc, field_line))
-                        end
-                    $(Expr(:symbolicgoto, Symbol("##final#484_1")))
-                end
                 if x_177 isa Expr
                     if begin
                                 if cache_24 === nothing
@@ -1131,20 +1124,27 @@ begin
                         return_10 = begin
                                 push!(fields, JLField(name, type, field_doc, field_line))
                             end
-                        $(Expr(:symbolicgoto, Symbol("##final#484_1")))
+                        $(Expr(:symbolicgoto, Symbol("##final#499_1")))
                     end
                 end
-                if x_177 isa LineNumberNode
+                if x_177 isa Symbol
+                    name = x_177
                     return_10 = begin
-                            field_line = each
+                            push!(fields, JLField(name, Any, field_doc, field_line))
                         end
-                    $(Expr(:symbolicgoto, Symbol("##final#484_1")))
+                    $(Expr(:symbolicgoto, Symbol("##final#499_1")))
                 end
                 if x_177 isa String
                     return_10 = begin
                             field_doc = each
                         end
-                    $(Expr(:symbolicgoto, Symbol("##final#484_1")))
+                    $(Expr(:symbolicgoto, Symbol("##final#499_1")))
+                end
+                if x_177 isa LineNumberNode
+                    return_10 = begin
+                            field_line = each
+                        end
+                    $(Expr(:symbolicgoto, Symbol("##final#499_1")))
                 end
                 if is_function(x_177)
                     return_10 = begin
@@ -1154,14 +1154,14 @@ begin
                                 push!(misc, each)
                             end
                         end
-                    $(Expr(:symbolicgoto, Symbol("##final#484_1")))
+                    $(Expr(:symbolicgoto, Symbol("##final#499_1")))
                 end
                 return_10 = begin
                         push!(misc, each)
                     end
-                $(Expr(:symbolicgoto, Symbol("##final#484_1")))
+                $(Expr(:symbolicgoto, Symbol("##final#499_1")))
                 (error)("matching non-exhaustive, at #= none:569 =#")
-                $(Expr(:symboliclabel, Symbol("##final#484_1")))
+                $(Expr(:symboliclabel, Symbol("##final#499_1")))
                 return_10
             end
             JLStruct(typename, ismutable, typevars, supertype, fields, constructors, line, doc, misc)
@@ -1175,13 +1175,6 @@ begin
             for each = body.args
                 cache_25 = nothing
                 x_182 = each
-                if x_182 isa Symbol
-                    name = x_182
-                    return_11 = begin
-                            push!(fields, JLKwField(name, Any, field_doc, field_line, no_default))
-                        end
-                    $(Expr(:symbolicgoto, Symbol("##final#493_1")))
-                end
                 if x_182 isa Expr
                     if begin
                                 if cache_25 === nothing
@@ -1217,7 +1210,7 @@ begin
                         return_11 = begin
                                 push!(fields, JLKwField(name, type, field_doc, field_line, default))
                             end
-                        $(Expr(:symbolicgoto, Symbol("##final#493_1")))
+                        $(Expr(:symbolicgoto, Symbol("##final#508_1")))
                     end
                     if begin
                                 x_191 = cache_25.value
@@ -1237,7 +1230,7 @@ begin
                         return_11 = begin
                                 push!(fields, JLKwField(name, Any, field_doc, field_line, default))
                             end
-                        $(Expr(:symbolicgoto, Symbol("##final#493_1")))
+                        $(Expr(:symbolicgoto, Symbol("##final#508_1")))
                     end
                     if begin
                                 x_195 = cache_25.value
@@ -1255,20 +1248,27 @@ begin
                         return_11 = begin
                                 push!(fields, JLKwField(name, type, field_doc, field_line, no_default))
                             end
-                        $(Expr(:symbolicgoto, Symbol("##final#493_1")))
+                        $(Expr(:symbolicgoto, Symbol("##final#508_1")))
                     end
                 end
-                if x_182 isa LineNumberNode
+                if x_182 isa Symbol
+                    name = x_182
                     return_11 = begin
-                            field_line = each
+                            push!(fields, JLKwField(name, Any, field_doc, field_line, no_default))
                         end
-                    $(Expr(:symbolicgoto, Symbol("##final#493_1")))
+                    $(Expr(:symbolicgoto, Symbol("##final#508_1")))
                 end
                 if x_182 isa String
                     return_11 = begin
                             field_doc = each
                         end
-                    $(Expr(:symbolicgoto, Symbol("##final#493_1")))
+                    $(Expr(:symbolicgoto, Symbol("##final#508_1")))
+                end
+                if x_182 isa LineNumberNode
+                    return_11 = begin
+                            field_line = each
+                        end
+                    $(Expr(:symbolicgoto, Symbol("##final#508_1")))
                 end
                 if is_function(x_182)
                     return_11 = begin
@@ -1278,14 +1278,14 @@ begin
                                 push!(misc, each)
                             end
                         end
-                    $(Expr(:symbolicgoto, Symbol("##final#493_1")))
+                    $(Expr(:symbolicgoto, Symbol("##final#508_1")))
                 end
                 return_11 = begin
                         push!(misc, each)
                     end
-                $(Expr(:symbolicgoto, Symbol("##final#493_1")))
+                $(Expr(:symbolicgoto, Symbol("##final#508_1")))
                 (error)("matching non-exhaustive, at #= none:617 =#")
-                $(Expr(:symboliclabel, Symbol("##final#493_1")))
+                $(Expr(:symboliclabel, Symbol("##final#508_1")))
                 return_11
             end
             JLKwStruct(typename, typealias, ismutable, typevars, supertype, fields, constructors, line, doc, misc)

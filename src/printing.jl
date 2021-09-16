@@ -70,7 +70,7 @@ begin
                         print(io, tab(2))
                         print_expr(io, line, ps, theme)
                     end
-                $(Expr(:symbolicgoto, Symbol("##final#515_1")))
+                $(Expr(:symbolicgoto, Symbol("##final#530_1")))
             end
             if begin
                         x_6 = cache_1.value
@@ -97,7 +97,7 @@ begin
                         print_stmts_list(io, ex.args, ps, theme)
                         print_end(io, ps, theme)
                     end
-                $(Expr(:symbolicgoto, Symbol("##final#515_1")))
+                $(Expr(:symbolicgoto, Symbol("##final#530_1")))
             end
             if begin
                         x_11 = cache_1.value
@@ -123,7 +123,7 @@ begin
                         print_expr(io, stmt2)
                         printstyled(io, ")"; color = ps.color)
                     end
-                $(Expr(:symbolicgoto, Symbol("##final#515_1")))
+                $(Expr(:symbolicgoto, Symbol("##final#530_1")))
             end
             if begin
                         x_16 = cache_1.value
@@ -142,7 +142,7 @@ begin
                         print_stmts_list(io, stmts, ps, theme)
                         print_end(io, ps, theme)
                     end
-                $(Expr(:symbolicgoto, Symbol("##final#515_1")))
+                $(Expr(:symbolicgoto, Symbol("##final#530_1")))
             end
             if begin
                         x_19 = cache_1.value
@@ -167,7 +167,7 @@ begin
                         print_stmts(io, body, ps, theme)
                         print_end(io, ps, theme)
                     end
-                $(Expr(:symbolicgoto, Symbol("##final#515_1")))
+                $(Expr(:symbolicgoto, Symbol("##final#530_1")))
             end
             if begin
                         x_23 = cache_1.value
@@ -205,7 +205,7 @@ begin
                             end
                         end
                     end
-                $(Expr(:symbolicgoto, Symbol("##final#515_1")))
+                $(Expr(:symbolicgoto, Symbol("##final#530_1")))
             end
             if begin
                         x_28 = cache_1.value
@@ -243,7 +243,7 @@ begin
                             end
                         end
                     end
-                $(Expr(:symbolicgoto, Symbol("##final#515_1")))
+                $(Expr(:symbolicgoto, Symbol("##final#530_1")))
             end
             if begin
                         x_33 = cache_1.value
@@ -271,7 +271,7 @@ begin
                         print_stmts(io, body, ps, theme)
                         print_end(io, ps, theme)
                     end
-                $(Expr(:symbolicgoto, Symbol("##final#515_1")))
+                $(Expr(:symbolicgoto, Symbol("##final#530_1")))
             end
             if begin
                         x_37 = cache_1.value
@@ -295,7 +295,7 @@ begin
                         print_stmts(io, body, ps, theme)
                         print_end(io, ps, theme)
                     end
-                $(Expr(:symbolicgoto, Symbol("##final#515_1")))
+                $(Expr(:symbolicgoto, Symbol("##final#530_1")))
             end
             if begin
                         x_41 = cache_1.value
@@ -319,7 +319,7 @@ begin
                         print_stmts(io, body, ps, theme)
                         print_end(io, ps, theme)
                     end
-                $(Expr(:symbolicgoto, Symbol("##final#515_1")))
+                $(Expr(:symbolicgoto, Symbol("##final#530_1")))
             end
             if begin
                         x_45 = cache_1.value
@@ -358,7 +358,7 @@ begin
                         println(io, ps)
                         print_expr(io, code, ps, theme)
                     end
-                $(Expr(:symbolicgoto, Symbol("##final#515_1")))
+                $(Expr(:symbolicgoto, Symbol("##final#530_1")))
             end
             if begin
                         x_51 = cache_1.value
@@ -370,7 +370,7 @@ begin
                                         cache_2 = nothing
                                         x_53 = x_52[1]
                                         if cache_2 === nothing
-                                            cache_2 = Some(((Val{(view, Symbol("##Symbol(x)#258"))}())())(x_53))
+                                            cache_2 = Some(((Val{(view, Symbol("##Symbol(x)#273"))}())())(x_53))
                                         end
                                         cache_2.value !== nothing && (cache_2.value isa Some || (error)("invalid use of active patterns: 1-ary view pattern(Symbol(x)) should accept Union{Some{T}, Nothing} instead of Union{T, Nothing}! A simple solution is:\n  (@active Symbol(x) ex) =>\n  (@active Symbol(x) let r=ex; r === nothing? r : Some(r)) end"))
                                     end && (begin
@@ -386,7 +386,7 @@ begin
                             print_expr(io, Symbol("@__MODULE__"), ps, theme)
                         end
                     end
-                $(Expr(:symbolicgoto, Symbol("##final#515_1")))
+                $(Expr(:symbolicgoto, Symbol("##final#530_1")))
             end
             if begin
                         x_56 = cache_1.value
@@ -413,7 +413,7 @@ begin
                             print_macro(io, name, line, (s,), ps, theme)
                         end
                     end
-                $(Expr(:symbolicgoto, Symbol("##final#515_1")))
+                $(Expr(:symbolicgoto, Symbol("##final#530_1")))
             end
             if begin
                         x_61 = cache_1.value
@@ -433,7 +433,7 @@ begin
                 return_1 = begin
                         print_macro(io, name, line, xs, ps, theme)
                     end
-                $(Expr(:symbolicgoto, Symbol("##final#515_1")))
+                $(Expr(:symbolicgoto, Symbol("##final#530_1")))
             end
             if begin
                         x_66 = cache_1.value
@@ -462,7 +462,7 @@ begin
                         print_stmts(io, body, ps, theme)
                         print_end(io, ps, theme)
                     end
-                $(Expr(:symbolicgoto, Symbol("##final#515_1")))
+                $(Expr(:symbolicgoto, Symbol("##final#530_1")))
             end
             if begin
                         x_71 = cache_1.value
@@ -484,7 +484,7 @@ begin
                         print_catch(io, catch_var, catch_body, ps, theme)
                         print_end(io, ps, theme)
                     end
-                $(Expr(:symbolicgoto, Symbol("##final#515_1")))
+                $(Expr(:symbolicgoto, Symbol("##final#530_1")))
             end
             if begin
                         x_76 = cache_1.value
@@ -506,7 +506,7 @@ begin
                         print_finally(io, finally_body, ps, theme)
                         print_end(io, ps, theme)
                     end
-                $(Expr(:symbolicgoto, Symbol("##final#515_1")))
+                $(Expr(:symbolicgoto, Symbol("##final#530_1")))
             end
             if begin
                         x_80 = cache_1.value
@@ -531,7 +531,7 @@ begin
                         print_finally(io, finally_body, ps, theme)
                         print_end(io, ps, theme)
                     end
-                $(Expr(:symbolicgoto, Symbol("##final#515_1")))
+                $(Expr(:symbolicgoto, Symbol("##final#530_1")))
             end
             if begin
                         x_86 = cache_1.value
@@ -558,15 +558,15 @@ begin
                         print_stmts(io, body, ps, theme)
                         print_end(io, ps, theme)
                     end
-                $(Expr(:symbolicgoto, Symbol("##final#515_1")))
+                $(Expr(:symbolicgoto, Symbol("##final#530_1")))
             end
         end
         return_1 = begin
                 print_within_line(io, ex, ps, theme)
             end
-        $(Expr(:symbolicgoto, Symbol("##final#515_1")))
+        $(Expr(:symbolicgoto, Symbol("##final#530_1")))
         (error)("matching non-exhaustive, at #= none:58 =#")
-        $(Expr(:symboliclabel, Symbol("##final#515_1")))
+        $(Expr(:symboliclabel, Symbol("##final#530_1")))
         return_1
     end
     function print_kw(io::IO, x, ps, theme::Color)
@@ -663,24 +663,24 @@ begin
         within_line(io, ps) do 
             cache_3 = nothing
             x_91 = ex
-            if x_91 isa Number
-                return_2 = begin
-                        printstyled(io, ex; color = theme.literal)
-                    end
-                $(Expr(:symbolicgoto, Symbol("##final#610_1")))
-            end
             if x_91 isa GlobalRef
                 return_2 = begin
                         printstyled(io, ex.mod, "."; color = ps.color)
                         print_expr(io, ex.name, ps, theme)
                     end
-                $(Expr(:symbolicgoto, Symbol("##final#610_1")))
+                $(Expr(:symbolicgoto, Symbol("##final#625_1")))
+            end
+            if x_91 isa Nothing
+                return_2 = begin
+                        printstyled(io, "nothing"; color = :blue)
+                    end
+                $(Expr(:symbolicgoto, Symbol("##final#625_1")))
             end
             if x_91 isa Symbol
                 return_2 = begin
                         printstyled(io, ex; color = ps.color)
                     end
-                $(Expr(:symbolicgoto, Symbol("##final#610_1")))
+                $(Expr(:symbolicgoto, Symbol("##final#625_1")))
             end
             if x_91 isa Expr
                 if begin
@@ -701,7 +701,7 @@ begin
                             print_kw(io, "export ", ps, theme)
                             print_collection(io, xs, ps, theme)
                         end
-                    $(Expr(:symbolicgoto, Symbol("##final#610_1")))
+                    $(Expr(:symbolicgoto, Symbol("##final#625_1")))
                 end
                 if begin
                             x_95 = cache_3.value
@@ -738,7 +738,7 @@ begin
                             end
                             printstyled(io, ")"; color = ps.color)
                         end
-                    $(Expr(:symbolicgoto, Symbol("##final#610_1")))
+                    $(Expr(:symbolicgoto, Symbol("##final#625_1")))
                 end
                 if begin
                             x_102 = cache_3.value
@@ -756,7 +756,7 @@ begin
                             print_collection(io, xs, ps)
                             printstyled(io, ")"; color = ps.color)
                         end
-                    $(Expr(:symbolicgoto, Symbol("##final#610_1")))
+                    $(Expr(:symbolicgoto, Symbol("##final#625_1")))
                 end
                 if begin
                             x_105 = cache_3.value
@@ -775,7 +775,7 @@ begin
                                 print_expr(io, type, ps, theme)
                             end
                         end
-                    $(Expr(:symbolicgoto, Symbol("##final#610_1")))
+                    $(Expr(:symbolicgoto, Symbol("##final#625_1")))
                 end
                 if begin
                             x_108 = cache_3.value
@@ -797,7 +797,7 @@ begin
                                 print_expr(io, type, ps, theme)
                             end
                         end
-                    $(Expr(:symbolicgoto, Symbol("##final#610_1")))
+                    $(Expr(:symbolicgoto, Symbol("##final#625_1")))
                 end
                 if begin
                             x_112 = cache_3.value
@@ -817,7 +817,7 @@ begin
                             printstyled(io, "."; color = ps.color)
                             print_expr(io, b.value, ps, theme)
                         end
-                    $(Expr(:symbolicgoto, Symbol("##final#610_1")))
+                    $(Expr(:symbolicgoto, Symbol("##final#625_1")))
                 end
                 if begin
                             x_116 = cache_3.value
@@ -837,7 +837,7 @@ begin
                             printstyled(io, "."; color = ps.color)
                             print_expr(io, b, ps, theme)
                         end
-                    $(Expr(:symbolicgoto, Symbol("##final#610_1")))
+                    $(Expr(:symbolicgoto, Symbol("##final#625_1")))
                 end
                 if begin
                             x_120 = cache_3.value
@@ -859,7 +859,7 @@ begin
                                 print_expr(io, type, ps, theme)
                             end
                         end
-                    $(Expr(:symbolicgoto, Symbol("##final#610_1")))
+                    $(Expr(:symbolicgoto, Symbol("##final#625_1")))
                 end
                 if begin
                             x_124 = cache_3.value
@@ -879,7 +879,7 @@ begin
                             printstyled(io, tab(1), "=", tab(1); color = ps.color)
                             print_expr(io, value, ps, theme)
                         end
-                    $(Expr(:symbolicgoto, Symbol("##final#610_1")))
+                    $(Expr(:symbolicgoto, Symbol("##final#625_1")))
                 end
                 if begin
                             x_128 = cache_3.value
@@ -899,7 +899,7 @@ begin
                             printstyled(io, tab(1), "=", tab(1); color = ps.color)
                             print_expr(io, value, ps, theme)
                         end
-                    $(Expr(:symbolicgoto, Symbol("##final#610_1")))
+                    $(Expr(:symbolicgoto, Symbol("##final#625_1")))
                 end
                 if begin
                             x_132 = cache_3.value
@@ -916,7 +916,7 @@ begin
                             print_expr(io, name, ps, theme)
                             print(io, "...")
                         end
-                    $(Expr(:symbolicgoto, Symbol("##final#610_1")))
+                    $(Expr(:symbolicgoto, Symbol("##final#625_1")))
                 end
                 if begin
                             x_135 = cache_3.value
@@ -933,7 +933,7 @@ begin
                             printstyled(io, "&"; color = theme.kw)
                             print_expr(io, name, ps, theme)
                         end
-                    $(Expr(:symbolicgoto, Symbol("##final#610_1")))
+                    $(Expr(:symbolicgoto, Symbol("##final#625_1")))
                 end
                 if begin
                             x_138 = cache_3.value
@@ -952,7 +952,7 @@ begin
                             print_expr(io, name, ps, theme)
                             print(io, ")")
                         end
-                    $(Expr(:symbolicgoto, Symbol("##final#610_1")))
+                    $(Expr(:symbolicgoto, Symbol("##final#625_1")))
                 end
                 if begin
                             x_141 = cache_3.value
@@ -975,7 +975,7 @@ begin
                             end
                             print(io, "}")
                         end
-                    $(Expr(:symbolicgoto, Symbol("##final#610_1")))
+                    $(Expr(:symbolicgoto, Symbol("##final#625_1")))
                 end
                 if begin
                             x_145 = cache_3.value
@@ -996,7 +996,7 @@ begin
                             print_collection(io, xs, ps, theme)
                             print(io, "]")
                         end
-                    $(Expr(:symbolicgoto, Symbol("##final#610_1")))
+                    $(Expr(:symbolicgoto, Symbol("##final#625_1")))
                 end
                 if begin
                             x_149 = cache_3.value
@@ -1018,7 +1018,7 @@ begin
                             print_collection(io, whereparams, ps, theme)
                             print(io, "}")
                         end
-                    $(Expr(:symbolicgoto, Symbol("##final#610_1")))
+                    $(Expr(:symbolicgoto, Symbol("##final#625_1")))
                 end
                 if begin
                             x_153 = cache_3.value
@@ -1058,7 +1058,7 @@ begin
                             end
                             printstyled(io, ")"; color = ps.color)
                         end
-                    $(Expr(:symbolicgoto, Symbol("##final#610_1")))
+                    $(Expr(:symbolicgoto, Symbol("##final#625_1")))
                 end
                 if begin
                             x_161 = cache_3.value
@@ -1074,7 +1074,7 @@ begin
                     return_2 = begin
                             print_collection(io, xs, ps, theme; delim = ":")
                         end
-                    $(Expr(:symbolicgoto, Symbol("##final#610_1")))
+                    $(Expr(:symbolicgoto, Symbol("##final#625_1")))
                 end
                 if begin
                             x_164 = cache_3.value
@@ -1099,7 +1099,7 @@ begin
                                 print_call_expr(io, name, [x], ps, theme)
                             end
                         end
-                    $(Expr(:symbolicgoto, Symbol("##final#610_1")))
+                    $(Expr(:symbolicgoto, Symbol("##final#625_1")))
                 end
                 if begin
                             x_168 = cache_3.value
@@ -1115,7 +1115,7 @@ begin
                     return_2 = begin
                             print_collection(io, xs, ps, theme; delim = " + ")
                         end
-                    $(Expr(:symbolicgoto, Symbol("##final#610_1")))
+                    $(Expr(:symbolicgoto, Symbol("##final#625_1")))
                 end
                 if begin
                             x_171 = cache_3.value
@@ -1144,7 +1144,7 @@ begin
                                 print_call_expr(io, name, [lhs, rhs], ps, theme)
                             end
                         end
-                    $(Expr(:symbolicgoto, Symbol("##final#610_1")))
+                    $(Expr(:symbolicgoto, Symbol("##final#625_1")))
                 end
                 if begin
                             x_176 = cache_3.value
@@ -1162,7 +1162,7 @@ begin
                     return_2 = begin
                             print_call_expr(io, name, args, ps, theme)
                         end
-                    $(Expr(:symbolicgoto, Symbol("##final#610_1")))
+                    $(Expr(:symbolicgoto, Symbol("##final#625_1")))
                 end
                 if begin
                             x_180 = cache_3.value
@@ -1182,7 +1182,7 @@ begin
                             printstyled(io, tab(1), "->", tab(1); color = theme.kw)
                             print_expr(io, body, ps, theme)
                         end
-                    $(Expr(:symbolicgoto, Symbol("##final#610_1")))
+                    $(Expr(:symbolicgoto, Symbol("##final#625_1")))
                 end
                 if begin
                             x_184 = cache_3.value
@@ -1217,18 +1217,18 @@ begin
                                     return_3 = let xs = x_190
                                             print_collection(io, xs, ps)
                                         end
-                                    $(Expr(:symbolicgoto, Symbol("##final#720_1")))
+                                    $(Expr(:symbolicgoto, Symbol("##final#735_1")))
                                 end
                                 return_3 = let
                                         print_expr(io, x, ps, theme)
                                     end
-                                $(Expr(:symbolicgoto, Symbol("##final#720_1")))
+                                $(Expr(:symbolicgoto, Symbol("##final#735_1")))
                                 (error)("matching non-exhaustive, at #= none:441 =#")
-                                $(Expr(:symboliclabel, Symbol("##final#720_1")))
+                                $(Expr(:symboliclabel, Symbol("##final#735_1")))
                                 return_3
                             end
                         end
-                    $(Expr(:symbolicgoto, Symbol("##final#610_1")))
+                    $(Expr(:symbolicgoto, Symbol("##final#625_1")))
                 end
                 if begin
                             x_191 = cache_3.value
@@ -1255,7 +1255,7 @@ begin
                             end
                             printstyled(io, "\""; color = theme.string)
                         end
-                    $(Expr(:symbolicgoto, Symbol("##final#610_1")))
+                    $(Expr(:symbolicgoto, Symbol("##final#625_1")))
                 end
                 if begin
                             x_194 = cache_3.value
@@ -1281,14 +1281,14 @@ begin
                                 Base.show_unquoted_quote_expr(IOContext(io, :unquote_fallback => true), ex, ps.line_indent, -1, 0)
                             end
                         end
-                    $(Expr(:symbolicgoto, Symbol("##final#610_1")))
+                    $(Expr(:symbolicgoto, Symbol("##final#625_1")))
                 end
             end
-            if x_91 isa Nothing
+            if x_91 isa Number
                 return_2 = begin
-                        printstyled(io, "nothing"; color = :blue)
+                        printstyled(io, ex; color = theme.literal)
                     end
-                $(Expr(:symbolicgoto, Symbol("##final#610_1")))
+                $(Expr(:symbolicgoto, Symbol("##final#625_1")))
             end
             if x_91 isa QuoteNode
                 return_2 = begin
@@ -1298,32 +1298,32 @@ begin
                             print(io, ":(", ex.value, ")")
                         end
                     end
-                $(Expr(:symbolicgoto, Symbol("##final#610_1")))
-            end
-            if x_91 isa LineNumberNode
-                return_2 = begin
-                        printstyled(io, ex; color = theme.comment)
-                    end
-                $(Expr(:symbolicgoto, Symbol("##final#610_1")))
+                $(Expr(:symbolicgoto, Symbol("##final#625_1")))
             end
             if x_91 isa String
                 return_2 = begin
                         printstyled(io, "\"", ex, "\""; color = theme.string)
                     end
-                $(Expr(:symbolicgoto, Symbol("##final#610_1")))
+                $(Expr(:symbolicgoto, Symbol("##final#625_1")))
+            end
+            if x_91 isa LineNumberNode
+                return_2 = begin
+                        printstyled(io, ex; color = theme.comment)
+                    end
+                $(Expr(:symbolicgoto, Symbol("##final#625_1")))
             end
             if x_91 isa Base.ExprNode
                 return_2 = begin
                         Base.show_unquoted_quote_expr(IOContext(io, :unquote_fallback => true), ex, ps.line_indent, -1, 0)
                     end
-                $(Expr(:symbolicgoto, Symbol("##final#610_1")))
+                $(Expr(:symbolicgoto, Symbol("##final#625_1")))
             end
             return_2 = begin
                     print(io, ex)
                 end
-            $(Expr(:symbolicgoto, Symbol("##final#610_1")))
+            $(Expr(:symbolicgoto, Symbol("##final#625_1")))
             (error)("matching non-exhaustive, at #= none:309 =#")
-            $(Expr(:symboliclabel, Symbol("##final#610_1")))
+            $(Expr(:symboliclabel, Symbol("##final#625_1")))
             return_2
         end
         return
