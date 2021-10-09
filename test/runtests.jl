@@ -1,6 +1,8 @@
 using ExproniconLite
 using Documenter
 using Test
+using Aqua
+Aqua.test_all(ExproniconLite)
 
 @testset "@test_expr" begin
     @test_expr quote
