@@ -31,5 +31,4 @@ _include_generated("transform.jl")
 _include_generated("analysis/analysis.jl")
 include("codegen.jl")
 _include_generated("printing.jl")
-_include_generated("adt/adt.jl")
 end

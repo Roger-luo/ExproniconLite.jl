@@ -43,7 +43,7 @@ end
 end
 
 @testset "adt" begin
-    include("adt/adt.jl")
+    nothing
 end
 
 # this feature is only available for 1.6+
