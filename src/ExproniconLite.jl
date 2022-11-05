@@ -25,10 +25,11 @@ module ExproniconLite
             Symbol(x)
         end
     end
-export NoDefault, JLExpr, JLFor, JLIfElse, JLFunction, JLField, JLKwField, JLStruct, JLKwStruct, @expr, @test_expr, compare_expr, compare_vars, AnalysisError, is_function, is_kw_function, is_struct, is_ifelse, is_for, is_field, is_field_default, is_datatype_expr, is_matrix_expr, split_function, split_function_head, split_struct, split_struct_name, split_ifelse, uninferrable_typevars, has_symbol, is_literal, is_gensym, alias_gensym, has_kwfn_constructor, has_plain_constructor, no_default, prettify, rm_lineinfo, flatten_blocks, name_only, annotations_only, rm_annotations, rm_single_block, rm_nothing, replace_symbol, subtitute, eval_interp, eval_literal, expr_map, nexprs, codegen_ast, codegen_ast_kwfn, codegen_ast_kwfn_plain, codegen_ast_kwfn_infer, codegen_ast_struct, codegen_ast_struct_head, codegen_ast_struct_body, struct_name_plain, struct_name_without_inferable, xtuple, xnamedtuple, xcall, xpush, xgetindex, xfirst, xlast, xprint, xprintln, xmap, xmapreduce, xiterate, print_expr, sprint_expr
+export NoDefault, JLExpr, JLFor, JLIfElse, JLFunction, JLField, JLKwField, JLStruct, JLKwStruct, @expr, @test_expr, compare_expr, AnalysisError, is_function, is_kw_function, is_struct, is_ifelse, is_for, is_field, is_field_default, is_datatype_expr, is_matrix_expr, split_function, split_function_head, split_struct, split_struct_name, split_ifelse, uninferrable_typevars, has_symbol, is_literal, is_gensym, alias_gensym, has_kwfn_constructor, has_plain_constructor, guess_type, no_default, prettify, rm_lineinfo, flatten_blocks, name_only, annotations_only, rm_annotations, rm_single_block, rm_nothing, replace_symbol, subtitute, eval_interp, eval_literal, expr_map, nexprs, codegen_ast, codegen_ast_kwfn, codegen_ast_kwfn_plain, codegen_ast_kwfn_infer, codegen_ast_struct, codegen_ast_struct_head, codegen_ast_struct_body, struct_name_plain, struct_name_without_inferable, xtuple, xnamedtuple, xcall, xpush, xgetindex, xfirst, xlast, xprint, xprintln, xmap, xmapreduce, xiterate, print_expr, sprint_expr
 include("types.jl")
 _include_generated("transform.jl")
-_include_generated("analysis.jl")
+_include_generated("analysis/analysis.jl")
 include("codegen.jl")
 _include_generated("printing.jl")
+_include_generated("adt/adt.jl")
 end

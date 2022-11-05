@@ -26,7 +26,7 @@ Functions for analysing a given Julia `Expr`, e.g splitting Julia function/struc
 
 ```@autodocs
 Modules = [ExproniconLite]
-Pages = ["analysis.jl"]
+Pages = ["analysis/analysis.jl"]
 ```
 
 ## Transform
@@ -54,4 +54,13 @@ Pretty printing functions.
 ```@autodocs
 Modules = [ExproniconLite]
 Pages = ["printing.jl"]
+```
+
+## Algebra Data Type
+
+Algebra data type
+
+```@autodocs
+Modules = [ExproniconLite.ADT]
+Pages = ["adt/adt.jl"]
 ```

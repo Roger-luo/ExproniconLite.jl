@@ -13,7 +13,6 @@ end
 [![Dev](https://img.shields.io/badge/docs-dev-blue.svg)](https://Roger-luo.github.io/ExproniconLite.jl/dev)
 [![Build Status](https://github.com/Roger-luo/ExproniconLite.jl/workflows/CI/badge.svg)](https://github.com/Roger-luo/ExproniconLite.jl/actions)
 [![Coverage](https://codecov.io/gh/Roger-luo/ExproniconLite.jl/branch/master/graph/badge.svg)](https://codecov.io/gh/Roger-luo/ExproniconLite.jl)
-[![Downstream](https://github.com/Roger-luo/ExproniconLite.jl/actions/workflows/Downstream.yml/badge.svg)](https://github.com/Roger-luo/ExproniconLite.jl/actions/workflows/Downstream.yml)
 
 
 Collective tools for metaprogramming on Julia Expr, the meta programming

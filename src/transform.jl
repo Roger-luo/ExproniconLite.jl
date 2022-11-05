@@ -80,7 +80,7 @@ begin
                         return_1 = let line = x_5, name = x_4, args = x_6
                                 Expr(:macrocall, name, line, map(rm_lineinfo, args)...)
                             end
-                        $(Expr(:symbolicgoto, Symbol("##final#801_1")))
+                        $(Expr(:symbolicgoto, Symbol("##final#529_1")))
                     end
                     if begin
                                 x_7 = cache_1.value
@@ -98,15 +98,15 @@ begin
                                                     !(x isa LineNumberNode)
                                                 end), args))...)
                             end
-                        $(Expr(:symbolicgoto, Symbol("##final#801_1")))
+                        $(Expr(:symbolicgoto, Symbol("##final#529_1")))
                     end
                 end
                 return_1 = let
                         ex
                     end
-                $(Expr(:symbolicgoto, Symbol("##final#801_1")))
+                $(Expr(:symbolicgoto, Symbol("##final#529_1")))
                 (error)("matching non-exhaustive, at #= none:110 =#")
-                $(Expr(:symboliclabel, Symbol("##final#801_1")))
+                $(Expr(:symboliclabel, Symbol("##final#529_1")))
                 return_1
             end
         end
@@ -114,14 +114,21 @@ begin
             rm_lineinfo::Bool = true
             flatten_blocks::Bool = true
             rm_nothing::Bool = true
+            preserve_last_nothing::Bool = false
             rm_single_block::Bool = true
             alias_gensym::Bool = true
+            renumber_gensym::Bool = true
         end
-    #= none:125 =# Core.@doc "    prettify(ex; kw...)\n\nPrettify given expression, remove all `LineNumberNode` and\nextra code blocks.\n\n# Options (Kwargs)\n\nAll the options are `true` by default.\n\n- `rm_lineinfo`: remove `LineNumberNode`.\n- `flatten_blocks`: flatten `begin ... end` code blocks.\n- `rm_nothing`: remove `nothing` in the `begin ... end`.\n- `rm_single_block`: remove single `begin ... end`.\n- `alias_gensym`: replace `##<name>#<num>` with `<name>_<id>`.\n\n!!! tips\n\n    the `LineNumberNode` inside macro calls won't be removed since\n    the `macrocall` expression requires a `LineNumberNode`. See also\n    [issues/#9](https://github.com/Roger-luo/Expronicon.jl/issues/9).\n" function prettify(ex; kw...)
+    #= none:127 =# Core.@doc "    prettify(ex; kw...)\n\nPrettify given expression, remove all `LineNumberNode` and\nextra code blocks.\n\n# Options (Kwargs)\n\nAll the options are `true` by default.\n\n- `rm_lineinfo`: remove `LineNumberNode`.\n- `flatten_blocks`: flatten `begin ... end` code blocks.\n- `rm_nothing`: remove `nothing` in the `begin ... end`.\n- `preserve_last_nothing`: preserve the last `nothing` in the `begin ... end`.\n- `rm_single_block`: remove single `begin ... end`.\n- `alias_gensym`: replace `##<name>#<num>` with `<name>_<id>`.\n- `renumber_gensym`: renumber the gensym id.\n\n!!! tips\n\n    the `LineNumberNode` inside macro calls won't be removed since\n    the `macrocall` expression requires a `LineNumberNode`. See also\n    [issues/#9](https://github.com/Roger-luo/Expronicon.jl/issues/9).\n" function prettify(ex; kw...)
             prettify(ex, PrettifyOptions(; kw...))
         end
     function prettify(ex, options::PrettifyOptions)
         ex isa Expr || return ex
+        ex = if options.renumber_gensym
+                renumber_gensym(ex)
+            else
+                ex
+            end
         ex = if options.alias_gensym
                 alias_gensym(ex)
             else
@@ -146,7 +153,7 @@ begin
                 ex
             end
         ex = if options.rm_nothing
-                rm_nothing(ex)
+                rm_nothing(ex; options.preserve_last_nothing)
             else
                 ex
             end
@@ -157,7 +164,7 @@ begin
             end
         return ex
     end
-    #= none:170 =# Core.@doc "    flatten_blocks(ex)\n\nRemove hierachical expression blocks.\n" function flatten_blocks(ex)
+    #= none:175 =# Core.@doc "    flatten_blocks(ex)\n\nRemove hierachical expression blocks.\n" function flatten_blocks(ex)
             ex isa Expr || return ex
             ex.head === :block || return Expr(ex.head, map(_flatten_blocks, ex.args)...)
             has_block = any(ex.args) do x
@@ -183,7 +190,7 @@ begin
         end
         return Expr(:block, args...)
     end
-    #= none:205 =# Core.@doc "    rm_nothing(ex)\n\nRemove the constant value `nothing` in given expression `ex`.\n" function rm_nothing(ex)
+    #= none:210 =# Core.@doc "    rm_nothing(ex)\n\nRemove the constant value `nothing` in given expression `ex`.\n\n# Keyword Arguments\n\n- `preserve_last_nothing`: if `true`, the last `nothing`\n    will be preserved.\n" function rm_nothing(ex; preserve_last_nothing::Bool = false)
             let
                 cache_2 = nothing
                 return_2 = nothing
@@ -203,11 +210,17 @@ begin
                                             true
                                         end)))
                         return_2 = let args = x_14
-                                Expr(:block, filter((x->begin
-                                                x !== nothing
-                                            end), args)...)
+                                if preserve_last_nothing && (!(isempty(args)) && isnothing(last(args)))
+                                    Expr(:block, filter((x->begin
+                                                    x !== nothing
+                                                end), args)..., nothing)
+                                else
+                                    Expr(:block, filter((x->begin
+                                                    x !== nothing
+                                                end), args)...)
+                                end
                             end
-                        $(Expr(:symbolicgoto, Symbol("##final#815_1")))
+                        $(Expr(:symbolicgoto, Symbol("##final#543_1")))
                     end
                     if begin
                                 x_15 = cache_2.value
@@ -223,15 +236,15 @@ begin
                         return_2 = let args = x_18, head = x_16
                                 Expr(head, map(rm_nothing, args)...)
                             end
-                        $(Expr(:symbolicgoto, Symbol("##final#815_1")))
+                        $(Expr(:symbolicgoto, Symbol("##final#543_1")))
                     end
                 end
                 return_2 = let
                         ex
                     end
-                $(Expr(:symbolicgoto, Symbol("##final#815_1")))
-                (error)("matching non-exhaustive, at #= none:211 =#")
-                $(Expr(:symboliclabel, Symbol("##final#815_1")))
+                $(Expr(:symbolicgoto, Symbol("##final#543_1")))
+                (error)("matching non-exhaustive, at #= none:221 =#")
+                $(Expr(:symboliclabel, Symbol("##final#543_1")))
                 return_2
             end
         end
@@ -254,7 +267,7 @@ begin
                     return_3 = let
                             ex
                         end
-                    $(Expr(:symbolicgoto, Symbol("##final#827_1")))
+                    $(Expr(:symbolicgoto, Symbol("##final#555_1")))
                 end
                 if begin
                             x_22 = cache_3.value
@@ -266,7 +279,7 @@ begin
                     return_3 = let
                             ex
                         end
-                    $(Expr(:symbolicgoto, Symbol("##final#827_1")))
+                    $(Expr(:symbolicgoto, Symbol("##final#555_1")))
                 end
                 if begin
                             x_24 = cache_3.value
@@ -281,7 +294,7 @@ begin
                     return_3 = let xs = x_26
                             ex
                         end
-                    $(Expr(:symbolicgoto, Symbol("##final#827_1")))
+                    $(Expr(:symbolicgoto, Symbol("##final#555_1")))
                 end
                 if begin
                             x_27 = cache_3.value
@@ -309,7 +322,7 @@ begin
                     return_3 = let xs = x_32
                             ex
                         end
-                    $(Expr(:symbolicgoto, Symbol("##final#827_1")))
+                    $(Expr(:symbolicgoto, Symbol("##final#555_1")))
                 end
                 if begin
                             x_33 = cache_3.value
@@ -353,7 +366,7 @@ begin
                     return_3 = let try_stmts = x_38, finally_stmts = x_42
                             Expr(:try, Expr(:block, rm_single_block.(try_stmts)...), false, false, Expr(:block, rm_single_block.(finally_stmts)...))
                         end
-                    $(Expr(:symbolicgoto, Symbol("##final#827_1")))
+                    $(Expr(:symbolicgoto, Symbol("##final#555_1")))
                 end
                 if begin
                             x_43 = cache_3.value
@@ -396,7 +409,7 @@ begin
                     return_3 = let try_stmts = x_48, catch_stmts = x_53, catch_var = x_49
                             Expr(:try, Expr(:block, rm_single_block.(try_stmts)...), catch_var, Expr(:block, rm_single_block.(catch_stmts)...))
                         end
-                    $(Expr(:symbolicgoto, Symbol("##final#827_1")))
+                    $(Expr(:symbolicgoto, Symbol("##final#555_1")))
                 end
                 if begin
                             x_54 = cache_3.value
@@ -453,7 +466,7 @@ begin
                     return_3 = let try_stmts = x_59, catch_stmts = x_64, catch_var = x_60, finally_stmts = x_68
                             Expr(:try, Expr(:block, rm_single_block.(try_stmts)...), catch_var, Expr(:block, rm_single_block.(catch_stmts)...), Expr(:block, rm_single_block.(finally_stmts)...))
                         end
-                    $(Expr(:symbolicgoto, Symbol("##final#827_1")))
+                    $(Expr(:symbolicgoto, Symbol("##final#555_1")))
                 end
                 if begin
                             x_69 = cache_3.value
@@ -468,7 +481,7 @@ begin
                     return_3 = let stmt = x_71
                             stmt
                         end
-                    $(Expr(:symbolicgoto, Symbol("##final#827_1")))
+                    $(Expr(:symbolicgoto, Symbol("##final#555_1")))
                 end
                 if begin
                             x_72 = cache_3.value
@@ -484,19 +497,19 @@ begin
                     return_3 = let args = x_75, head = x_73
                             Expr(head, map(rm_single_block, args)...)
                         end
-                    $(Expr(:symbolicgoto, Symbol("##final#827_1")))
+                    $(Expr(:symbolicgoto, Symbol("##final#555_1")))
                 end
             end
             return_3 = let
                     ex
                 end
-            $(Expr(:symbolicgoto, Symbol("##final#827_1")))
-            (error)("matching non-exhaustive, at #= none:219 =#")
-            $(Expr(:symboliclabel, Symbol("##final#827_1")))
+            $(Expr(:symbolicgoto, Symbol("##final#555_1")))
+            (error)("matching non-exhaustive, at #= none:235 =#")
+            $(Expr(:symboliclabel, Symbol("##final#555_1")))
             return_3
         end
     end
-    #= none:247 =# Core.@doc "    rm_annotations(x)\n\nRemove type annotation of given expression.\n" function rm_annotations(x)
+    #= none:263 =# Core.@doc "    rm_annotations(x)\n\nRemove type annotation of given expression.\n" function rm_annotations(x)
             x isa Expr || return x
             if x.head == :(::)
                 if length(x.args) == 1
@@ -510,7 +523,7 @@ begin
                 return Expr(x.head, map(rm_annotations, x.args)...)
             end
         end
-    #= none:267 =# Core.@doc "    alias_gensym(ex)\n\nReplace gensym with `<name>_<id>`.\n\n!!! note\n    Borrowed from [MacroTools](https://github.com/FluxML/MacroTools.jl).\n" alias_gensym(ex) = begin
+    #= none:283 =# Core.@doc "    alias_gensym(ex)\n\nReplace gensym with `<name>_<id>`.\n\n!!! note\n    Borrowed from [MacroTools](https://github.com/FluxML/MacroTools.jl).\n" alias_gensym(ex) = begin
                 alias_gensym!(Dict{Symbol, Symbol}(), Dict{Symbol, Int}(), ex)
             end
     function alias_gensym!(d::Dict{Symbol, Symbol}, count::Dict{Symbol, Int}, ex)
@@ -528,14 +541,37 @@ begin
             end
         return Expr(ex.head, args...)
     end
-    #= none:295 =# Core.@doc "    expr_map(f, c...)\n\nSimilar to `Base.map`, but expects `f` to return an expression,\nand will concanate these expression as a `Expr(:block, ...)`\nexpression.\n\n# Example\n\n```jldoctest\njulia> expr_map(1:10, 2:11) do i,j\n           :(1 + \$i + \$j)\n       end\nquote\n    1 + 1 + 2\n    1 + 2 + 3\n    1 + 3 + 4\n    1 + 4 + 5\n    1 + 5 + 6\n    1 + 6 + 7\n    1 + 7 + 8\n    1 + 8 + 9\n    1 + 9 + 10\n    1 + 10 + 11\nend\n```\n" function expr_map(f, c...)
+    #= none:311 =# Core.@doc "    renumber_gensym(ex)\n\nRe-number gensym with counter from this expression.\nProduce a deterministic gensym name for testing etc.\nSee also: [`alias_gensym`](@ref)\n" renumber_gensym(ex) = begin
+                renumber_gensym!(Dict{Symbol, Symbol}(), Dict{Symbol, Int}(), ex)
+            end
+    function renumber_gensym!(d::Dict{Symbol, Symbol}, count::Dict{Symbol, Int}, ex)
+        function renumber(head, m)
+            name = Symbol(m.captures[1])
+            id = (count[name] = get(count, name, 0) + 1)
+            return d[ex] = Symbol(head, name, "#", id)
+        end
+        if is_gensym(ex)
+            haskey(d, ex) && return d[ex]
+            gensym_str = String(ex)
+            m = Base.match(r"##(.+)#\d+", gensym_str)
+            m === nothing || return renumber("##", m)
+            m = Base.match(r"#\d+#(.+)", gensym_str)
+            m === nothing || return renumber("#", m)
+        end
+        ex isa Expr || return ex
+        args = map(ex.args) do x
+                renumber_gensym!(d, count, x)
+            end
+        return Expr(ex.head, args...)
+    end
+    #= none:345 =# Core.@doc "    expr_map(f, c...)\n\nSimilar to `Base.map`, but expects `f` to return an expression,\nand will concanate these expression as a `Expr(:block, ...)`\nexpression.\n\n# Example\n\n```jldoctest\njulia> expr_map(1:10, 2:11) do i,j\n           :(1 + \$i + \$j)\n       end\nquote\n    1 + 1 + 2\n    1 + 2 + 3\n    1 + 3 + 4\n    1 + 4 + 5\n    1 + 5 + 6\n    1 + 6 + 7\n    1 + 7 + 8\n    1 + 8 + 9\n    1 + 9 + 10\n    1 + 10 + 11\nend\n```\n" function expr_map(f, c...)
             ex = Expr(:block)
             for args = zip(c...)
                 push!(ex.args, f(args...))
             end
             return ex
         end
-    #= none:330 =# Core.@doc "    nexprs(f, n::Int)\n\nCreate `n` similar expressions by evaluating `f`.\n\n# Example\n\n```jldoctest\njulia> nexprs(5) do k\n           :(1 + \$k)\n       end\nquote\n    1 + 1\n    1 + 2\n    1 + 3\n    1 + 4\n    1 + 5\nend\n```\n" nexprs(f, k::Int) = begin
+    #= none:380 =# Core.@doc "    nexprs(f, n::Int)\n\nCreate `n` similar expressions by evaluating `f`.\n\n# Example\n\n```jldoctest\njulia> nexprs(5) do k\n           :(1 + \$k)\n       end\nquote\n    1 + 1\n    1 + 2\n    1 + 3\n    1 + 4\n    1 + 5\nend\n```\n" nexprs(f, k::Int) = begin
                 expr_map(f, 1:k)
             end
 end
