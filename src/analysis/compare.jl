@@ -78,17 +78,15 @@ begin
     function compare_expr(m::Module, lhs, rhs)
         true
         x_1 = (lhs, rhs)
-        if x_1 isa Tuple{TypeVar, TypeVar}
+        if x_1 isa Tuple{Variable, Variable}
             if begin
                         x_2 = x_1[1]
-                        x_2 isa TypeVar
+                        x_2 isa Variable
                     end && begin
                         x_3 = x_1[2]
-                        x_3 isa TypeVar
+                        x_3 isa Variable
                     end
                 return_1 = begin
-                        compare_expr(m, lhs.lb, rhs.lb) || return false
-                        compare_expr(m, lhs.ub, rhs.ub) || return false
                         return true
                     end
                 $(Expr(:symbolicgoto, Symbol("##final#717_1")))
@@ -122,15 +120,17 @@ begin
                 $(Expr(:symbolicgoto, Symbol("##final#717_1")))
             end
         end
-        if x_1 isa Tuple{Variable, Variable}
+        if x_1 isa Tuple{TypeVar, TypeVar}
             if begin
                         x_8 = x_1[1]
-                        x_8 isa Variable
+                        x_8 isa TypeVar
                     end && begin
                         x_9 = x_1[2]
-                        x_9 isa Variable
+                        x_9 isa TypeVar
                     end
                 return_1 = begin
+                        compare_expr(m, lhs.lb, rhs.lb) || return false
+                        compare_expr(m, lhs.ub, rhs.ub) || return false
                         return true
                     end
                 $(Expr(:symbolicgoto, Symbol("##final#717_1")))
