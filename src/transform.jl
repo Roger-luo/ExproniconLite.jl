@@ -22,26 +22,16 @@ begin
                                 eval_literal(m, x)
                             end), ex.args)...)
         end
-    replace_symbol(x::Symbol, name::Symbol, value) = begin
-            if x === name
-                value
-            else
-                x
-            end
+    #= none:34 =# Core.@doc "    substitute(ex::Expr, old=>new)\n\nSubstitute the old symbol `old` with `new`.\n" function substitute(ex::Expr, replace::Pair)
+            (old, new) = replace
+            sub = Substitute() do x
+                    x == old
+                end
+            return sub((_->begin
+                            new
+                        end), ex)
         end
-    replace_symbol(x, ::Symbol, value) = begin
-            x
-        end
-    function replace_symbol(ex::Expr, name::Symbol, value)
-        Expr(ex.head, map((x->begin
-                        replace_symbol(x, name, value)
-                    end), ex.args)...)
-    end
-    #= none:41 =# Core.@doc "    subtitute(ex::Expr, old=>new)\n\nSubtitute the old symbol `old` with `new`.\n" function subtitute(ex::Expr, replace::Pair)
-            (name, value) = replace
-            return replace_symbol(ex, name, value)
-        end
-    #= none:51 =# Core.@doc "    name_only(ex)\n\nRemove everything else leaving just names, currently supports\nfunction calls, type with type variables, subtype operator `<:`\nand type annotation `::`.\n\n# Example\n\n```julia\njulia> using Expronicon\n\njulia> name_only(:(sin(2)))\n:sin\n\njulia> name_only(:(Foo{Int}))\n:Foo\n\njulia> name_only(:(Foo{Int} <: Real))\n:Foo\n\njulia> name_only(:(x::Int))\n:x\n```\n" function name_only(#= none:76 =# @nospecialize(ex))
+    #= none:47 =# Core.@doc "    name_only(ex)\n\nRemove everything else leaving just names, currently supports\nfunction calls, type with type variables, subtype operator `<:`\nand type annotation `::`.\n\n# Example\n\n```julia\njulia> using Expronicon\n\njulia> name_only(:(sin(2)))\n:sin\n\njulia> name_only(:(Foo{Int}))\n:Foo\n\njulia> name_only(:(Foo{Int} <: Real))\n:Foo\n\njulia> name_only(:(x::Int))\n:x\n```\n" function name_only(#= none:72 =# @nospecialize(ex))
             ex isa Symbol && return ex
             ex isa QuoteNode && return ex.value
             ex isa Expr || error("unsupported expression $(ex)")
@@ -50,13 +40,13 @@ begin
             ex.head === :module && return name_only(ex.args[2])
             error("unsupported expression $(ex)")
         end
-    #= none:86 =# Core.@doc "    annotations_only(ex)\n\nReturn type annotations only. See also [`name_only`](@ref).\n" function annotations_only(#= none:91 =# @nospecialize(ex))
+    #= none:82 =# Core.@doc "    annotations_only(ex)\n\nReturn type annotations only. See also [`name_only`](@ref).\n" function annotations_only(#= none:87 =# @nospecialize(ex))
             ex isa Symbol && return :(())
             ex isa Expr || error("unsupported expression $(ex)")
             Meta.isexpr(ex, :(::)) && return ex.args[end]
             error("unsupported expression $(ex)")
         end
-    #= none:98 =# Core.@doc "    rm_lineinfo(ex)\n\nRemove `LineNumberNode` in a given expression.\n\n!!! tips\n\n    the `LineNumberNode` inside macro calls won't be removed since\n    the `macrocall` expression requires a `LineNumberNode`. See also\n    [issues/#9](https://github.com/Roger-luo/Expronicon.jl/issues/9).\n" function rm_lineinfo(ex)
+    #= none:94 =# Core.@doc "    rm_lineinfo(ex)\n\nRemove `LineNumberNode` in a given expression.\n\n!!! tips\n\n    the `LineNumberNode` inside macro calls won't be removed since\n    the `macrocall` expression requires a `LineNumberNode`. See also\n    [issues/#9](https://github.com/Roger-luo/Expronicon.jl/issues/9).\n" function rm_lineinfo(ex)
             let
                 cache_1 = nothing
                 return_1 = nothing
@@ -105,12 +95,12 @@ begin
                         ex
                     end
                 $(Expr(:symbolicgoto, Symbol("##final#529_1")))
-                (error)("matching non-exhaustive, at #= none:110 =#")
+                (error)("matching non-exhaustive, at #= none:106 =#")
                 $(Expr(:symboliclabel, Symbol("##final#529_1")))
                 return_1
             end
         end
-    #= none:117 =# Base.@kwdef struct PrettifyOptions
+    #= none:113 =# Base.@kwdef struct PrettifyOptions
             rm_lineinfo::Bool = true
             flatten_blocks::Bool = true
             rm_nothing::Bool = true
@@ -119,7 +109,7 @@ begin
             alias_gensym::Bool = true
             renumber_gensym::Bool = true
         end
-    #= none:127 =# Core.@doc "    prettify(ex; kw...)\n\nPrettify given expression, remove all `LineNumberNode` and\nextra code blocks.\n\n# Options (Kwargs)\n\nAll the options are `true` by default.\n\n- `rm_lineinfo`: remove `LineNumberNode`.\n- `flatten_blocks`: flatten `begin ... end` code blocks.\n- `rm_nothing`: remove `nothing` in the `begin ... end`.\n- `preserve_last_nothing`: preserve the last `nothing` in the `begin ... end`.\n- `rm_single_block`: remove single `begin ... end`.\n- `alias_gensym`: replace `##<name>#<num>` with `<name>_<id>`.\n- `renumber_gensym`: renumber the gensym id.\n\n!!! tips\n\n    the `LineNumberNode` inside macro calls won't be removed since\n    the `macrocall` expression requires a `LineNumberNode`. See also\n    [issues/#9](https://github.com/Roger-luo/Expronicon.jl/issues/9).\n" function prettify(ex; kw...)
+    #= none:123 =# Core.@doc "    prettify(ex; kw...)\n\nPrettify given expression, remove all `LineNumberNode` and\nextra code blocks.\n\n# Options (Kwargs)\n\nAll the options are `true` by default.\n\n- `rm_lineinfo`: remove `LineNumberNode`.\n- `flatten_blocks`: flatten `begin ... end` code blocks.\n- `rm_nothing`: remove `nothing` in the `begin ... end`.\n- `preserve_last_nothing`: preserve the last `nothing` in the `begin ... end`.\n- `rm_single_block`: remove single `begin ... end`.\n- `alias_gensym`: replace `##<name>#<num>` with `<name>_<id>`.\n- `renumber_gensym`: renumber the gensym id.\n\n!!! tips\n\n    the `LineNumberNode` inside macro calls won't be removed since\n    the `macrocall` expression requires a `LineNumberNode`. See also\n    [issues/#9](https://github.com/Roger-luo/Expronicon.jl/issues/9).\n" function prettify(ex; kw...)
             prettify(ex, PrettifyOptions(; kw...))
         end
     function prettify(ex, options::PrettifyOptions)
@@ -164,7 +154,7 @@ begin
             end
         return ex
     end
-    #= none:175 =# Core.@doc "    flatten_blocks(ex)\n\nRemove hierachical expression blocks.\n" function flatten_blocks(ex)
+    #= none:171 =# Core.@doc "    flatten_blocks(ex)\n\nRemove hierachical expression blocks.\n" function flatten_blocks(ex)
             ex isa Expr || return ex
             ex.head === :block || return Expr(ex.head, map(_flatten_blocks, ex.args)...)
             has_block = any(ex.args) do x
@@ -190,7 +180,7 @@ begin
         end
         return Expr(:block, args...)
     end
-    #= none:210 =# Core.@doc "    rm_nothing(ex)\n\nRemove the constant value `nothing` in given expression `ex`.\n\n# Keyword Arguments\n\n- `preserve_last_nothing`: if `true`, the last `nothing`\n    will be preserved.\n" function rm_nothing(ex; preserve_last_nothing::Bool = false)
+    #= none:206 =# Core.@doc "    rm_nothing(ex)\n\nRemove the constant value `nothing` in given expression `ex`.\n\n# Keyword Arguments\n\n- `preserve_last_nothing`: if `true`, the last `nothing`\n    will be preserved.\n" function rm_nothing(ex; preserve_last_nothing::Bool = false)
             let
                 cache_2 = nothing
                 return_2 = nothing
@@ -243,7 +233,7 @@ begin
                         ex
                     end
                 $(Expr(:symbolicgoto, Symbol("##final#543_1")))
-                (error)("matching non-exhaustive, at #= none:221 =#")
+                (error)("matching non-exhaustive, at #= none:217 =#")
                 $(Expr(:symboliclabel, Symbol("##final#543_1")))
                 return_2
             end
@@ -504,12 +494,12 @@ begin
                     ex
                 end
             $(Expr(:symbolicgoto, Symbol("##final#555_1")))
-            (error)("matching non-exhaustive, at #= none:235 =#")
+            (error)("matching non-exhaustive, at #= none:231 =#")
             $(Expr(:symboliclabel, Symbol("##final#555_1")))
             return_3
         end
     end
-    #= none:263 =# Core.@doc "    rm_annotations(x)\n\nRemove type annotation of given expression.\n" function rm_annotations(x)
+    #= none:259 =# Core.@doc "    rm_annotations(x)\n\nRemove type annotation of given expression.\n" function rm_annotations(x)
             x isa Expr || return x
             if x.head == :(::)
                 if length(x.args) == 1
@@ -523,7 +513,7 @@ begin
                 return Expr(x.head, map(rm_annotations, x.args)...)
             end
         end
-    #= none:283 =# Core.@doc "    alias_gensym(ex)\n\nReplace gensym with `<name>_<id>`.\n\n!!! note\n    Borrowed from [MacroTools](https://github.com/FluxML/MacroTools.jl).\n" alias_gensym(ex) = begin
+    #= none:279 =# Core.@doc "    alias_gensym(ex)\n\nReplace gensym with `<name>_<id>`.\n\n!!! note\n    Borrowed from [MacroTools](https://github.com/FluxML/MacroTools.jl).\n" alias_gensym(ex) = begin
                 alias_gensym!(Dict{Symbol, Symbol}(), Dict{Symbol, Int}(), ex)
             end
     function alias_gensym!(d::Dict{Symbol, Symbol}, count::Dict{Symbol, Int}, ex)
@@ -541,7 +531,7 @@ begin
             end
         return Expr(ex.head, args...)
     end
-    #= none:311 =# Core.@doc "    renumber_gensym(ex)\n\nRe-number gensym with counter from this expression.\nProduce a deterministic gensym name for testing etc.\nSee also: [`alias_gensym`](@ref)\n" renumber_gensym(ex) = begin
+    #= none:307 =# Core.@doc "    renumber_gensym(ex)\n\nRe-number gensym with counter from this expression.\nProduce a deterministic gensym name for testing etc.\nSee also: [`alias_gensym`](@ref)\n" renumber_gensym(ex) = begin
                 renumber_gensym!(Dict{Symbol, Symbol}(), Dict{Symbol, Int}(), ex)
             end
     function renumber_gensym!(d::Dict{Symbol, Symbol}, count::Dict{Symbol, Int}, ex)
@@ -564,14 +554,29 @@ begin
             end
         return Expr(ex.head, args...)
     end
-    #= none:345 =# Core.@doc "    expr_map(f, c...)\n\nSimilar to `Base.map`, but expects `f` to return an expression,\nand will concanate these expression as a `Expr(:block, ...)`\nexpression.\n\n# Example\n\n```jldoctest\njulia> expr_map(1:10, 2:11) do i,j\n           :(1 + \$i + \$j)\n       end\nquote\n    1 + 1 + 2\n    1 + 2 + 3\n    1 + 3 + 4\n    1 + 4 + 5\n    1 + 5 + 6\n    1 + 6 + 7\n    1 + 7 + 8\n    1 + 8 + 9\n    1 + 9 + 10\n    1 + 10 + 11\nend\n```\n" function expr_map(f, c...)
+    #= none:341 =# Core.@doc "    expr_map(f, c...)\n\nSimilar to `Base.map`, but expects `f` to return an expression,\nand will concanate these expression as a `Expr(:block, ...)`\nexpression.\n\n# Example\n\n```jldoctest\njulia> expr_map(1:10, 2:11) do i,j\n           :(1 + \$i + \$j)\n       end\nquote\n    1 + 1 + 2\n    1 + 2 + 3\n    1 + 3 + 4\n    1 + 4 + 5\n    1 + 5 + 6\n    1 + 6 + 7\n    1 + 7 + 8\n    1 + 8 + 9\n    1 + 9 + 10\n    1 + 10 + 11\nend\n```\n" function expr_map(f, c...)
             ex = Expr(:block)
             for args = zip(c...)
                 push!(ex.args, f(args...))
             end
             return ex
         end
-    #= none:380 =# Core.@doc "    nexprs(f, n::Int)\n\nCreate `n` similar expressions by evaluating `f`.\n\n# Example\n\n```jldoctest\njulia> nexprs(5) do k\n           :(1 + \$k)\n       end\nquote\n    1 + 1\n    1 + 2\n    1 + 3\n    1 + 4\n    1 + 5\nend\n```\n" nexprs(f, k::Int) = begin
+    #= none:376 =# Core.@doc "    nexprs(f, n::Int)\n\nCreate `n` similar expressions by evaluating `f`.\n\n# Example\n\n```jldoctest\njulia> nexprs(5) do k\n           :(1 + \$k)\n       end\nquote\n    1 + 1\n    1 + 2\n    1 + 3\n    1 + 4\n    1 + 5\nend\n```\n" nexprs(f, k::Int) = begin
                 expr_map(f, 1:k)
             end
+    #= none:398 =# Core.@doc "    Substitute(condition) -> substitute(f(expr), expr)\n\nReturns a function that substitutes `expr` with\n`f(expr)` if `condition(expr)` is true. Applied\nrecursively to all sub-expressions.\n\n# Example\n\n```jldoctest\njulia> sub = Substitute() do expr\n           expr isa Symbol && expr in [:x] && return true\n           return false\n       end;\n\njulia> sub(_->1, :(x + y))\n:(1 + y)\n```\n" struct Substitute
+            condition
+        end
+    (sub::Substitute)(f) = begin
+            Base.Fix1(sub, f)
+        end
+    function (sub::Substitute)(f, expr)
+        if sub.condition(expr)
+            return f(expr)
+        elseif expr isa Expr
+            return Expr(expr.head, map(sub(f), expr.args)...)
+        else
+            return expr
+        end
+    end
 end

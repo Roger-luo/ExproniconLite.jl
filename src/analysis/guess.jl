@@ -82,7 +82,12 @@ begin
                             typevars = map(typevars) do typevar
                                     guess_type(m, typevar)
                                 end
-                            if type isa Type && all(is_valid_typevar, typevars)
+                            if type === Union
+                                all((x->begin
+                                                x isa Type
+                                            end), typevars) || return ex
+                                return Union{typevars...}
+                            elseif type isa Type && all(is_valid_typevar, typevars)
                                 return type{typevars...}
                             else
                                 return ex

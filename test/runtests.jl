@@ -55,5 +55,3 @@ end
 
 DocMeta.setdocmeta!(ExproniconLite, :DocTestSetup, :(using ExproniconLite); recursive=true)
 doctest(ExproniconLite)
-
-@macroexpand @test 1 + x
