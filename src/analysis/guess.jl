@@ -109,6 +109,12 @@ begin
                     end
                 $(Expr(:symbolicgoto, Symbol("##final#837_1")))
             end
+            if x_7 isa QuoteNode
+                return_2 = begin
+                        return ex
+                    end
+                $(Expr(:symbolicgoto, Symbol("##final#837_1")))
+            end
             return_2 = begin
                     return ex
                 end

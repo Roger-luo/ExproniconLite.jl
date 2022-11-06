@@ -10,13 +10,13 @@ begin
                         end
                     $(Expr(:symbolicgoto, Symbol("##final#624_1")))
                 end
-                if x_1 isa Symbol
+                if x_1 isa Type
                     return_1 = let
                             true
                         end
                     $(Expr(:symbolicgoto, Symbol("##final#624_1")))
                 end
-                if x_1 isa Type
+                if x_1 isa QuoteNode
                     return_1 = let
                             true
                         end

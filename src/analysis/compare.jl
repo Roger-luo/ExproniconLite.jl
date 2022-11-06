@@ -78,27 +78,13 @@ begin
     function compare_expr(m::Module, lhs, rhs)
         true
         x_1 = (lhs, rhs)
-        if x_1 isa Tuple{Variable, Variable}
-            if begin
-                        x_2 = x_1[1]
-                        x_2 isa Variable
-                    end && begin
-                        x_3 = x_1[2]
-                        x_3 isa Variable
-                    end
-                return_1 = begin
-                        return true
-                    end
-                $(Expr(:symbolicgoto, Symbol("##final#717_1")))
-            end
-        end
         if x_1 isa Tuple{TypeVar, TypeVar}
             if begin
-                        x_4 = x_1[1]
-                        x_4 isa TypeVar
+                        x_2 = x_1[1]
+                        x_2 isa TypeVar
                     end && begin
-                        x_5 = x_1[2]
-                        x_5 isa TypeVar
+                        x_3 = x_1[2]
+                        x_3 isa TypeVar
                     end
                 return_1 = begin
                         compare_expr(m, lhs.lb, rhs.lb) || return false
@@ -110,11 +96,11 @@ begin
         end
         if x_1 isa Tuple{LineNumberNode, LineNumberNode}
             if begin
-                        x_6 = x_1[1]
-                        x_6 isa LineNumberNode
+                        x_4 = x_1[1]
+                        x_4 isa LineNumberNode
                     end && begin
-                        x_7 = x_1[2]
-                        x_7 isa LineNumberNode
+                        x_5 = x_1[2]
+                        x_5 isa LineNumberNode
                     end
                 return_1 = begin
                         return true
@@ -124,14 +110,28 @@ begin
         end
         if x_1 isa Tuple{GlobalRef, GlobalRef}
             if begin
-                        x_8 = x_1[1]
-                        x_8 isa GlobalRef
+                        x_6 = x_1[1]
+                        x_6 isa GlobalRef
                     end && begin
-                        x_9 = x_1[2]
-                        x_9 isa GlobalRef
+                        x_7 = x_1[2]
+                        x_7 isa GlobalRef
                     end
                 return_1 = begin
                         return lhs === rhs
+                    end
+                $(Expr(:symbolicgoto, Symbol("##final#717_1")))
+            end
+        end
+        if x_1 isa Tuple{Variable, Variable}
+            if begin
+                        x_8 = x_1[1]
+                        x_8 isa Variable
+                    end && begin
+                        x_9 = x_1[2]
+                        x_9 isa Variable
+                    end
+                return_1 = begin
+                        return true
                     end
                 $(Expr(:symbolicgoto, Symbol("##final#717_1")))
             end
