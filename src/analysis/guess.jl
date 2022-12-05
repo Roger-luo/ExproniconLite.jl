@@ -30,7 +30,7 @@ begin
                                 return ex
                             end
                         end
-                    $(Expr(:symbolicgoto, Symbol("##final#827_1")))
+                    $(Expr(:symbolicgoto, Symbol("##final#611_1")))
                 end
             end
             if x_1 isa Symbol
@@ -40,21 +40,21 @@ begin
                             maybe_m isa Module && return maybe_m
                             return ex
                         end
-                    $(Expr(:symbolicgoto, Symbol("##final#827_1")))
+                    $(Expr(:symbolicgoto, Symbol("##final#611_1")))
                 end
             end
             if x_1 isa Module
                 return_1 = begin
                         return ex
                     end
-                $(Expr(:symbolicgoto, Symbol("##final#827_1")))
+                $(Expr(:symbolicgoto, Symbol("##final#611_1")))
             end
             return_1 = begin
                     return ex
                 end
-            $(Expr(:symbolicgoto, Symbol("##final#827_1")))
+            $(Expr(:symbolicgoto, Symbol("##final#611_1")))
             (error)("matching non-exhaustive, at #= none:9 =#")
-            $(Expr(:symboliclabel, Symbol("##final#827_1")))
+            $(Expr(:symboliclabel, Symbol("##final#611_1")))
             return_1
         end
     #= none:28 =# Core.@doc "    guess_type(m::Module, ex)\n\nGuess the actual type of expression `ex` (of a type) in module `m`.\nReturns the type if it can be determined, otherwise returns the\nexpression. This function is used in [`compare_expr`](@ref).\n" function guess_type(m::Module, ex)
@@ -93,7 +93,7 @@ begin
                                 return ex
                             end
                         end
-                    $(Expr(:symbolicgoto, Symbol("##final#837_1")))
+                    $(Expr(:symbolicgoto, Symbol("##final#621_1")))
                 end
             end
             if x_7 isa Symbol
@@ -101,26 +101,26 @@ begin
                         isdefined(m, ex) || return ex
                         return getproperty(m, ex)
                     end
-                $(Expr(:symbolicgoto, Symbol("##final#837_1")))
+                $(Expr(:symbolicgoto, Symbol("##final#621_1")))
             end
             if x_7 isa Type
                 return_2 = begin
                         return ex
                     end
-                $(Expr(:symbolicgoto, Symbol("##final#837_1")))
+                $(Expr(:symbolicgoto, Symbol("##final#621_1")))
             end
             if x_7 isa QuoteNode
                 return_2 = begin
                         return ex
                     end
-                $(Expr(:symbolicgoto, Symbol("##final#837_1")))
+                $(Expr(:symbolicgoto, Symbol("##final#621_1")))
             end
             return_2 = begin
                     return ex
                 end
-            $(Expr(:symbolicgoto, Symbol("##final#837_1")))
+            $(Expr(:symbolicgoto, Symbol("##final#621_1")))
             (error)("matching non-exhaustive, at #= none:36 =#")
-            $(Expr(:symboliclabel, Symbol("##final#837_1")))
+            $(Expr(:symboliclabel, Symbol("##final#621_1")))
             return_2
         end
 end
