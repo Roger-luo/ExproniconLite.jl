@@ -127,7 +127,7 @@ begin
                                 print_stmts(stmts)
                             end
                         end
-                    $(Expr(:symbolicgoto, Symbol("##final#1004_1")))
+                    $(Expr(:symbolicgoto, Symbol("##final#1033_1")))
                 end
                 return_1 = let
                         indent() do 
@@ -137,9 +137,9 @@ begin
                             end
                         end
                     end
-                $(Expr(:symbolicgoto, Symbol("##final#1004_1")))
+                $(Expr(:symbolicgoto, Symbol("##final#1033_1")))
                 (error)("matching non-exhaustive, at #= none:97 =#")
-                $(Expr(:symboliclabel, Symbol("##final#1004_1")))
+                $(Expr(:symboliclabel, Symbol("##final#1033_1")))
                 return_1
             end
         end
@@ -192,14 +192,14 @@ begin
                         return_2 = let stmts = x_8
                                 stmts
                             end
-                        $(Expr(:symbolicgoto, Symbol("##final#1012_1")))
+                        $(Expr(:symbolicgoto, Symbol("##final#1041_1")))
                     end
                     return_2 = let
                             (body,)
                         end
-                    $(Expr(:symbolicgoto, Symbol("##final#1012_1")))
+                    $(Expr(:symbolicgoto, Symbol("##final#1041_1")))
                     (error)("matching non-exhaustive, at #= none:132 =#")
-                    $(Expr(:symboliclabel, Symbol("##final#1012_1")))
+                    $(Expr(:symboliclabel, Symbol("##final#1041_1")))
                     return_2
                 end
         end
@@ -281,14 +281,14 @@ begin
                             return_3 = let
                                     true
                                 end
-                            $(Expr(:symbolicgoto, Symbol("##final#1020_1")))
+                            $(Expr(:symbolicgoto, Symbol("##final#1049_1")))
                         end
                         return_3 = let
                                 false
                             end
-                        $(Expr(:symbolicgoto, Symbol("##final#1020_1")))
+                        $(Expr(:symbolicgoto, Symbol("##final#1049_1")))
                         (error)("matching non-exhaustive, at #= none:187 =#")
-                        $(Expr(:symboliclabel, Symbol("##final#1020_1")))
+                        $(Expr(:symboliclabel, Symbol("##final#1049_1")))
                         return_3
                     end
                 end || return print_macrocall("@switch", line, (item, Expr(:block, stmts...)))
@@ -313,14 +313,14 @@ begin
                             return_4 = let
                                     true
                                 end
-                            $(Expr(:symbolicgoto, Symbol("##final#1028_1")))
+                            $(Expr(:symbolicgoto, Symbol("##final#1057_1")))
                         end
                         return_4 = let
                                 false
                             end
-                        $(Expr(:symbolicgoto, Symbol("##final#1028_1")))
+                        $(Expr(:symbolicgoto, Symbol("##final#1057_1")))
                         (error)("matching non-exhaustive, at #= none:193 =#")
-                        $(Expr(:symboliclabel, Symbol("##final#1028_1")))
+                        $(Expr(:symboliclabel, Symbol("##final#1057_1")))
                         return_4
                     end
                 end
@@ -377,15 +377,15 @@ begin
                                     end
                                     ptr = case_ptr
                                 end
-                            $(Expr(:symbolicgoto, Symbol("##final#1036_1")))
+                            $(Expr(:symbolicgoto, Symbol("##final#1065_1")))
                         end
                         return_5 = let
                                 p(stmt)
                                 println()
                             end
-                        $(Expr(:symbolicgoto, Symbol("##final#1036_1")))
+                        $(Expr(:symbolicgoto, Symbol("##final#1065_1")))
                         (error)("matching non-exhaustive, at #= none:203 =#")
-                        $(Expr(:symboliclabel, Symbol("##final#1036_1")))
+                        $(Expr(:symboliclabel, Symbol("##final#1065_1")))
                         return_5
                     end
                     ptr += 1
@@ -440,7 +440,7 @@ begin
                                 keyword("end")
                             end
                     end
-                $(Expr(:symbolicgoto, Symbol("##final#1046_1")))
+                $(Expr(:symbolicgoto, Symbol("##final#1075_1")))
             end
             if begin
                         x_27 = cache_6.value
@@ -479,7 +479,7 @@ begin
                         tab()
                         keyword("end")
                     end
-                $(Expr(:symbolicgoto, Symbol("##final#1046_1")))
+                $(Expr(:symbolicgoto, Symbol("##final#1075_1")))
             end
             if begin
                         x_33 = cache_6.value
@@ -534,7 +534,7 @@ begin
                         tab()
                         keyword("end")
                     end
-                $(Expr(:symbolicgoto, Symbol("##final#1046_1")))
+                $(Expr(:symbolicgoto, Symbol("##final#1075_1")))
             end
             if begin
                         x_39 = cache_6.value
@@ -571,7 +571,7 @@ begin
                                 keyword("end")
                             end
                     end
-                $(Expr(:symbolicgoto, Symbol("##final#1046_1")))
+                $(Expr(:symbolicgoto, Symbol("##final#1075_1")))
             end
             if begin
                         x_42 = cache_6.value
@@ -623,7 +623,7 @@ begin
                         println()
                         keyword("end")
                     end
-                $(Expr(:symbolicgoto, Symbol("##final#1046_1")))
+                $(Expr(:symbolicgoto, Symbol("##final#1075_1")))
             end
             if begin
                         x_52 = cache_6.value
@@ -641,7 +641,7 @@ begin
                 return_6 = begin
                         print_if(cond, body)
                     end
-                $(Expr(:symbolicgoto, Symbol("##final#1046_1")))
+                $(Expr(:symbolicgoto, Symbol("##final#1075_1")))
             end
             if begin
                         x_56 = cache_6.value
@@ -661,7 +661,7 @@ begin
                 return_6 = begin
                         print_if(cond, body, otherwise)
                     end
-                $(Expr(:symbolicgoto, Symbol("##final#1046_1")))
+                $(Expr(:symbolicgoto, Symbol("##final#1075_1")))
             end
             if begin
                         x_61 = cache_6.value
@@ -694,7 +694,7 @@ begin
                 return_6 = begin
                         print_elseif(cond, body, line)
                     end
-                $(Expr(:symbolicgoto, Symbol("##final#1046_1")))
+                $(Expr(:symbolicgoto, Symbol("##final#1075_1")))
             end
             if begin
                         x_69 = cache_6.value
@@ -712,7 +712,7 @@ begin
                 return_6 = begin
                         print_elseif(cond, body)
                     end
-                $(Expr(:symbolicgoto, Symbol("##final#1046_1")))
+                $(Expr(:symbolicgoto, Symbol("##final#1075_1")))
             end
             if begin
                         x_73 = cache_6.value
@@ -747,7 +747,7 @@ begin
                 return_6 = begin
                         print_elseif(cond, body, line, otherwise)
                     end
-                $(Expr(:symbolicgoto, Symbol("##final#1046_1")))
+                $(Expr(:symbolicgoto, Symbol("##final#1075_1")))
             end
             if begin
                         x_82 = cache_6.value
@@ -767,7 +767,7 @@ begin
                 return_6 = begin
                         print_elseif(cond, body, nothing, otherwise)
                     end
-                $(Expr(:symbolicgoto, Symbol("##final#1046_1")))
+                $(Expr(:symbolicgoto, Symbol("##final#1075_1")))
             end
             if begin
                         x_87 = cache_6.value
@@ -795,7 +795,7 @@ begin
                         tab()
                         keyword("end")
                     end
-                $(Expr(:symbolicgoto, Symbol("##final#1046_1")))
+                $(Expr(:symbolicgoto, Symbol("##final#1075_1")))
             end
             if begin
                         x_91 = cache_6.value
@@ -823,7 +823,7 @@ begin
                         tab()
                         keyword("end")
                     end
-                $(Expr(:symbolicgoto, Symbol("##final#1046_1")))
+                $(Expr(:symbolicgoto, Symbol("##final#1075_1")))
             end
             if begin
                         x_95 = cache_6.value
@@ -871,7 +871,7 @@ begin
                         inline(line)
                         p(ex.args[2])
                     end
-                $(Expr(:symbolicgoto, Symbol("##final#1046_1")))
+                $(Expr(:symbolicgoto, Symbol("##final#1075_1")))
             end
             if begin
                         x_105 = cache_6.value
@@ -907,7 +907,7 @@ begin
                         leading_tab()
                         inline(ex)
                     end
-                $(Expr(:symbolicgoto, Symbol("##final#1046_1")))
+                $(Expr(:symbolicgoto, Symbol("##final#1075_1")))
             end
             if begin
                         x_113 = cache_6.value
@@ -928,7 +928,7 @@ begin
                         print(" = ")
                         p(rhs)
                     end
-                $(Expr(:symbolicgoto, Symbol("##final#1046_1")))
+                $(Expr(:symbolicgoto, Symbol("##final#1075_1")))
             end
             if begin
                         x_117 = cache_6.value
@@ -946,7 +946,7 @@ begin
                 return_6 = begin
                         print_function(:function, call, body)
                     end
-                $(Expr(:symbolicgoto, Symbol("##final#1046_1")))
+                $(Expr(:symbolicgoto, Symbol("##final#1075_1")))
             end
             if begin
                         x_121 = cache_6.value
@@ -967,7 +967,7 @@ begin
                         keyword(" -> ")
                         p(body)
                     end
-                $(Expr(:symbolicgoto, Symbol("##final#1046_1")))
+                $(Expr(:symbolicgoto, Symbol("##final#1075_1")))
             end
             if begin
                         x_125 = cache_6.value
@@ -985,7 +985,7 @@ begin
                 return_6 = begin
                         print_function(:macro, call, body)
                     end
-                $(Expr(:symbolicgoto, Symbol("##final#1046_1")))
+                $(Expr(:symbolicgoto, Symbol("##final#1075_1")))
             end
             if begin
                         x_129 = cache_6.value
@@ -1021,7 +1021,7 @@ begin
                 return_6 = begin
                         print_switch(item, line, stmts)
                     end
-                $(Expr(:symbolicgoto, Symbol("##final#1046_1")))
+                $(Expr(:symbolicgoto, Symbol("##final#1075_1")))
             end
             if begin
                         x_138 = cache_6.value
@@ -1060,7 +1060,7 @@ begin
                             p(code)
                         end
                     end
-                $(Expr(:symbolicgoto, Symbol("##final#1046_1")))
+                $(Expr(:symbolicgoto, Symbol("##final#1075_1")))
             end
             if begin
                         x_144 = cache_6.value
@@ -1080,7 +1080,7 @@ begin
                 return_6 = begin
                         print_macrocall(name, line, args)
                     end
-                $(Expr(:symbolicgoto, Symbol("##final#1046_1")))
+                $(Expr(:symbolicgoto, Symbol("##final#1075_1")))
             end
             if begin
                         x_149 = cache_6.value
@@ -1115,7 +1115,7 @@ begin
                         tab()
                         keyword("end")
                     end
-                $(Expr(:symbolicgoto, Symbol("##final#1046_1")))
+                $(Expr(:symbolicgoto, Symbol("##final#1075_1")))
             end
             if begin
                         x_154 = cache_6.value
@@ -1139,7 +1139,7 @@ begin
                         tab()
                         keyword("end")
                     end
-                $(Expr(:symbolicgoto, Symbol("##final#1046_1")))
+                $(Expr(:symbolicgoto, Symbol("##final#1075_1")))
             end
             if begin
                         x_159 = cache_6.value
@@ -1166,7 +1166,7 @@ begin
                         tab()
                         keyword("end")
                     end
-                $(Expr(:symbolicgoto, Symbol("##final#1046_1")))
+                $(Expr(:symbolicgoto, Symbol("##final#1075_1")))
             end
             if begin
                         x_165 = cache_6.value
@@ -1203,7 +1203,7 @@ begin
                         tab()
                         keyword("end")
                     end
-                $(Expr(:symbolicgoto, Symbol("##final#1046_1")))
+                $(Expr(:symbolicgoto, Symbol("##final#1075_1")))
             end
             if begin
                         x_172 = cache_6.value
@@ -1237,7 +1237,7 @@ begin
                         tab()
                         keyword("end")
                     end
-                $(Expr(:symbolicgoto, Symbol("##final#1046_1")))
+                $(Expr(:symbolicgoto, Symbol("##final#1075_1")))
             end
             if begin
                         x_177 = cache_6.value
@@ -1255,15 +1255,15 @@ begin
                         keyword("const ")
                         p(code)
                     end
-                $(Expr(:symbolicgoto, Symbol("##final#1046_1")))
+                $(Expr(:symbolicgoto, Symbol("##final#1075_1")))
             end
         end
         return_6 = begin
                 inline(ex)
             end
-        $(Expr(:symbolicgoto, Symbol("##final#1046_1")))
+        $(Expr(:symbolicgoto, Symbol("##final#1075_1")))
         (error)("matching non-exhaustive, at #= none:235 =#")
-        $(Expr(:symboliclabel, Symbol("##final#1046_1")))
+        $(Expr(:symboliclabel, Symbol("##final#1075_1")))
         return_6
         return
     end

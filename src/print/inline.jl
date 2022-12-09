@@ -122,7 +122,7 @@ begin
                 return_1 = begin
                         p(ex.mod)
                         keyword(".")
-                        print(ex.name)
+                        p(ex.name)
                     end
                 $(Expr(:symbolicgoto, Symbol("##final#775_1")))
             end
@@ -811,9 +811,91 @@ begin
                                     x_124 isa AbstractArray
                                 end && ((ndims(x_124) === 1 && length(x_124) >= 0) && begin
                                         x_125 = (SubArray)(x_124, (1:length(x_124),))
-                                        true
+                                        let args = x_125
+                                            length(args) == 2 && (is_line_no(args[1]) && is_line_no(args[2]))
+                                        end
                                     end)))
                     args = x_125
+                    return_1 = begin
+                            p(args[1])
+                            print(" ")
+                            p(args[2])
+                        end
+                    $(Expr(:symbolicgoto, Symbol("##final#775_1")))
+                end
+                if begin
+                            x_126 = cache_1.value
+                            x_126 isa Tuple{Symbol, var2} where var2<:AbstractArray
+                        end && (x_126[1] == :block && (begin
+                                    x_127 = x_126[2]
+                                    x_127 isa AbstractArray
+                                end && ((ndims(x_127) === 1 && length(x_127) >= 0) && begin
+                                        x_128 = (SubArray)(x_127, (1:length(x_127),))
+                                        let args = x_128
+                                            length(args) == 2 && is_line_no(args[1])
+                                        end
+                                    end)))
+                    args = x_128
+                    return_1 = begin
+                            p(args[1])
+                            print(" ")
+                            noblock(args[2])
+                        end
+                    $(Expr(:symbolicgoto, Symbol("##final#775_1")))
+                end
+                if begin
+                            x_129 = cache_1.value
+                            x_129 isa Tuple{Symbol, var2} where var2<:AbstractArray
+                        end && (x_129[1] == :block && (begin
+                                    x_130 = x_129[2]
+                                    x_130 isa AbstractArray
+                                end && ((ndims(x_130) === 1 && length(x_130) >= 0) && begin
+                                        x_131 = (SubArray)(x_130, (1:length(x_130),))
+                                        let args = x_131
+                                            length(args) == 2 && is_line_no(args[2])
+                                        end
+                                    end)))
+                    args = x_131
+                    return_1 = begin
+                            noblock(args[1])
+                            print(" ")
+                            p(args[2])
+                        end
+                    $(Expr(:symbolicgoto, Symbol("##final#775_1")))
+                end
+                if begin
+                            x_132 = cache_1.value
+                            x_132 isa Tuple{Symbol, var2} where var2<:AbstractArray
+                        end && (x_132[1] == :block && (begin
+                                    x_133 = x_132[2]
+                                    x_133 isa AbstractArray
+                                end && ((ndims(x_133) === 1 && length(x_133) >= 0) && begin
+                                        x_134 = (SubArray)(x_133, (1:length(x_133),))
+                                        let args = x_134
+                                            length(args) == 2
+                                        end
+                                    end)))
+                    args = x_134
+                    return_1 = begin
+                            print("(")
+                            noblock(args[1])
+                            keyword("; ")
+                            noblock(args[2])
+                            print(")")
+                        end
+                    $(Expr(:symbolicgoto, Symbol("##final#775_1")))
+                end
+                if begin
+                            x_135 = cache_1.value
+                            x_135 isa Tuple{Symbol, var2} where var2<:AbstractArray
+                        end && (x_135[1] == :block && (begin
+                                    x_136 = x_135[2]
+                                    x_136 isa AbstractArray
+                                end && ((ndims(x_136) === 1 && length(x_136) >= 0) && begin
+                                        x_137 = (SubArray)(x_136, (1:length(x_136),))
+                                        true
+                                    end)))
+                    args = x_137
                     return_1 = begin
                             p.state.block && keyword("begin ")
                             with(p.state, :block, true) do 
@@ -824,31 +906,31 @@ begin
                     $(Expr(:symbolicgoto, Symbol("##final#775_1")))
                 end
                 if begin
-                            x_126 = cache_1.value
-                            x_126 isa Tuple{Symbol, var2} where var2<:AbstractArray
-                        end && (x_126[1] == :let && (begin
-                                    x_127 = x_126[2]
-                                    x_127 isa AbstractArray
-                                end && (length(x_127) === 2 && (begin
+                            x_138 = cache_1.value
+                            x_138 isa Tuple{Symbol, var2} where var2<:AbstractArray
+                        end && (x_138[1] == :let && (begin
+                                    x_139 = x_138[2]
+                                    x_139 isa AbstractArray
+                                end && (length(x_139) === 2 && (begin
                                             cache_5 = nothing
-                                            x_128 = x_127[1]
-                                            x_128 isa Expr
+                                            x_140 = x_139[1]
+                                            x_140 isa Expr
                                         end && (begin
                                                 if cache_5 === nothing
-                                                    cache_5 = Some((x_128.head, x_128.args))
+                                                    cache_5 = Some((x_140.head, x_140.args))
                                                 end
-                                                x_129 = cache_5.value
-                                                x_129 isa Tuple{Symbol, var2} where var2<:AbstractArray
-                                            end && (x_129[1] == :block && (begin
-                                                        x_130 = x_129[2]
-                                                        x_130 isa AbstractArray
-                                                    end && ((ndims(x_130) === 1 && length(x_130) >= 0) && begin
-                                                            x_131 = (SubArray)(x_130, (1:length(x_130),))
-                                                            x_132 = x_127[2]
+                                                x_141 = cache_5.value
+                                                x_141 isa Tuple{Symbol, var2} where var2<:AbstractArray
+                                            end && (x_141[1] == :block && (begin
+                                                        x_142 = x_141[2]
+                                                        x_142 isa AbstractArray
+                                                    end && ((ndims(x_142) === 1 && length(x_142) >= 0) && begin
+                                                            x_143 = (SubArray)(x_142, (1:length(x_142),))
+                                                            x_144 = x_139[2]
                                                             true
                                                         end))))))))
-                    args = x_131
-                    body = x_132
+                    args = x_143
+                    body = x_144
                     return_1 = begin
                             keyword("let ")
                             join(args, ", ")
@@ -859,20 +941,20 @@ begin
                     $(Expr(:symbolicgoto, Symbol("##final#775_1")))
                 end
                 if begin
-                            x_133 = cache_1.value
-                            x_133 isa Tuple{Symbol, var2} where var2<:AbstractArray
-                        end && (x_133[1] == :macrocall && (begin
-                                    x_134 = x_133[2]
-                                    x_134 isa AbstractArray
-                                end && ((ndims(x_134) === 1 && length(x_134) >= 2) && begin
-                                        x_135 = x_134[1]
-                                        x_136 = x_134[2]
-                                        x_137 = (SubArray)(x_134, (3:length(x_134),))
+                            x_145 = cache_1.value
+                            x_145 isa Tuple{Symbol, var2} where var2<:AbstractArray
+                        end && (x_145[1] == :macrocall && (begin
+                                    x_146 = x_145[2]
+                                    x_146 isa AbstractArray
+                                end && ((ndims(x_146) === 1 && length(x_146) >= 2) && begin
+                                        x_147 = x_146[1]
+                                        x_148 = x_146[2]
+                                        x_149 = (SubArray)(x_146, (3:length(x_146),))
                                         true
                                     end)))
-                    f = x_135
-                    line = x_136
-                    args = x_137
+                    f = x_147
+                    line = x_148
+                    args = x_149
                     return_1 = begin
                             p.line && printstyled(line, color = c.comment)
                             macrocall(f)
@@ -881,29 +963,29 @@ begin
                     $(Expr(:symbolicgoto, Symbol("##final#775_1")))
                 end
                 if begin
-                            x_138 = cache_1.value
-                            x_138 isa Tuple{Symbol, var2} where var2<:AbstractArray
-                        end && (x_138[1] == :return && (begin
-                                    x_139 = x_138[2]
-                                    x_139 isa AbstractArray
-                                end && (length(x_139) === 1 && (begin
+                            x_150 = cache_1.value
+                            x_150 isa Tuple{Symbol, var2} where var2<:AbstractArray
+                        end && (x_150[1] == :return && (begin
+                                    x_151 = x_150[2]
+                                    x_151 isa AbstractArray
+                                end && (length(x_151) === 1 && (begin
                                             cache_6 = nothing
-                                            x_140 = x_139[1]
-                                            x_140 isa Expr
+                                            x_152 = x_151[1]
+                                            x_152 isa Expr
                                         end && (begin
                                                 if cache_6 === nothing
-                                                    cache_6 = Some((x_140.head, x_140.args))
+                                                    cache_6 = Some((x_152.head, x_152.args))
                                                 end
-                                                x_141 = cache_6.value
-                                                x_141 isa Tuple{Symbol, var2} where var2<:AbstractArray
-                                            end && (x_141[1] == :tuple && (begin
-                                                        x_142 = x_141[2]
-                                                        x_142 isa AbstractArray
-                                                    end && ((ndims(x_142) === 1 && length(x_142) >= 0) && begin
-                                                            x_143 = (SubArray)(x_142, (1:length(x_142),))
+                                                x_153 = cache_6.value
+                                                x_153 isa Tuple{Symbol, var2} where var2<:AbstractArray
+                                            end && (x_153[1] == :tuple && (begin
+                                                        x_154 = x_153[2]
+                                                        x_154 isa AbstractArray
+                                                    end && ((ndims(x_154) === 1 && length(x_154) >= 0) && begin
+                                                            x_155 = (SubArray)(x_154, (1:length(x_154),))
                                                             true
                                                         end))))))))
-                    args = x_143
+                    args = x_155
                     return_1 = begin
                             keyword("return ")
                             join(args)
@@ -911,16 +993,16 @@ begin
                     $(Expr(:symbolicgoto, Symbol("##final#775_1")))
                 end
                 if begin
-                            x_144 = cache_1.value
-                            x_144 isa Tuple{Symbol, var2} where var2<:AbstractArray
-                        end && (x_144[1] == :return && (begin
-                                    x_145 = x_144[2]
-                                    x_145 isa AbstractArray
-                                end && ((ndims(x_145) === 1 && length(x_145) >= 0) && begin
-                                        x_146 = (SubArray)(x_145, (1:length(x_145),))
+                            x_156 = cache_1.value
+                            x_156 isa Tuple{Symbol, var2} where var2<:AbstractArray
+                        end && (x_156[1] == :return && (begin
+                                    x_157 = x_156[2]
+                                    x_157 isa AbstractArray
+                                end && ((ndims(x_157) === 1 && length(x_157) >= 0) && begin
+                                        x_158 = (SubArray)(x_157, (1:length(x_157),))
                                         true
                                     end)))
-                    args = x_146
+                    args = x_158
                     return_1 = begin
                             keyword("return ")
                             join(args)
@@ -928,20 +1010,20 @@ begin
                     $(Expr(:symbolicgoto, Symbol("##final#775_1")))
                 end
                 if begin
-                            x_147 = cache_1.value
-                            x_147 isa Tuple{Symbol, var2} where var2<:AbstractArray
-                        end && (x_147[1] == :module && (begin
-                                    x_148 = x_147[2]
-                                    x_148 isa AbstractArray
-                                end && (length(x_148) === 3 && begin
-                                        x_149 = x_148[1]
-                                        x_150 = x_148[2]
-                                        x_151 = x_148[3]
+                            x_159 = cache_1.value
+                            x_159 isa Tuple{Symbol, var2} where var2<:AbstractArray
+                        end && (x_159[1] == :module && (begin
+                                    x_160 = x_159[2]
+                                    x_160 isa AbstractArray
+                                end && (length(x_160) === 3 && begin
+                                        x_161 = x_160[1]
+                                        x_162 = x_160[2]
+                                        x_163 = x_160[3]
                                         true
                                     end)))
-                    bare = x_149
-                    name = x_150
-                    body = x_151
+                    bare = x_161
+                    name = x_162
+                    body = x_163
                     return_1 = begin
                             if bare
                                 keyword("module ")
@@ -956,16 +1038,16 @@ begin
                     $(Expr(:symbolicgoto, Symbol("##final#775_1")))
                 end
                 if begin
-                            x_152 = cache_1.value
-                            x_152 isa Tuple{Symbol, var2} where var2<:AbstractArray
-                        end && (x_152[1] == :using && (begin
-                                    x_153 = x_152[2]
-                                    x_153 isa AbstractArray
-                                end && ((ndims(x_153) === 1 && length(x_153) >= 0) && begin
-                                        x_154 = (SubArray)(x_153, (1:length(x_153),))
+                            x_164 = cache_1.value
+                            x_164 isa Tuple{Symbol, var2} where var2<:AbstractArray
+                        end && (x_164[1] == :using && (begin
+                                    x_165 = x_164[2]
+                                    x_165 isa AbstractArray
+                                end && ((ndims(x_165) === 1 && length(x_165) >= 0) && begin
+                                        x_166 = (SubArray)(x_165, (1:length(x_165),))
                                         true
                                     end)))
-                    args = x_154
+                    args = x_166
                     return_1 = begin
                             keyword("using ")
                             join(args)
@@ -973,16 +1055,16 @@ begin
                     $(Expr(:symbolicgoto, Symbol("##final#775_1")))
                 end
                 if begin
-                            x_155 = cache_1.value
-                            x_155 isa Tuple{Symbol, var2} where var2<:AbstractArray
-                        end && (x_155[1] == :import && (begin
-                                    x_156 = x_155[2]
-                                    x_156 isa AbstractArray
-                                end && ((ndims(x_156) === 1 && length(x_156) >= 0) && begin
-                                        x_157 = (SubArray)(x_156, (1:length(x_156),))
+                            x_167 = cache_1.value
+                            x_167 isa Tuple{Symbol, var2} where var2<:AbstractArray
+                        end && (x_167[1] == :import && (begin
+                                    x_168 = x_167[2]
+                                    x_168 isa AbstractArray
+                                end && ((ndims(x_168) === 1 && length(x_168) >= 0) && begin
+                                        x_169 = (SubArray)(x_168, (1:length(x_168),))
                                         true
                                     end)))
-                    args = x_157
+                    args = x_169
                     return_1 = begin
                             keyword("import ")
                             join(args)
@@ -990,18 +1072,18 @@ begin
                     $(Expr(:symbolicgoto, Symbol("##final#775_1")))
                 end
                 if begin
-                            x_158 = cache_1.value
-                            x_158 isa Tuple{Symbol, var2} where var2<:AbstractArray
-                        end && (x_158[1] == :as && (begin
-                                    x_159 = x_158[2]
-                                    x_159 isa AbstractArray
-                                end && (length(x_159) === 2 && begin
-                                        x_160 = x_159[1]
-                                        x_161 = x_159[2]
+                            x_170 = cache_1.value
+                            x_170 isa Tuple{Symbol, var2} where var2<:AbstractArray
+                        end && (x_170[1] == :as && (begin
+                                    x_171 = x_170[2]
+                                    x_171 isa AbstractArray
+                                end && (length(x_171) === 2 && begin
+                                        x_172 = x_171[1]
+                                        x_173 = x_171[2]
                                         true
                                     end)))
-                    name = x_160
-                    alias = x_161
+                    name = x_172
+                    alias = x_173
                     return_1 = begin
                             p(name)
                             keyword(" as ")
@@ -1010,16 +1092,16 @@ begin
                     $(Expr(:symbolicgoto, Symbol("##final#775_1")))
                 end
                 if begin
-                            x_162 = cache_1.value
-                            x_162 isa Tuple{Symbol, var2} where var2<:AbstractArray
-                        end && (x_162[1] == :export && (begin
-                                    x_163 = x_162[2]
-                                    x_163 isa AbstractArray
-                                end && ((ndims(x_163) === 1 && length(x_163) >= 0) && begin
-                                        x_164 = (SubArray)(x_163, (1:length(x_163),))
+                            x_174 = cache_1.value
+                            x_174 isa Tuple{Symbol, var2} where var2<:AbstractArray
+                        end && (x_174[1] == :export && (begin
+                                    x_175 = x_174[2]
+                                    x_175 isa AbstractArray
+                                end && ((ndims(x_175) === 1 && length(x_175) >= 0) && begin
+                                        x_176 = (SubArray)(x_175, (1:length(x_175),))
                                         true
                                     end)))
-                    args = x_164
+                    args = x_176
                     return_1 = begin
                             keyword("export ")
                             join(args)
@@ -1027,18 +1109,18 @@ begin
                     $(Expr(:symbolicgoto, Symbol("##final#775_1")))
                 end
                 if begin
-                            x_165 = cache_1.value
-                            x_165 isa Tuple{Symbol, var2} where var2<:AbstractArray
-                        end && (x_165[1] == :(:) && (begin
-                                    x_166 = x_165[2]
-                                    x_166 isa AbstractArray
-                                end && ((ndims(x_166) === 1 && length(x_166) >= 1) && begin
-                                        x_167 = x_166[1]
-                                        x_168 = (SubArray)(x_166, (2:length(x_166),))
+                            x_177 = cache_1.value
+                            x_177 isa Tuple{Symbol, var2} where var2<:AbstractArray
+                        end && (x_177[1] == :(:) && (begin
+                                    x_178 = x_177[2]
+                                    x_178 isa AbstractArray
+                                end && ((ndims(x_178) === 1 && length(x_178) >= 1) && begin
+                                        x_179 = x_178[1]
+                                        x_180 = (SubArray)(x_178, (2:length(x_178),))
                                         true
                                     end)))
-                    args = x_168
-                    head = x_167
+                    args = x_180
+                    head = x_179
                     return_1 = begin
                             p(head)
                             keyword(": ")
@@ -1047,18 +1129,18 @@ begin
                     $(Expr(:symbolicgoto, Symbol("##final#775_1")))
                 end
                 if begin
-                            x_169 = cache_1.value
-                            x_169 isa Tuple{Symbol, var2} where var2<:AbstractArray
-                        end && (x_169[1] == :where && (begin
-                                    x_170 = x_169[2]
-                                    x_170 isa AbstractArray
-                                end && ((ndims(x_170) === 1 && length(x_170) >= 1) && begin
-                                        x_171 = x_170[1]
-                                        x_172 = (SubArray)(x_170, (2:length(x_170),))
+                            x_181 = cache_1.value
+                            x_181 isa Tuple{Symbol, var2} where var2<:AbstractArray
+                        end && (x_181[1] == :where && (begin
+                                    x_182 = x_181[2]
+                                    x_182 isa AbstractArray
+                                end && ((ndims(x_182) === 1 && length(x_182) >= 1) && begin
+                                        x_183 = x_182[1]
+                                        x_184 = (SubArray)(x_182, (2:length(x_182),))
                                         true
                                     end)))
-                    body = x_171
-                    whereparams = x_172
+                    body = x_183
+                    whereparams = x_184
                     return_1 = begin
                             p(body)
                             keyword(" where ")
@@ -1069,18 +1151,18 @@ begin
                     $(Expr(:symbolicgoto, Symbol("##final#775_1")))
                 end
                 if begin
-                            x_173 = cache_1.value
-                            x_173 isa Tuple{Symbol, var2} where var2<:AbstractArray
-                        end && (x_173[1] == :for && (begin
-                                    x_174 = x_173[2]
-                                    x_174 isa AbstractArray
-                                end && (length(x_174) === 2 && begin
-                                        x_175 = x_174[1]
-                                        x_176 = x_174[2]
+                            x_185 = cache_1.value
+                            x_185 isa Tuple{Symbol, var2} where var2<:AbstractArray
+                        end && (x_185[1] == :for && (begin
+                                    x_186 = x_185[2]
+                                    x_186 isa AbstractArray
+                                end && (length(x_186) === 2 && begin
+                                        x_187 = x_186[1]
+                                        x_188 = x_186[2]
                                         true
                                     end)))
-                    body = x_176
-                    iteration = x_175
+                    body = x_188
+                    iteration = x_187
                     return_1 = begin
                             keyword("for ")
                             noblock(iteration)
@@ -1091,18 +1173,18 @@ begin
                     $(Expr(:symbolicgoto, Symbol("##final#775_1")))
                 end
                 if begin
-                            x_177 = cache_1.value
-                            x_177 isa Tuple{Symbol, var2} where var2<:AbstractArray
-                        end && (x_177[1] == :while && (begin
-                                    x_178 = x_177[2]
-                                    x_178 isa AbstractArray
-                                end && (length(x_178) === 2 && begin
-                                        x_179 = x_178[1]
-                                        x_180 = x_178[2]
+                            x_189 = cache_1.value
+                            x_189 isa Tuple{Symbol, var2} where var2<:AbstractArray
+                        end && (x_189[1] == :while && (begin
+                                    x_190 = x_189[2]
+                                    x_190 isa AbstractArray
+                                end && (length(x_190) === 2 && begin
+                                        x_191 = x_190[1]
+                                        x_192 = x_190[2]
                                         true
                                     end)))
-                    body = x_180
-                    condition = x_179
+                    body = x_192
+                    condition = x_191
                     return_1 = begin
                             keyword("while ")
                             noblock(condition)
@@ -1113,18 +1195,18 @@ begin
                     $(Expr(:symbolicgoto, Symbol("##final#775_1")))
                 end
                 if begin
-                            x_181 = cache_1.value
-                            x_181 isa Tuple{Symbol, var2} where var2<:AbstractArray
-                        end && (x_181[1] == :if && (begin
-                                    x_182 = x_181[2]
-                                    x_182 isa AbstractArray
-                                end && (length(x_182) === 2 && begin
-                                        x_183 = x_182[1]
-                                        x_184 = x_182[2]
+                            x_193 = cache_1.value
+                            x_193 isa Tuple{Symbol, var2} where var2<:AbstractArray
+                        end && (x_193[1] == :if && (begin
+                                    x_194 = x_193[2]
+                                    x_194 isa AbstractArray
+                                end && (length(x_194) === 2 && begin
+                                        x_195 = x_194[1]
+                                        x_196 = x_194[2]
                                         true
                                     end)))
-                    body = x_184
-                    condition = x_183
+                    body = x_196
+                    condition = x_195
                     return_1 = begin
                             keyword("if ")
                             noblock(condition)
@@ -1135,20 +1217,20 @@ begin
                     $(Expr(:symbolicgoto, Symbol("##final#775_1")))
                 end
                 if begin
-                            x_185 = cache_1.value
-                            x_185 isa Tuple{Symbol, var2} where var2<:AbstractArray
-                        end && (x_185[1] == :if && (begin
-                                    x_186 = x_185[2]
-                                    x_186 isa AbstractArray
-                                end && (length(x_186) === 3 && begin
-                                        x_187 = x_186[1]
-                                        x_188 = x_186[2]
-                                        x_189 = x_186[3]
+                            x_197 = cache_1.value
+                            x_197 isa Tuple{Symbol, var2} where var2<:AbstractArray
+                        end && (x_197[1] == :if && (begin
+                                    x_198 = x_197[2]
+                                    x_198 isa AbstractArray
+                                end && (length(x_198) === 3 && begin
+                                        x_199 = x_198[1]
+                                        x_200 = x_198[2]
+                                        x_201 = x_198[3]
                                         true
                                     end)))
-                    body = x_188
-                    elsebody = x_189
-                    condition = x_187
+                    body = x_200
+                    elsebody = x_201
+                    condition = x_199
                     return_1 = begin
                             keyword("if ")
                             noblock(condition)
@@ -1162,18 +1244,18 @@ begin
                     $(Expr(:symbolicgoto, Symbol("##final#775_1")))
                 end
                 if begin
-                            x_190 = cache_1.value
-                            x_190 isa Tuple{Symbol, var2} where var2<:AbstractArray
-                        end && (x_190[1] == :elseif && (begin
-                                    x_191 = x_190[2]
-                                    x_191 isa AbstractArray
-                                end && (length(x_191) === 2 && begin
-                                        x_192 = x_191[1]
-                                        x_193 = x_191[2]
+                            x_202 = cache_1.value
+                            x_202 isa Tuple{Symbol, var2} where var2<:AbstractArray
+                        end && (x_202[1] == :elseif && (begin
+                                    x_203 = x_202[2]
+                                    x_203 isa AbstractArray
+                                end && (length(x_203) === 2 && begin
+                                        x_204 = x_203[1]
+                                        x_205 = x_203[2]
                                         true
                                     end)))
-                    body = x_193
-                    condition = x_192
+                    body = x_205
+                    condition = x_204
                     return_1 = begin
                             keyword("elseif ")
                             noblock(condition)
@@ -1183,20 +1265,20 @@ begin
                     $(Expr(:symbolicgoto, Symbol("##final#775_1")))
                 end
                 if begin
-                            x_194 = cache_1.value
-                            x_194 isa Tuple{Symbol, var2} where var2<:AbstractArray
-                        end && (x_194[1] == :elseif && (begin
-                                    x_195 = x_194[2]
-                                    x_195 isa AbstractArray
-                                end && (length(x_195) === 3 && begin
-                                        x_196 = x_195[1]
-                                        x_197 = x_195[2]
-                                        x_198 = x_195[3]
+                            x_206 = cache_1.value
+                            x_206 isa Tuple{Symbol, var2} where var2<:AbstractArray
+                        end && (x_206[1] == :elseif && (begin
+                                    x_207 = x_206[2]
+                                    x_207 isa AbstractArray
+                                end && (length(x_207) === 3 && begin
+                                        x_208 = x_207[1]
+                                        x_209 = x_207[2]
+                                        x_210 = x_207[3]
                                         true
                                     end)))
-                    body = x_197
-                    elsebody = x_198
-                    condition = x_196
+                    body = x_209
+                    elsebody = x_210
+                    condition = x_208
                     return_1 = begin
                             keyword("elseif ")
                             noblock(condition)
@@ -1208,20 +1290,20 @@ begin
                     $(Expr(:symbolicgoto, Symbol("##final#775_1")))
                 end
                 if begin
-                            x_199 = cache_1.value
-                            x_199 isa Tuple{Symbol, var2} where var2<:AbstractArray
-                        end && (x_199[1] == :try && (begin
-                                    x_200 = x_199[2]
-                                    x_200 isa AbstractArray
-                                end && (length(x_200) === 3 && begin
-                                        x_201 = x_200[1]
-                                        x_202 = x_200[2]
-                                        x_203 = x_200[3]
+                            x_211 = cache_1.value
+                            x_211 isa Tuple{Symbol, var2} where var2<:AbstractArray
+                        end && (x_211[1] == :try && (begin
+                                    x_212 = x_211[2]
+                                    x_212 isa AbstractArray
+                                end && (length(x_212) === 3 && begin
+                                        x_213 = x_212[1]
+                                        x_214 = x_212[2]
+                                        x_215 = x_212[3]
                                         true
                                     end)))
-                    catch_vars = x_202
-                    catch_body = x_203
-                    try_body = x_201
+                    catch_vars = x_214
+                    catch_body = x_215
+                    try_body = x_213
                     return_1 = begin
                             keyword("try ")
                             noblock(try_body)
@@ -1239,22 +1321,22 @@ begin
                     $(Expr(:symbolicgoto, Symbol("##final#775_1")))
                 end
                 if begin
-                            x_204 = cache_1.value
-                            x_204 isa Tuple{Symbol, var2} where var2<:AbstractArray
-                        end && (x_204[1] == :try && (begin
-                                    x_205 = x_204[2]
-                                    x_205 isa AbstractArray
-                                end && (length(x_205) === 4 && begin
-                                        x_206 = x_205[1]
-                                        x_207 = x_205[2]
-                                        x_208 = x_205[3]
-                                        x_209 = x_205[4]
+                            x_216 = cache_1.value
+                            x_216 isa Tuple{Symbol, var2} where var2<:AbstractArray
+                        end && (x_216[1] == :try && (begin
+                                    x_217 = x_216[2]
+                                    x_217 isa AbstractArray
+                                end && (length(x_217) === 4 && begin
+                                        x_218 = x_217[1]
+                                        x_219 = x_217[2]
+                                        x_220 = x_217[3]
+                                        x_221 = x_217[4]
                                         true
                                     end)))
-                    catch_vars = x_207
-                    catch_body = x_208
-                    try_body = x_206
-                    finally_body = x_209
+                    catch_vars = x_219
+                    catch_body = x_220
+                    try_body = x_218
+                    finally_body = x_221
                     return_1 = begin
                             keyword("try ")
                             noblock(try_body)
@@ -1276,24 +1358,24 @@ begin
                     $(Expr(:symbolicgoto, Symbol("##final#775_1")))
                 end
                 if begin
-                            x_210 = cache_1.value
-                            x_210 isa Tuple{Symbol, var2} where var2<:AbstractArray
-                        end && (x_210[1] == :try && (begin
-                                    x_211 = x_210[2]
-                                    x_211 isa AbstractArray
-                                end && (length(x_211) === 5 && begin
-                                        x_212 = x_211[1]
-                                        x_213 = x_211[2]
-                                        x_214 = x_211[3]
-                                        x_215 = x_211[4]
-                                        x_216 = x_211[5]
+                            x_222 = cache_1.value
+                            x_222 isa Tuple{Symbol, var2} where var2<:AbstractArray
+                        end && (x_222[1] == :try && (begin
+                                    x_223 = x_222[2]
+                                    x_223 isa AbstractArray
+                                end && (length(x_223) === 5 && begin
+                                        x_224 = x_223[1]
+                                        x_225 = x_223[2]
+                                        x_226 = x_223[3]
+                                        x_227 = x_223[4]
+                                        x_228 = x_223[5]
                                         true
                                     end)))
-                    catch_vars = x_213
-                    catch_body = x_214
-                    try_body = x_212
-                    finally_body = x_215
-                    else_body = x_216
+                    catch_vars = x_225
+                    catch_body = x_226
+                    try_body = x_224
+                    finally_body = x_227
+                    else_body = x_228
                     return_1 = begin
                             keyword("try ")
                             noblock(try_body)
@@ -1317,18 +1399,117 @@ begin
                     $(Expr(:symbolicgoto, Symbol("##final#775_1")))
                 end
                 if begin
-                            x_217 = cache_1.value
-                            x_217 isa Tuple{var1, var2} where {var2<:AbstractArray, var1}
+                            x_229 = cache_1.value
+                            x_229 isa Tuple{Symbol, var2} where var2<:AbstractArray
+                        end && (x_229[1] == :struct && (begin
+                                    x_230 = x_229[2]
+                                    x_230 isa AbstractArray
+                                end && (length(x_230) === 3 && begin
+                                        x_231 = x_230[1]
+                                        x_232 = x_230[2]
+                                        x_233 = x_230[3]
+                                        true
+                                    end)))
+                    ismutable = x_231
+                    name = x_232
+                    body = x_233
+                    return_1 = begin
+                            if ismutable
+                                keyword("mutable struct ")
+                            else
+                                keyword("struct ")
+                            end
+                            p(name)
+                            keyword("; ")
+                            noblock(body)
+                            keyword("; end")
+                        end
+                    $(Expr(:symbolicgoto, Symbol("##final#775_1")))
+                end
+                if begin
+                            x_234 = cache_1.value
+                            x_234 isa Tuple{Symbol, var2} where var2<:AbstractArray
+                        end && (x_234[1] == :primitive && (begin
+                                    x_235 = x_234[2]
+                                    x_235 isa AbstractArray
+                                end && (length(x_235) === 2 && begin
+                                        x_236 = x_235[1]
+                                        x_237 = x_235[2]
+                                        true
+                                    end)))
+                    name = x_236
+                    size = x_237
+                    return_1 = begin
+                            keyword("primitive ")
+                            p(name)
+                            print(" ")
+                            p(size)
+                            keyword(" end")
+                        end
+                    $(Expr(:symbolicgoto, Symbol("##final#775_1")))
+                end
+                if begin
+                            x_238 = cache_1.value
+                            x_238 isa Tuple{Symbol, var2} where var2<:AbstractArray
+                        end && (x_238[1] == :meta && (begin
+                                    x_239 = x_238[2]
+                                    x_239 isa AbstractArray
+                                end && (length(x_239) === 1 && x_239[1] == :inline)))
+                    return_1 = begin
+                            macrocall(GlobalRef(Base, Symbol("@_inline_meta")))
+                            keyword(";")
+                        end
+                    $(Expr(:symbolicgoto, Symbol("##final#775_1")))
+                end
+                if begin
+                            x_240 = cache_1.value
+                            x_240 isa Tuple{Symbol, var2} where var2<:AbstractArray
+                        end && (x_240[1] == :symboliclabel && (begin
+                                    x_241 = x_240[2]
+                                    x_241 isa AbstractArray
+                                end && (length(x_241) === 1 && begin
+                                        x_242 = x_241[1]
+                                        true
+                                    end)))
+                    label = x_242
+                    return_1 = begin
+                            macrocall(GlobalRef(Base, Symbol("@label")))
+                            print(" ")
+                            p(label)
+                        end
+                    $(Expr(:symbolicgoto, Symbol("##final#775_1")))
+                end
+                if begin
+                            x_243 = cache_1.value
+                            x_243 isa Tuple{Symbol, var2} where var2<:AbstractArray
+                        end && (x_243[1] == :symbolicgoto && (begin
+                                    x_244 = x_243[2]
+                                    x_244 isa AbstractArray
+                                end && (length(x_244) === 1 && begin
+                                        x_245 = x_244[1]
+                                        true
+                                    end)))
+                    label = x_245
+                    return_1 = begin
+                            macrocall(GlobalRef(Base, Symbol("@goto")))
+                            print(" ")
+                            p(label)
+                        end
+                    $(Expr(:symbolicgoto, Symbol("##final#775_1")))
+                end
+                if begin
+                            x_246 = cache_1.value
+                            x_246 isa Tuple{var1, var2} where {var2<:AbstractArray, var1}
                         end && (begin
-                                x_218 = x_217[1]
-                                x_219 = x_217[2]
-                                x_219 isa AbstractArray
-                            end && ((ndims(x_219) === 1 && length(x_219) >= 0) && begin
-                                    x_220 = (SubArray)(x_219, (1:length(x_219),))
+                                x_247 = x_246[1]
+                                x_248 = x_246[2]
+                                x_248 isa AbstractArray
+                            end && ((ndims(x_248) === 1 && length(x_248) >= 0) && begin
+                                    x_249 = (SubArray)(x_248, (1:length(x_248),))
                                     true
                                 end))
-                    args = x_220
-                    head = x_218
+                    args = x_249
+                    head = x_247
                     return_1 = begin
                             keyword('$')
                             print("(")
@@ -1389,7 +1570,7 @@ begin
         print_expr(expr)
         return
     end
-    #= none:329 =# Core.@doc "    print_expr([io::IO], ex; kw...)\n\nPrint a given expression within one line.\n`ex` can be a `Expr` or a syntax type `JLExpr`.\n" print_inline(io::IO, expr; kw...) = begin
+    #= none:357 =# Core.@doc "    print_expr([io::IO], ex; kw...)\n\nPrint a given expression within one line.\n`ex` can be a `Expr` or a syntax type `JLExpr`.\n" print_inline(io::IO, expr; kw...) = begin
                 (InlinePrinter(io; kw...))(expr)
             end
     print_inline(expr; kw...) = begin
