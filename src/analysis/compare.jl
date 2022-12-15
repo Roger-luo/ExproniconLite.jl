@@ -78,27 +78,13 @@ begin
     function compare_expr(m::Module, lhs, rhs)
         true
         x_1 = (lhs, rhs)
-        if x_1 isa Tuple{Variable, Variable}
-            if begin
-                        x_2 = x_1[1]
-                        x_2 isa Variable
-                    end && begin
-                        x_3 = x_1[2]
-                        x_3 isa Variable
-                    end
-                return_1 = begin
-                        return true
-                    end
-                $(Expr(:symbolicgoto, Symbol("##final#501_1")))
-            end
-        end
         if x_1 isa Tuple{TypeVar, TypeVar}
             if begin
-                        x_4 = x_1[1]
-                        x_4 isa TypeVar
+                        x_2 = x_1[1]
+                        x_2 isa TypeVar
                     end && begin
-                        x_5 = x_1[2]
-                        x_5 isa TypeVar
+                        x_3 = x_1[2]
+                        x_3 isa TypeVar
                     end
                 return_1 = begin
                         compare_expr(m, lhs.lb, rhs.lb) || return false
@@ -110,11 +96,11 @@ begin
         end
         if x_1 isa Tuple{LineNumberNode, LineNumberNode}
             if begin
-                        x_6 = x_1[1]
-                        x_6 isa LineNumberNode
+                        x_4 = x_1[1]
+                        x_4 isa LineNumberNode
                     end && begin
-                        x_7 = x_1[2]
-                        x_7 isa LineNumberNode
+                        x_5 = x_1[2]
+                        x_5 isa LineNumberNode
                     end
                 return_1 = begin
                         return true
@@ -124,11 +110,11 @@ begin
         end
         if x_1 isa Tuple{GlobalRef, GlobalRef}
             if begin
-                        x_8 = x_1[1]
-                        x_8 isa GlobalRef
+                        x_6 = x_1[1]
+                        x_6 isa GlobalRef
                     end && begin
-                        x_9 = x_1[2]
-                        x_9 isa GlobalRef
+                        x_7 = x_1[2]
+                        x_7 isa GlobalRef
                     end
                 return_1 = begin
                         return lhs === rhs
@@ -138,11 +124,11 @@ begin
         end
         if x_1 isa Tuple{Any, Any}
             if x_1 isa Tuple{Symbol, Symbol} && (begin
-                            x_10 = x_1[1]
-                            x_10 isa Symbol
+                            x_8 = x_1[1]
+                            x_8 isa Symbol
                         end && begin
-                            x_11 = x_1[2]
-                            x_11 isa Symbol
+                            x_9 = x_1[2]
+                            x_9 isa Symbol
                         end)
                 return_1 = begin
                         return lhs === rhs
@@ -150,11 +136,11 @@ begin
                 $(Expr(:symbolicgoto, Symbol("##final#501_1")))
             end
             if x_1 isa Tuple{Module, Module} && (begin
-                            x_12 = x_1[1]
-                            x_12 isa Module
+                            x_10 = x_1[1]
+                            x_10 isa Module
                         end && begin
-                            x_13 = x_1[2]
-                            x_13 isa Module
+                            x_11 = x_1[2]
+                            x_11 isa Module
                         end)
                 return_1 = begin
                         return lhs === rhs
@@ -162,27 +148,27 @@ begin
                 $(Expr(:symbolicgoto, Symbol("##final#501_1")))
             end
             if x_1 isa Tuple{QuoteNode, Expr} && (begin
-                            x_14 = x_1[1]
-                            x_14 isa QuoteNode
+                            x_12 = x_1[1]
+                            x_12 isa QuoteNode
                         end && (begin
                                 cache_1 = nothing
-                                x_15 = x_1[2]
-                                x_15 isa Expr
+                                x_13 = x_1[2]
+                                x_13 isa Expr
                             end && (begin
                                     if cache_1 === nothing
-                                        cache_1 = Some((x_15.head, x_15.args))
+                                        cache_1 = Some((x_13.head, x_13.args))
                                     end
-                                    x_16 = cache_1.value
-                                    x_16 isa Tuple{Symbol, var2} where var2<:AbstractArray
-                                end && (x_16[1] == :call && (begin
-                                            x_17 = x_16[2]
-                                            x_17 isa AbstractArray
-                                        end && (length(x_17) === 2 && (x_17[1] == :Symbol && begin
-                                                    x_18 = x_17[2]
+                                    x_14 = cache_1.value
+                                    x_14 isa Tuple{Symbol, var2} where var2<:AbstractArray
+                                end && (x_14[1] == :call && (begin
+                                            x_15 = x_14[2]
+                                            x_15 isa AbstractArray
+                                        end && (length(x_15) === 2 && (x_15[1] == :Symbol && begin
+                                                    x_16 = x_15[2]
                                                     true
                                                 end)))))))
-                a = x_14
-                b = x_18
+                a = x_12
+                b = x_16
                 return_1 = begin
                         isdefined(m, :Symbol) || return false
                         return a.value === Symbol(b)
@@ -191,24 +177,24 @@ begin
             end
             if x_1 isa Tuple{Expr, QuoteNode} && (begin
                             cache_2 = nothing
-                            x_19 = x_1[1]
-                            x_19 isa Expr
+                            x_17 = x_1[1]
+                            x_17 isa Expr
                         end && (begin
                                 if cache_2 === nothing
-                                    cache_2 = Some((x_19.head, x_19.args))
+                                    cache_2 = Some((x_17.head, x_17.args))
                                 end
-                                x_20 = cache_2.value
-                                x_20 isa Tuple{Symbol, var2} where var2<:AbstractArray
-                            end && (x_20[1] == :call && (begin
-                                        x_21 = x_20[2]
-                                        x_21 isa AbstractArray
-                                    end && (length(x_21) === 2 && (x_21[1] == :Symbol && begin
-                                                x_22 = x_21[2]
-                                                x_23 = x_1[2]
-                                                x_23 isa QuoteNode
+                                x_18 = cache_2.value
+                                x_18 isa Tuple{Symbol, var2} where var2<:AbstractArray
+                            end && (x_18[1] == :call && (begin
+                                        x_19 = x_18[2]
+                                        x_19 isa AbstractArray
+                                    end && (length(x_19) === 2 && (x_19[1] == :Symbol && begin
+                                                x_20 = x_19[2]
+                                                x_21 = x_1[2]
+                                                x_21 isa QuoteNode
                                             end))))))
-                a = x_23
-                b = x_22
+                a = x_21
+                b = x_20
                 return_1 = begin
                         isdefined(m, :Symbol) || return false
                         return a.value === Symbol(b)
@@ -216,11 +202,11 @@ begin
                 $(Expr(:symbolicgoto, Symbol("##final#501_1")))
             end
             if x_1 isa Tuple{Expr, Expr} && (begin
-                            x_24 = x_1[1]
-                            x_24 isa Expr
+                            x_22 = x_1[1]
+                            x_22 isa Expr
                         end && begin
-                            x_25 = x_1[2]
-                            x_25 isa Expr
+                            x_23 = x_1[2]
+                            x_23 isa Expr
                         end)
                 return_1 = begin
                         return compare_expr_object(m, lhs, rhs)
@@ -229,20 +215,20 @@ begin
             end
             if x_1 isa Tuple{Expr, var2} where var2<:Type && (begin
                             cache_3 = nothing
-                            x_26 = x_1[1]
-                            x_26 isa Expr
+                            x_24 = x_1[1]
+                            x_24 isa Expr
                         end && (begin
                                 if cache_3 === nothing
-                                    cache_3 = Some((x_26.head, x_26.args))
+                                    cache_3 = Some((x_24.head, x_24.args))
                                 end
-                                x_27 = cache_3.value
-                                x_27 isa Tuple{Symbol, var2} where var2<:AbstractArray
-                            end && (x_27[1] == :curly && (begin
-                                        x_28 = x_27[2]
-                                        x_28 isa AbstractArray
-                                    end && ((ndims(x_28) === 1 && length(x_28) >= 0) && begin
-                                            x_29 = x_1[2]
-                                            x_29 isa Type
+                                x_25 = cache_3.value
+                                x_25 isa Tuple{Symbol, var2} where var2<:AbstractArray
+                            end && (x_25[1] == :curly && (begin
+                                        x_26 = x_25[2]
+                                        x_26 isa AbstractArray
+                                    end && ((ndims(x_26) === 1 && length(x_26) >= 0) && begin
+                                            x_27 = x_1[2]
+                                            x_27 isa Type
                                         end)))))
                 return_1 = begin
                         return guess_type(m, lhs) == rhs
@@ -250,34 +236,34 @@ begin
                 $(Expr(:symbolicgoto, Symbol("##final#501_1")))
             end
             if x_1 isa Tuple{var1, Expr} where var1<:Type && (begin
-                            x_30 = x_1[1]
-                            x_30 isa Type
+                            x_28 = x_1[1]
+                            x_28 isa Type
                         end && (begin
                                 cache_4 = nothing
-                                x_31 = x_1[2]
-                                x_31 isa Expr
+                                x_29 = x_1[2]
+                                x_29 isa Expr
                             end && (begin
                                     if cache_4 === nothing
-                                        cache_4 = Some((x_31.head, x_31.args))
+                                        cache_4 = Some((x_29.head, x_29.args))
                                     end
-                                    x_32 = cache_4.value
-                                    x_32 isa Tuple{Symbol, var2} where var2<:AbstractArray
-                                end && (x_32[1] == :curly && (begin
-                                            x_33 = x_32[2]
-                                            x_33 isa AbstractArray
-                                        end && (ndims(x_33) === 1 && length(x_33) >= 0))))))
+                                    x_30 = cache_4.value
+                                    x_30 isa Tuple{Symbol, var2} where var2<:AbstractArray
+                                end && (x_30[1] == :curly && (begin
+                                            x_31 = x_30[2]
+                                            x_31 isa AbstractArray
+                                        end && (ndims(x_31) === 1 && length(x_31) >= 0))))))
                 return_1 = begin
                         return lhs == guess_type(m, rhs)
                     end
                 $(Expr(:symbolicgoto, Symbol("##final#501_1")))
             end
             if x_1 isa Tuple{var1, Symbol} where var1 && begin
-                        x_34 = x_1[1]
-                        x_35 = x_1[2]
-                        x_35 isa Symbol
+                        x_32 = x_1[1]
+                        x_33 = x_1[2]
+                        x_33 isa Symbol
                     end
-                a = x_34
-                b = x_35
+                a = x_32
+                b = x_33
                 return_1 = begin
                         isdefined(m, b) || return false
                         return getfield(m, b) === a
@@ -285,14 +271,14 @@ begin
                 $(Expr(:symbolicgoto, Symbol("##final#501_1")))
             end
             if x_1 isa Tuple{Symbol, var2} where var2 && (begin
-                            x_36 = x_1[1]
-                            x_36 isa Symbol
+                            x_34 = x_1[1]
+                            x_34 isa Symbol
                         end && begin
-                            x_37 = x_1[2]
+                            x_35 = x_1[2]
                             true
                         end)
-                a = x_37
-                b = x_36
+                a = x_35
+                b = x_34
                 return_1 = begin
                         isdefined(m, b) || return false
                         return getfield(m, b) === a
@@ -300,12 +286,12 @@ begin
                 $(Expr(:symbolicgoto, Symbol("##final#501_1")))
             end
             if x_1 isa Tuple{var1, Expr} where var1 && begin
-                        x_38 = x_1[1]
-                        x_39 = x_1[2]
-                        x_39 isa Expr
+                        x_36 = x_1[1]
+                        x_37 = x_1[2]
+                        x_37 isa Expr
                     end
-                a = x_38
-                b = x_39
+                a = x_36
+                b = x_37
                 return_1 = begin
                         try
                             return a == Base.eval(m, b)
@@ -316,14 +302,14 @@ begin
                 $(Expr(:symbolicgoto, Symbol("##final#501_1")))
             end
             if x_1 isa Tuple{Expr, var2} where var2 && (begin
-                            x_40 = x_1[1]
-                            x_40 isa Expr
+                            x_38 = x_1[1]
+                            x_38 isa Expr
                         end && begin
-                            x_41 = x_1[2]
+                            x_39 = x_1[2]
                             true
                         end)
-                a = x_41
-                b = x_40
+                a = x_39
+                b = x_38
                 return_1 = begin
                         try
                             return a == Base.eval(m, b)
@@ -334,14 +320,14 @@ begin
                 $(Expr(:symbolicgoto, Symbol("##final#501_1")))
             end
             if x_1 isa Tuple{Module, var2} where var2 && (begin
-                            x_42 = x_1[1]
-                            x_42 isa Module
+                            x_40 = x_1[1]
+                            x_40 isa Module
                         end && begin
-                            x_43 = x_1[2]
+                            x_41 = x_1[2]
                             true
                         end)
-                a = x_42
-                b = x_43
+                a = x_40
+                b = x_41
                 return_1 = begin
                         mod = guess_module(m, b)
                         isnothing(mod) && return false
@@ -350,16 +336,30 @@ begin
                 $(Expr(:symbolicgoto, Symbol("##final#501_1")))
             end
             if x_1 isa Tuple{var1, Module} where var1 && begin
-                        x_44 = x_1[1]
-                        x_45 = x_1[2]
-                        x_45 isa Module
+                        x_42 = x_1[1]
+                        x_43 = x_1[2]
+                        x_43 isa Module
                     end
-                a = x_45
-                b = x_44
+                a = x_43
+                b = x_42
                 return_1 = begin
                         mod = guess_module(m, b)
                         isnothing(mod) && return false
                         return a === mod
+                    end
+                $(Expr(:symbolicgoto, Symbol("##final#501_1")))
+            end
+        end
+        if x_1 isa Tuple{Variable, Variable}
+            if begin
+                        x_44 = x_1[1]
+                        x_44 isa Variable
+                    end && begin
+                        x_45 = x_1[2]
+                        x_45 isa Variable
+                    end
+                return_1 = begin
+                        return true
                     end
                 $(Expr(:symbolicgoto, Symbol("##final#501_1")))
             end
