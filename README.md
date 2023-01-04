@@ -3,7 +3,6 @@
 [![Stable](https://img.shields.io/badge/docs-stable-blue.svg)](https://Roger-luo.github.io/Expronicon.jl/stable)
 [![Dev](https://img.shields.io/badge/docs-dev-blue.svg)](https://Roger-luo.github.io/Expronicon.jl/dev)
 [![Build Status](https://github.com/Roger-luo/ExproniconLite.jl/workflows/CI/badge.svg)](https://github.com/Roger-luo/ExproniconLite.jl/actions)
-[![Coverage](https://codecov.io/gh/Roger-luo/ExproniconLite.jl/branch/master/graph/badge.svg)](https://codecov.io/gh/Roger-luo/ExproniconLite.jl)
 
 no fancy pattern matching, no dependencies, Light-weight [Expronicon](https://github.com/Roger-luo/Expronicon.jl) for low latency.
 
