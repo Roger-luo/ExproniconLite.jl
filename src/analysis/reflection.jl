@@ -1,4 +1,4 @@
-begin
+
     #= none:1 =# Core.@doc "    @expr <expression>\n\nReturn the original expression object.\n\n# Example\n\n```julia\njulia> ex = @expr x + 1\n:(x + 1)\n```\n" macro expr(ex)
             return QuoteNode(ex)
         end
@@ -14,4 +14,3 @@ begin
             m === nothing || return m.captures[1]
             return "x"
         end
-end

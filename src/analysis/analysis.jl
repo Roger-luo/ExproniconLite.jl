@@ -1,9 +1,8 @@
-begin
-    _include_generated("exception.jl")
-    _include_generated("check.jl")
-    _include_generated("cons.jl")
-    _include_generated("guess.jl")
-    _include_generated("reflection.jl")
-    _include_generated("split.jl")
-    _include_generated("compare.jl")
-end
+
+    __include_generated__("exception.jl")
+    __include_generated__("check.jl")
+    __include_generated__("cons.jl")
+    __include_generated__("guess.jl")
+    __include_generated__("reflection.jl")
+    __include_generated__("split.jl")
+    __include_generated__("compare.jl")

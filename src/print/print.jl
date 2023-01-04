@@ -1,8 +1,8 @@
-begin
-    _include_generated("utils.jl")
-    _include_generated("colors.jl")
-    _include_generated("inline.jl")
-    _include_generated("multi.jl")
+
+    __include_generated__("utils.jl")
+    __include_generated__("colors.jl")
+    __include_generated__("inline.jl")
+    __include_generated__("multi.jl")
     Base.show(io::IO, def::JLExpr) = begin
             print_inline(io, def)
         end
@@ -24,4 +24,3 @@ begin
             end
             return String(take!(buf))
         end
-end

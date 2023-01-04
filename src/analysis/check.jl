@@ -1,48 +1,56 @@
-begin
+
     #= none:1 =# Core.@doc "    is_valid_typevar(typevar)\n\nCheck if the given typevar is a valid typevar.\n\n!!! note\n    This function is based on [this discourse post](https://discourse.julialang.org/t/what-are-valid-type-parameters/471).\n" function is_valid_typevar(typevar)
             let
                 true
-                return_1 = nothing
-                x_1 = typevar
-                if x_1 isa TypeVar
-                    return_1 = let
-                            true
-                        end
-                    $(Expr(:symbolicgoto, Symbol("##final#408_1")))
+                var"##return#292" = nothing
+                var"##294" = typevar
+                if var"##294" isa TypeVar
+                    begin
+                        var"##return#292" = let
+                                true
+                            end
+                        $(Expr(:symbolicgoto, Symbol("####final#293#295")))
+                    end
                 end
-                if x_1 isa Type
-                    return_1 = let
-                            true
-                        end
-                    $(Expr(:symbolicgoto, Symbol("##final#408_1")))
+                if var"##294" isa Type
+                    begin
+                        var"##return#292" = let
+                                true
+                            end
+                        $(Expr(:symbolicgoto, Symbol("####final#293#295")))
+                    end
                 end
-                if x_1 isa QuoteNode
-                    return_1 = let
-                            true
-                        end
-                    $(Expr(:symbolicgoto, Symbol("##final#408_1")))
+                if var"##294" isa QuoteNode
+                    begin
+                        var"##return#292" = let
+                                true
+                            end
+                        $(Expr(:symbolicgoto, Symbol("####final#293#295")))
+                    end
                 end
                 if isbitstype(typeof(typevar))
-                    return_1 = let
+                    var"##return#292" = let
                             true
                         end
-                    $(Expr(:symbolicgoto, Symbol("##final#408_1")))
+                    $(Expr(:symbolicgoto, Symbol("####final#293#295")))
                 end
-                if x_1 isa Tuple
-                    return_1 = let
+                if var"##294" isa Tuple
+                    var"##return#292" = let
                             all((x->begin
                                         x isa Symbol || isbitstype(typeof(x))
                                     end), typevar)
                         end
-                    $(Expr(:symbolicgoto, Symbol("##final#408_1")))
+                    $(Expr(:symbolicgoto, Symbol("####final#293#295")))
                 end
-                return_1 = let
-                        false
-                    end
-                $(Expr(:symbolicgoto, Symbol("##final#408_1")))
-                (error)("matching non-exhaustive, at #= none:10 =#")
-                $(Expr(:symboliclabel, Symbol("##final#408_1")))
-                return_1
+                begin
+                    var"##return#292" = let
+                            false
+                        end
+                    $(Expr(:symbolicgoto, Symbol("####final#293#295")))
+                end
+                error("matching non-exhaustive, at #= none:10 =#")
+                $(Expr(:symboliclabel, Symbol("####final#293#295")))
+                var"##return#292"
             end
         end
     #= none:20 =# Core.@doc "    is_literal(x)\n\nCheck if `x` is a literal value.\n" function is_literal(x)
@@ -91,63 +99,69 @@ begin
         end
     #= none:140 =# Core.@doc "    is_function(def)\n\nCheck if given object is a function expression.\n" function is_function(#= none:145 =# @nospecialize(def))
             let
-                cache_1 = nothing
-                return_2 = nothing
-                x_2 = def
-                if x_2 isa Expr
+                begin
+                    var"##cache#299" = nothing
+                end
+                var"##return#296" = nothing
+                var"##298" = def
+                if var"##298" isa Expr
                     if begin
-                                if cache_1 === nothing
-                                    cache_1 = Some((x_2.head, x_2.args))
+                                if var"##cache#299" === nothing
+                                    var"##cache#299" = Some(((var"##298").head, (var"##298").args))
                                 end
-                                x_3 = cache_1.value
-                                x_3 isa Tuple{Symbol, var2} where var2<:AbstractArray
-                            end && (x_3[1] == :function && (begin
-                                        x_4 = x_3[2]
-                                        x_4 isa AbstractArray
-                                    end && length(x_4) === 2))
-                        return_2 = let
+                                var"##300" = (var"##cache#299").value
+                                var"##300" isa (Tuple{Symbol, var2} where var2 <: AbstractArray)
+                            end && (var"##300"[1] == :function && (begin
+                                        var"##301" = var"##300"[2]
+                                        var"##301" isa AbstractArray
+                                    end && length(var"##301") === 2))
+                        var"##return#296" = let
                                 true
                             end
-                        $(Expr(:symbolicgoto, Symbol("##final#412_1")))
+                        $(Expr(:symbolicgoto, Symbol("####final#297#306")))
                     end
                     if begin
-                                x_5 = cache_1.value
-                                x_5 isa Tuple{Symbol, var2} where var2<:AbstractArray
-                            end && (x_5[1] == :(=) && (begin
-                                        x_6 = x_5[2]
-                                        x_6 isa AbstractArray
-                                    end && length(x_6) === 2))
-                        return_2 = let
+                                var"##302" = (var"##cache#299").value
+                                var"##302" isa (Tuple{Symbol, var2} where var2 <: AbstractArray)
+                            end && (var"##302"[1] == :(=) && (begin
+                                        var"##303" = var"##302"[2]
+                                        var"##303" isa AbstractArray
+                                    end && length(var"##303") === 2))
+                        var"##return#296" = let
                                 true
                             end
-                        $(Expr(:symbolicgoto, Symbol("##final#412_1")))
+                        $(Expr(:symbolicgoto, Symbol("####final#297#306")))
                     end
                     if begin
-                                x_7 = cache_1.value
-                                x_7 isa Tuple{Symbol, var2} where var2<:AbstractArray
-                            end && (x_7[1] == :-> && (begin
-                                        x_8 = x_7[2]
-                                        x_8 isa AbstractArray
-                                    end && length(x_8) === 2))
-                        return_2 = let
+                                var"##304" = (var"##cache#299").value
+                                var"##304" isa (Tuple{Symbol, var2} where var2 <: AbstractArray)
+                            end && (var"##304"[1] == :-> && (begin
+                                        var"##305" = var"##304"[2]
+                                        var"##305" isa AbstractArray
+                                    end && length(var"##305") === 2))
+                        var"##return#296" = let
                                 true
                             end
-                        $(Expr(:symbolicgoto, Symbol("##final#412_1")))
+                        $(Expr(:symbolicgoto, Symbol("####final#297#306")))
                     end
                 end
-                if x_2 isa JLFunction
-                    return_2 = let
-                            true
+                if var"##298" isa JLFunction
+                    begin
+                        var"##return#296" = let
+                                true
+                            end
+                        $(Expr(:symbolicgoto, Symbol("####final#297#306")))
+                    end
+                end
+                begin
+                    var"##return#296" = let
+                            false
                         end
-                    $(Expr(:symbolicgoto, Symbol("##final#412_1")))
+                    $(Expr(:symbolicgoto, Symbol("####final#297#306")))
                 end
-                return_2 = let
-                        false
-                    end
-                $(Expr(:symbolicgoto, Symbol("##final#412_1")))
-                (error)("matching non-exhaustive, at #= none:146 =#")
-                $(Expr(:symboliclabel, Symbol("##final#412_1")))
-                return_2
+                error("matching non-exhaustive, at #= none:146 =#")
+                $(Expr(:symboliclabel, Symbol("####final#297#306")))
+                var"##return#296"
             end
         end
     #= none:155 =# Core.@doc "    is_kw_function(def)\n\nCheck if a given function definition supports keyword arguments.\n" function is_kw_function(#= none:160 =# @nospecialize(def))
@@ -157,86 +171,94 @@ begin
             end
             (_, call, _) = split_function(def)
             let
-                cache_2 = nothing
-                return_3 = nothing
-                x_9 = call
-                if x_9 isa Expr
+                begin
+                    var"##cache#310" = nothing
+                end
+                var"##return#307" = nothing
+                var"##309" = call
+                if var"##309" isa Expr
                     if begin
-                                if cache_2 === nothing
-                                    cache_2 = Some((x_9.head, x_9.args))
+                                if var"##cache#310" === nothing
+                                    var"##cache#310" = Some(((var"##309").head, (var"##309").args))
                                 end
-                                x_10 = cache_2.value
-                                x_10 isa Tuple{Symbol, var2} where var2<:AbstractArray
-                            end && (x_10[1] == :tuple && (begin
-                                        x_11 = x_10[2]
-                                        x_11 isa AbstractArray
-                                    end && ((ndims(x_11) === 1 && length(x_11) >= 1) && (begin
-                                                cache_3 = nothing
-                                                x_12 = x_11[1]
-                                                x_12 isa Expr
+                                var"##311" = (var"##cache#310").value
+                                var"##311" isa (Tuple{Symbol, var2} where var2 <: AbstractArray)
+                            end && (var"##311"[1] == :tuple && (begin
+                                        var"##312" = var"##311"[2]
+                                        var"##312" isa AbstractArray
+                                    end && ((ndims(var"##312") === 1 && length(var"##312") >= 1) && (begin
+                                                begin
+                                                    var"##cache#314" = nothing
+                                                end
+                                                var"##313" = var"##312"[1]
+                                                var"##313" isa Expr
                                             end && (begin
-                                                    if cache_3 === nothing
-                                                        cache_3 = Some((x_12.head, x_12.args))
+                                                    if var"##cache#314" === nothing
+                                                        var"##cache#314" = Some(((var"##313").head, (var"##313").args))
                                                     end
-                                                    x_13 = cache_3.value
-                                                    x_13 isa Tuple{Symbol, var2} where var2<:AbstractArray
-                                                end && (x_13[1] == :parameters && (begin
-                                                            x_14 = x_13[2]
-                                                            x_14 isa AbstractArray
-                                                        end && (ndims(x_14) === 1 && length(x_14) >= 0))))))))
-                        return_3 = let
+                                                    var"##315" = (var"##cache#314").value
+                                                    var"##315" isa (Tuple{Symbol, var2} where var2 <: AbstractArray)
+                                                end && (var"##315"[1] == :parameters && (begin
+                                                            var"##316" = var"##315"[2]
+                                                            var"##316" isa AbstractArray
+                                                        end && (ndims(var"##316") === 1 && length(var"##316") >= 0))))))))
+                        var"##return#307" = let
                                 true
                             end
-                        $(Expr(:symbolicgoto, Symbol("##final#423_1")))
+                        $(Expr(:symbolicgoto, Symbol("####final#308#326")))
                     end
                     if begin
-                                x_15 = cache_2.value
-                                x_15 isa Tuple{Symbol, var2} where var2<:AbstractArray
-                            end && (x_15[1] == :call && (begin
-                                        x_16 = x_15[2]
-                                        x_16 isa AbstractArray
-                                    end && ((ndims(x_16) === 1 && length(x_16) >= 2) && (begin
-                                                cache_4 = nothing
-                                                x_17 = x_16[2]
-                                                x_17 isa Expr
+                                var"##317" = (var"##cache#310").value
+                                var"##317" isa (Tuple{Symbol, var2} where var2 <: AbstractArray)
+                            end && (var"##317"[1] == :call && (begin
+                                        var"##318" = var"##317"[2]
+                                        var"##318" isa AbstractArray
+                                    end && ((ndims(var"##318") === 1 && length(var"##318") >= 2) && (begin
+                                                begin
+                                                    var"##cache#320" = nothing
+                                                end
+                                                var"##319" = var"##318"[2]
+                                                var"##319" isa Expr
                                             end && (begin
-                                                    if cache_4 === nothing
-                                                        cache_4 = Some((x_17.head, x_17.args))
+                                                    if var"##cache#320" === nothing
+                                                        var"##cache#320" = Some(((var"##319").head, (var"##319").args))
                                                     end
-                                                    x_18 = cache_4.value
-                                                    x_18 isa Tuple{Symbol, var2} where var2<:AbstractArray
-                                                end && (x_18[1] == :parameters && (begin
-                                                            x_19 = x_18[2]
-                                                            x_19 isa AbstractArray
-                                                        end && (ndims(x_19) === 1 && length(x_19) >= 0))))))))
-                        return_3 = let
+                                                    var"##321" = (var"##cache#320").value
+                                                    var"##321" isa (Tuple{Symbol, var2} where var2 <: AbstractArray)
+                                                end && (var"##321"[1] == :parameters && (begin
+                                                            var"##322" = var"##321"[2]
+                                                            var"##322" isa AbstractArray
+                                                        end && (ndims(var"##322") === 1 && length(var"##322") >= 0))))))))
+                        var"##return#307" = let
                                 true
                             end
-                        $(Expr(:symbolicgoto, Symbol("##final#423_1")))
+                        $(Expr(:symbolicgoto, Symbol("####final#308#326")))
                     end
                     if begin
-                                x_20 = cache_2.value
-                                x_20 isa Tuple{Symbol, var2} where var2<:AbstractArray
-                            end && (x_20[1] == :block && (begin
-                                        x_21 = x_20[2]
-                                        x_21 isa AbstractArray
-                                    end && (length(x_21) === 3 && begin
-                                            x_22 = x_21[2]
-                                            x_22 isa LineNumberNode
+                                var"##323" = (var"##cache#310").value
+                                var"##323" isa (Tuple{Symbol, var2} where var2 <: AbstractArray)
+                            end && (var"##323"[1] == :block && (begin
+                                        var"##324" = var"##323"[2]
+                                        var"##324" isa AbstractArray
+                                    end && (length(var"##324") === 3 && begin
+                                            var"##325" = var"##324"[2]
+                                            var"##325" isa LineNumberNode
                                         end)))
-                        return_3 = let
+                        var"##return#307" = let
                                 true
                             end
-                        $(Expr(:symbolicgoto, Symbol("##final#423_1")))
+                        $(Expr(:symbolicgoto, Symbol("####final#308#326")))
                     end
                 end
-                return_3 = let
-                        false
-                    end
-                $(Expr(:symbolicgoto, Symbol("##final#423_1")))
-                (error)("matching non-exhaustive, at #= none:168 =#")
-                $(Expr(:symboliclabel, Symbol("##final#423_1")))
-                return_3
+                begin
+                    var"##return#307" = let
+                            false
+                        end
+                    $(Expr(:symbolicgoto, Symbol("####final#308#326")))
+                end
+                error("matching non-exhaustive, at #= none:168 =#")
+                $(Expr(:symboliclabel, Symbol("####final#308#326")))
+                var"##return#307"
             end
         end
     #= none:176 =# @deprecate is_kw_fn(def) is_kw_function(def)
@@ -262,247 +284,271 @@ begin
         end
     #= none:222 =# Core.@doc "    is_field(ex)\n\nCheck if `ex` is a valid field expression.\n" function is_field(#= none:227 =# @nospecialize(ex))
             let
-                cache_5 = nothing
-                return_4 = nothing
-                x_23 = ex
-                if x_23 isa Expr
+                begin
+                    var"##cache#330" = nothing
+                end
+                var"##return#327" = nothing
+                var"##329" = ex
+                if var"##329" isa Expr
                     if begin
-                                if cache_5 === nothing
-                                    cache_5 = Some((x_23.head, x_23.args))
+                                if var"##cache#330" === nothing
+                                    var"##cache#330" = Some(((var"##329").head, (var"##329").args))
                                 end
-                                x_24 = cache_5.value
-                                x_24 isa Tuple{Symbol, var2} where var2<:AbstractArray
-                            end && (x_24[1] == :(=) && (begin
-                                        x_25 = x_24[2]
-                                        x_25 isa AbstractArray
-                                    end && (length(x_25) === 2 && (begin
-                                                cache_6 = nothing
-                                                x_26 = x_25[1]
-                                                x_26 isa Expr
+                                var"##331" = (var"##cache#330").value
+                                var"##331" isa (Tuple{Symbol, var2} where var2 <: AbstractArray)
+                            end && (var"##331"[1] == :(=) && (begin
+                                        var"##332" = var"##331"[2]
+                                        var"##332" isa AbstractArray
+                                    end && (length(var"##332") === 2 && (begin
+                                                begin
+                                                    var"##cache#334" = nothing
+                                                end
+                                                var"##333" = var"##332"[1]
+                                                var"##333" isa Expr
                                             end && (begin
-                                                    if cache_6 === nothing
-                                                        cache_6 = Some((x_26.head, x_26.args))
+                                                    if var"##cache#334" === nothing
+                                                        var"##cache#334" = Some(((var"##333").head, (var"##333").args))
                                                     end
-                                                    x_27 = cache_6.value
-                                                    x_27 isa Tuple{Symbol, var2} where var2<:AbstractArray
-                                                end && (x_27[1] == :(::) && (begin
-                                                            x_28 = x_27[2]
-                                                            x_28 isa AbstractArray
-                                                        end && (length(x_28) === 2 && begin
-                                                                x_29 = x_28[1]
-                                                                x_30 = x_28[2]
-                                                                x_31 = x_25[2]
+                                                    var"##335" = (var"##cache#334").value
+                                                    var"##335" isa (Tuple{Symbol, var2} where var2 <: AbstractArray)
+                                                end && (var"##335"[1] == :(::) && (begin
+                                                            var"##336" = var"##335"[2]
+                                                            var"##336" isa AbstractArray
+                                                        end && (length(var"##336") === 2 && begin
+                                                                var"##337" = var"##336"[1]
+                                                                var"##338" = var"##336"[2]
+                                                                var"##339" = var"##332"[2]
                                                                 true
                                                             end))))))))
-                        return_4 = let default = x_31, type = x_30, name = x_29
+                        var"##return#327" = let default = var"##339", type = var"##338", name = var"##337"
                                 false
                             end
-                        $(Expr(:symbolicgoto, Symbol("##final#443_1")))
+                        $(Expr(:symbolicgoto, Symbol("####final#328#348")))
                     end
                     if begin
-                                x_32 = cache_5.value
-                                x_32 isa Tuple{Symbol, var2} where var2<:AbstractArray
-                            end && (x_32[1] == :(=) && (begin
-                                        x_33 = x_32[2]
-                                        x_33 isa AbstractArray
-                                    end && (length(x_33) === 2 && (begin
-                                                x_34 = x_33[1]
-                                                x_34 isa Symbol
+                                var"##340" = (var"##cache#330").value
+                                var"##340" isa (Tuple{Symbol, var2} where var2 <: AbstractArray)
+                            end && (var"##340"[1] == :(=) && (begin
+                                        var"##341" = var"##340"[2]
+                                        var"##341" isa AbstractArray
+                                    end && (length(var"##341") === 2 && (begin
+                                                var"##342" = var"##341"[1]
+                                                var"##342" isa Symbol
                                             end && begin
-                                                x_35 = x_33[2]
+                                                var"##343" = var"##341"[2]
                                                 true
                                             end))))
-                        return_4 = let default = x_35, name = x_34
+                        var"##return#327" = let default = var"##343", name = var"##342"
                                 false
                             end
-                        $(Expr(:symbolicgoto, Symbol("##final#443_1")))
+                        $(Expr(:symbolicgoto, Symbol("####final#328#348")))
                     end
                     if begin
-                                x_36 = cache_5.value
-                                x_36 isa Tuple{Symbol, var2} where var2<:AbstractArray
-                            end && (x_36[1] == :(::) && (begin
-                                        x_37 = x_36[2]
-                                        x_37 isa AbstractArray
-                                    end && (length(x_37) === 2 && begin
-                                            x_38 = x_37[1]
-                                            x_39 = x_37[2]
+                                var"##344" = (var"##cache#330").value
+                                var"##344" isa (Tuple{Symbol, var2} where var2 <: AbstractArray)
+                            end && (var"##344"[1] == :(::) && (begin
+                                        var"##345" = var"##344"[2]
+                                        var"##345" isa AbstractArray
+                                    end && (length(var"##345") === 2 && begin
+                                            var"##346" = var"##345"[1]
+                                            var"##347" = var"##345"[2]
                                             true
                                         end)))
-                        return_4 = let type = x_39, name = x_38
+                        var"##return#327" = let type = var"##347", name = var"##346"
                                 true
                             end
-                        $(Expr(:symbolicgoto, Symbol("##final#443_1")))
+                        $(Expr(:symbolicgoto, Symbol("####final#328#348")))
                     end
                 end
-                if x_23 isa Symbol
-                    return_4 = let name = x_23
-                            true
+                if var"##329" isa Symbol
+                    begin
+                        var"##return#327" = let name = var"##329"
+                                true
+                            end
+                        $(Expr(:symbolicgoto, Symbol("####final#328#348")))
+                    end
+                end
+                begin
+                    var"##return#327" = let
+                            false
                         end
-                    $(Expr(:symbolicgoto, Symbol("##final#443_1")))
+                    $(Expr(:symbolicgoto, Symbol("####final#328#348")))
                 end
-                return_4 = let
-                        false
-                    end
-                $(Expr(:symbolicgoto, Symbol("##final#443_1")))
-                (error)("matching non-exhaustive, at #= none:228 =#")
-                $(Expr(:symboliclabel, Symbol("##final#443_1")))
-                return_4
+                error("matching non-exhaustive, at #= none:228 =#")
+                $(Expr(:symboliclabel, Symbol("####final#328#348")))
+                var"##return#327"
             end
         end
     #= none:237 =# Core.@doc "    is_field_default(ex)\n\nCheck if `ex` is a `<field expr> = <default expr>` expression.\n" function is_field_default(#= none:242 =# @nospecialize(ex))
             let
-                cache_7 = nothing
-                return_5 = nothing
-                x_40 = ex
-                if x_40 isa Expr
+                begin
+                    var"##cache#352" = nothing
+                end
+                var"##return#349" = nothing
+                var"##351" = ex
+                if var"##351" isa Expr
                     if begin
-                                if cache_7 === nothing
-                                    cache_7 = Some((x_40.head, x_40.args))
+                                if var"##cache#352" === nothing
+                                    var"##cache#352" = Some(((var"##351").head, (var"##351").args))
                                 end
-                                x_41 = cache_7.value
-                                x_41 isa Tuple{Symbol, var2} where var2<:AbstractArray
-                            end && (x_41[1] == :(=) && (begin
-                                        x_42 = x_41[2]
-                                        x_42 isa AbstractArray
-                                    end && (length(x_42) === 2 && (begin
-                                                cache_8 = nothing
-                                                x_43 = x_42[1]
-                                                x_43 isa Expr
+                                var"##353" = (var"##cache#352").value
+                                var"##353" isa (Tuple{Symbol, var2} where var2 <: AbstractArray)
+                            end && (var"##353"[1] == :(=) && (begin
+                                        var"##354" = var"##353"[2]
+                                        var"##354" isa AbstractArray
+                                    end && (length(var"##354") === 2 && (begin
+                                                begin
+                                                    var"##cache#356" = nothing
+                                                end
+                                                var"##355" = var"##354"[1]
+                                                var"##355" isa Expr
                                             end && (begin
-                                                    if cache_8 === nothing
-                                                        cache_8 = Some((x_43.head, x_43.args))
+                                                    if var"##cache#356" === nothing
+                                                        var"##cache#356" = Some(((var"##355").head, (var"##355").args))
                                                     end
-                                                    x_44 = cache_8.value
-                                                    x_44 isa Tuple{Symbol, var2} where var2<:AbstractArray
-                                                end && (x_44[1] == :(::) && (begin
-                                                            x_45 = x_44[2]
-                                                            x_45 isa AbstractArray
-                                                        end && (length(x_45) === 2 && begin
-                                                                x_46 = x_45[1]
-                                                                x_47 = x_45[2]
-                                                                x_48 = x_42[2]
+                                                    var"##357" = (var"##cache#356").value
+                                                    var"##357" isa (Tuple{Symbol, var2} where var2 <: AbstractArray)
+                                                end && (var"##357"[1] == :(::) && (begin
+                                                            var"##358" = var"##357"[2]
+                                                            var"##358" isa AbstractArray
+                                                        end && (length(var"##358") === 2 && begin
+                                                                var"##359" = var"##358"[1]
+                                                                var"##360" = var"##358"[2]
+                                                                var"##361" = var"##354"[2]
                                                                 true
                                                             end))))))))
-                        return_5 = let default = x_48, type = x_47, name = x_46
+                        var"##return#349" = let default = var"##361", type = var"##360", name = var"##359"
                                 true
                             end
-                        $(Expr(:symbolicgoto, Symbol("##final#465_1")))
+                        $(Expr(:symbolicgoto, Symbol("####final#350#366")))
                     end
                     if begin
-                                x_49 = cache_7.value
-                                x_49 isa Tuple{Symbol, var2} where var2<:AbstractArray
-                            end && (x_49[1] == :(=) && (begin
-                                        x_50 = x_49[2]
-                                        x_50 isa AbstractArray
-                                    end && (length(x_50) === 2 && (begin
-                                                x_51 = x_50[1]
-                                                x_51 isa Symbol
+                                var"##362" = (var"##cache#352").value
+                                var"##362" isa (Tuple{Symbol, var2} where var2 <: AbstractArray)
+                            end && (var"##362"[1] == :(=) && (begin
+                                        var"##363" = var"##362"[2]
+                                        var"##363" isa AbstractArray
+                                    end && (length(var"##363") === 2 && (begin
+                                                var"##364" = var"##363"[1]
+                                                var"##364" isa Symbol
                                             end && begin
-                                                x_52 = x_50[2]
+                                                var"##365" = var"##363"[2]
                                                 true
                                             end))))
-                        return_5 = let default = x_52, name = x_51
+                        var"##return#349" = let default = var"##365", name = var"##364"
                                 true
                             end
-                        $(Expr(:symbolicgoto, Symbol("##final#465_1")))
+                        $(Expr(:symbolicgoto, Symbol("####final#350#366")))
                     end
                 end
-                return_5 = let
-                        false
-                    end
-                $(Expr(:symbolicgoto, Symbol("##final#465_1")))
-                (error)("matching non-exhaustive, at #= none:243 =#")
-                $(Expr(:symboliclabel, Symbol("##final#465_1")))
-                return_5
+                begin
+                    var"##return#349" = let
+                            false
+                        end
+                    $(Expr(:symbolicgoto, Symbol("####final#350#366")))
+                end
+                error("matching non-exhaustive, at #= none:243 =#")
+                $(Expr(:symboliclabel, Symbol("####final#350#366")))
+                var"##return#349"
             end
         end
     #= none:250 =# Core.@doc "    is_datatype_expr(ex)\n\nCheck if `ex` is an expression for a concrete `DataType`, e.g\n`where` is not allowed in the expression.\n" function is_datatype_expr(#= none:256 =# @nospecialize(ex))
             let
-                cache_9 = nothing
-                return_6 = nothing
-                x_53 = ex
-                if x_53 isa GlobalRef
-                    return_6 = let
-                            true
-                        end
-                    $(Expr(:symbolicgoto, Symbol("##final#483_1")))
+                begin
+                    var"##cache#370" = nothing
                 end
-                if x_53 isa Expr
-                    if begin
-                                if cache_9 === nothing
-                                    cache_9 = Some((x_53.head, x_53.args))
-                                end
-                                x_54 = cache_9.value
-                                x_54 isa Tuple{Symbol, var2} where var2<:AbstractArray
-                            end && (x_54[1] == :curly && (begin
-                                        x_55 = x_54[2]
-                                        x_55 isa AbstractArray
-                                    end && (length(x_55) === 2 && (begin
-                                                cache_10 = nothing
-                                                x_56 = x_55[2]
-                                                x_56 isa Expr
-                                            end && (begin
-                                                    if cache_10 === nothing
-                                                        cache_10 = Some((x_56.head, x_56.args))
-                                                    end
-                                                    x_57 = cache_10.value
-                                                    x_57 isa Tuple{Symbol, var2} where var2<:AbstractArray
-                                                end && (x_57[1] == :... && (begin
-                                                            x_58 = x_57[2]
-                                                            x_58 isa AbstractArray
-                                                        end && length(x_58) === 1)))))))
-                        return_6 = let
+                var"##return#367" = nothing
+                var"##369" = ex
+                if var"##369" isa GlobalRef
+                    begin
+                        var"##return#367" = let
                                 true
                             end
-                        $(Expr(:symbolicgoto, Symbol("##final#483_1")))
+                        $(Expr(:symbolicgoto, Symbol("####final#368#384")))
+                    end
+                end
+                if var"##369" isa Expr
+                    if begin
+                                if var"##cache#370" === nothing
+                                    var"##cache#370" = Some(((var"##369").head, (var"##369").args))
+                                end
+                                var"##371" = (var"##cache#370").value
+                                var"##371" isa (Tuple{Symbol, var2} where var2 <: AbstractArray)
+                            end && (var"##371"[1] == :curly && (begin
+                                        var"##372" = var"##371"[2]
+                                        var"##372" isa AbstractArray
+                                    end && (length(var"##372") === 2 && (begin
+                                                begin
+                                                    var"##cache#374" = nothing
+                                                end
+                                                var"##373" = var"##372"[2]
+                                                var"##373" isa Expr
+                                            end && (begin
+                                                    if var"##cache#374" === nothing
+                                                        var"##cache#374" = Some(((var"##373").head, (var"##373").args))
+                                                    end
+                                                    var"##375" = (var"##cache#374").value
+                                                    var"##375" isa (Tuple{Symbol, var2} where var2 <: AbstractArray)
+                                                end && (var"##375"[1] == :... && (begin
+                                                            var"##376" = var"##375"[2]
+                                                            var"##376" isa AbstractArray
+                                                        end && length(var"##376") === 1)))))))
+                        var"##return#367" = let
+                                true
+                            end
+                        $(Expr(:symbolicgoto, Symbol("####final#368#384")))
                     end
                     if begin
-                                x_59 = cache_9.value
-                                x_59 isa Tuple{Symbol, var2} where var2<:AbstractArray
-                            end && (x_59[1] == :. && (begin
-                                        x_60 = x_59[2]
-                                        x_60 isa AbstractArray
-                                    end && (length(x_60) === 2 && (begin
-                                                x_61 = x_60[2]
-                                                x_61 isa QuoteNode
+                                var"##377" = (var"##cache#370").value
+                                var"##377" isa (Tuple{Symbol, var2} where var2 <: AbstractArray)
+                            end && (var"##377"[1] == :. && (begin
+                                        var"##378" = var"##377"[2]
+                                        var"##378" isa AbstractArray
+                                    end && (length(var"##378") === 2 && (begin
+                                                var"##379" = var"##378"[2]
+                                                var"##379" isa QuoteNode
                                             end && begin
-                                                x_62 = x_61.value
+                                                var"##380" = (var"##379").value
                                                 true
                                             end))))
-                        return_6 = let b = x_62
+                        var"##return#367" = let b = var"##380"
                                 is_datatype_expr(b)
                             end
-                        $(Expr(:symbolicgoto, Symbol("##final#483_1")))
+                        $(Expr(:symbolicgoto, Symbol("####final#368#384")))
                     end
                     if begin
-                                x_63 = cache_9.value
-                                x_63 isa Tuple{Symbol, var2} where var2<:AbstractArray
-                            end && (x_63[1] == :curly && (begin
-                                        x_64 = x_63[2]
-                                        x_64 isa AbstractArray
-                                    end && ((ndims(x_64) === 1 && length(x_64) >= 0) && begin
-                                            x_65 = (SubArray)(x_64, (1:length(x_64),))
+                                var"##381" = (var"##cache#370").value
+                                var"##381" isa (Tuple{Symbol, var2} where var2 <: AbstractArray)
+                            end && (var"##381"[1] == :curly && (begin
+                                        var"##382" = var"##381"[2]
+                                        var"##382" isa AbstractArray
+                                    end && ((ndims(var"##382") === 1 && length(var"##382") >= 0) && begin
+                                            var"##383" = SubArray(var"##382", (1:length(var"##382"),))
                                             true
                                         end)))
-                        return_6 = let args = x_65
+                        var"##return#367" = let args = var"##383"
                                 all(is_datatype_expr, args)
                             end
-                        $(Expr(:symbolicgoto, Symbol("##final#483_1")))
+                        $(Expr(:symbolicgoto, Symbol("####final#368#384")))
                     end
                 end
-                if x_53 isa Symbol
-                    return_6 = let
-                            true
+                if var"##369" isa Symbol
+                    begin
+                        var"##return#367" = let
+                                true
+                            end
+                        $(Expr(:symbolicgoto, Symbol("####final#368#384")))
+                    end
+                end
+                begin
+                    var"##return#367" = let
+                            false
                         end
-                    $(Expr(:symbolicgoto, Symbol("##final#483_1")))
+                    $(Expr(:symbolicgoto, Symbol("####final#368#384")))
                 end
-                return_6 = let
-                        false
-                    end
-                $(Expr(:symbolicgoto, Symbol("##final#483_1")))
-                (error)("matching non-exhaustive, at #= none:257 =#")
-                $(Expr(:symboliclabel, Symbol("##final#483_1")))
-                return_6
+                error("matching non-exhaustive, at #= none:257 =#")
+                $(Expr(:symboliclabel, Symbol("####final#368#384")))
+                var"##return#367"
             end
         end
     #= none:267 =# Core.@doc "    is_matrix_expr(ex)\n\nCheck if `ex` is an expression for a `Matrix`.\n" function is_matrix_expr(#= none:272 =# @nospecialize(ex))
@@ -519,4 +565,3 @@ begin
             end
             return true
         end
-end

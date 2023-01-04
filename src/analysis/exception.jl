@@ -1,4 +1,4 @@
-begin
+
     struct AnalysisError <: Exception
         expect::String
         got
@@ -19,11 +19,10 @@ begin
         print(io, "  lhs: ")
         show(io, err.lhs)
         print(io)
-        printstyled(io, "::", typeof(err.lhs); color = :light_black)
+        err.lhs isa EmptyLine || printstyled(io, "::", typeof(err.lhs); color = :light_black)
         println(io)
         print(io, "  rhs: ")
         show(io, err.rhs)
         printstyled(io, "::", typeof(err.rhs); color = :light_black)
         println(io)
     end
-end

@@ -1,126 +1,145 @@
-begin
+
     #= none:1 =# Core.@doc "    guess_module(m, ex)\n\nGuess the module of given expression `ex` (of a module)\nin module `m`. If `ex` is not a module, or cannot be\ndetermined return `nothing`.\n" function guess_module(m::Module, ex)
-            cache_1 = nothing
-            x_1 = ex
-            if x_1 isa Expr
-                if begin
-                            if cache_1 === nothing
-                                cache_1 = Some((x_1.head, x_1.args))
+            begin
+                begin
+                    var"##cache#506" = nothing
+                end
+                var"##505" = ex
+                if var"##505" isa Expr
+                    if begin
+                                if var"##cache#506" === nothing
+                                    var"##cache#506" = Some(((var"##505").head, (var"##505").args))
+                                end
+                                var"##507" = (var"##cache#506").value
+                                var"##507" isa (Tuple{Symbol, var2} where var2 <: AbstractArray)
+                            end && (var"##507"[1] == :. && (begin
+                                        var"##508" = var"##507"[2]
+                                        var"##508" isa AbstractArray
+                                    end && (length(var"##508") === 2 && (begin
+                                                var"##509" = var"##508"[1]
+                                                var"##510" = var"##508"[2]
+                                                var"##510" isa QuoteNode
+                                            end && begin
+                                                var"##511" = (var"##510").value
+                                                true
+                                            end))))
+                        name = var"##509"
+                        sub = var"##511"
+                        var"##return#503" = begin
+                                mod = guess_module(m, name)
+                                if mod isa Module
+                                    return guess_module(mod, sub)
+                                else
+                                    return ex
+                                end
                             end
-                            x_2 = cache_1.value
-                            x_2 isa Tuple{Symbol, var2} where var2<:AbstractArray
-                        end && (x_2[1] == :. && (begin
-                                    x_3 = x_2[2]
-                                    x_3 isa AbstractArray
-                                end && (length(x_3) === 2 && (begin
-                                            x_4 = x_3[1]
-                                            x_5 = x_3[2]
-                                            x_5 isa QuoteNode
-                                        end && begin
-                                            x_6 = x_5.value
-                                            true
-                                        end))))
-                    name = x_4
-                    sub = x_6
-                    return_1 = begin
-                            mod = guess_module(m, name)
-                            if mod isa Module
-                                return guess_module(mod, sub)
-                            else
+                        $(Expr(:symbolicgoto, Symbol("####final#504#512")))
+                    end
+                end
+                if var"##505" isa Symbol
+                    if isdefined(m, ex)
+                        var"##return#503" = begin
+                                maybe_m = getproperty(m, ex)
+                                maybe_m isa Module && return maybe_m
                                 return ex
                             end
-                        end
-                    $(Expr(:symbolicgoto, Symbol("##final#611_1")))
+                        $(Expr(:symbolicgoto, Symbol("####final#504#512")))
+                    end
                 end
-            end
-            if x_1 isa Symbol
-                if isdefined(m, ex)
-                    return_1 = begin
-                            maybe_m = getproperty(m, ex)
-                            maybe_m isa Module && return maybe_m
+                if var"##505" isa Module
+                    begin
+                        var"##return#503" = begin
+                                return ex
+                            end
+                        $(Expr(:symbolicgoto, Symbol("####final#504#512")))
+                    end
+                end
+                begin
+                    var"##return#503" = begin
                             return ex
                         end
-                    $(Expr(:symbolicgoto, Symbol("##final#611_1")))
+                    $(Expr(:symbolicgoto, Symbol("####final#504#512")))
                 end
+                error("matching non-exhaustive, at #= none:9 =#")
+                $(Expr(:symboliclabel, Symbol("####final#504#512")))
+                var"##return#503"
             end
-            if x_1 isa Module
-                return_1 = begin
-                        return ex
-                    end
-                $(Expr(:symbolicgoto, Symbol("##final#611_1")))
-            end
-            return_1 = begin
-                    return ex
-                end
-            $(Expr(:symbolicgoto, Symbol("##final#611_1")))
-            (error)("matching non-exhaustive, at #= none:9 =#")
-            $(Expr(:symboliclabel, Symbol("##final#611_1")))
-            return_1
         end
     #= none:28 =# Core.@doc "    guess_type(m::Module, ex)\n\nGuess the actual type of expression `ex` (of a type) in module `m`.\nReturns the type if it can be determined, otherwise returns the\nexpression. This function is used in [`compare_expr`](@ref).\n" function guess_type(m::Module, ex)
-            cache_2 = nothing
-            x_7 = ex
-            if x_7 isa Expr
-                if begin
-                            if cache_2 === nothing
-                                cache_2 = Some((x_7.head, x_7.args))
-                            end
-                            x_8 = cache_2.value
-                            x_8 isa Tuple{Symbol, var2} where var2<:AbstractArray
-                        end && (x_8[1] == :curly && (begin
-                                    x_9 = x_8[2]
-                                    x_9 isa AbstractArray
-                                end && ((ndims(x_9) === 1 && length(x_9) >= 1) && begin
-                                        x_10 = x_9[1]
-                                        x_11 = (SubArray)(x_9, (2:length(x_9),))
-                                        true
-                                    end)))
-                    typevars = x_11
-                    name = x_10
-                    return_2 = begin
-                            type = guess_type(m, name)
-                            typevars = map(typevars) do typevar
-                                    guess_type(m, typevar)
+            begin
+                begin
+                    var"##cache#516" = nothing
+                end
+                var"##515" = ex
+                if var"##515" isa Expr
+                    if begin
+                                if var"##cache#516" === nothing
+                                    var"##cache#516" = Some(((var"##515").head, (var"##515").args))
                                 end
-                            if type === Union
-                                all((x->begin
-                                                x isa Type
-                                            end), typevars) || return ex
-                                return Union{typevars...}
-                            elseif type isa Type && all(is_valid_typevar, typevars)
-                                return type{typevars...}
-                            else
+                                var"##517" = (var"##cache#516").value
+                                var"##517" isa (Tuple{Symbol, var2} where var2 <: AbstractArray)
+                            end && (var"##517"[1] == :curly && (begin
+                                        var"##518" = var"##517"[2]
+                                        var"##518" isa AbstractArray
+                                    end && ((ndims(var"##518") === 1 && length(var"##518") >= 1) && begin
+                                            var"##519" = var"##518"[1]
+                                            var"##520" = SubArray(var"##518", (2:length(var"##518"),))
+                                            true
+                                        end)))
+                        typevars = var"##520"
+                        name = var"##519"
+                        var"##return#513" = begin
+                                type = guess_type(m, name)
+                                typevars = map(typevars) do typevar
+                                        guess_type(m, typevar)
+                                    end
+                                if type === Union
+                                    all((x->begin
+                                                    x isa Type
+                                                end), typevars) || return ex
+                                    return Union{typevars...}
+                                elseif type isa Type && all(is_valid_typevar, typevars)
+                                    return type{typevars...}
+                                else
+                                    return ex
+                                end
+                            end
+                        $(Expr(:symbolicgoto, Symbol("####final#514#521")))
+                    end
+                end
+                if var"##515" isa Symbol
+                    begin
+                        var"##return#513" = begin
+                                isdefined(m, ex) || return ex
+                                return getproperty(m, ex)
+                            end
+                        $(Expr(:symbolicgoto, Symbol("####final#514#521")))
+                    end
+                end
+                if var"##515" isa Type
+                    begin
+                        var"##return#513" = begin
                                 return ex
                             end
+                        $(Expr(:symbolicgoto, Symbol("####final#514#521")))
+                    end
+                end
+                if var"##515" isa QuoteNode
+                    begin
+                        var"##return#513" = begin
+                                return ex
+                            end
+                        $(Expr(:symbolicgoto, Symbol("####final#514#521")))
+                    end
+                end
+                begin
+                    var"##return#513" = begin
+                            return ex
                         end
-                    $(Expr(:symbolicgoto, Symbol("##final#621_1")))
+                    $(Expr(:symbolicgoto, Symbol("####final#514#521")))
                 end
+                error("matching non-exhaustive, at #= none:36 =#")
+                $(Expr(:symboliclabel, Symbol("####final#514#521")))
+                var"##return#513"
             end
-            if x_7 isa Symbol
-                return_2 = begin
-                        isdefined(m, ex) || return ex
-                        return getproperty(m, ex)
-                    end
-                $(Expr(:symbolicgoto, Symbol("##final#621_1")))
-            end
-            if x_7 isa Type
-                return_2 = begin
-                        return ex
-                    end
-                $(Expr(:symbolicgoto, Symbol("##final#621_1")))
-            end
-            if x_7 isa QuoteNode
-                return_2 = begin
-                        return ex
-                    end
-                $(Expr(:symbolicgoto, Symbol("##final#621_1")))
-            end
-            return_2 = begin
-                    return ex
-                end
-            $(Expr(:symbolicgoto, Symbol("##final#621_1")))
-            (error)("matching non-exhaustive, at #= none:36 =#")
-            $(Expr(:symboliclabel, Symbol("##final#621_1")))
-            return_2
         end
-end

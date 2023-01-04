@@ -1,4 +1,4 @@
-begin
+
     #= none:1 =# Core.@doc "    JLFunction(ex::Expr)\n\nCreate a `JLFunction` object from a Julia function `Expr`.\n\n# Example\n\n```julia\njulia> JLFunction(:(f(x) = 2))\nf(x) = begin\n    #= REPL[37]:1 =#    \n    2    \nend\n```\n" function JLFunction(ex::Expr)
             (line, doc, expr) = split_doc(ex)
             (head, call, body) = split_function(expr)
@@ -61,4 +61,3 @@ begin
             (vars, itrs, body) = split_forloop(ex)
             return JLFor(vars, itrs, body)
         end
-end
