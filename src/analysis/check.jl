@@ -104,14 +104,6 @@
                 end
                 var"##return#316" = nothing
                 var"##318" = def
-                if var"##318" isa JLFunction
-                    begin
-                        var"##return#316" = let
-                                true
-                            end
-                        $(Expr(:symbolicgoto, Symbol("####final#317#326")))
-                    end
-                end
                 if var"##318" isa Expr
                     if begin
                                 if var"##cache#319" === nothing
@@ -147,6 +139,14 @@
                                         var"##325" = var"##324"[2]
                                         var"##325" isa AbstractArray
                                     end && length(var"##325") === 2))
+                        var"##return#316" = let
+                                true
+                            end
+                        $(Expr(:symbolicgoto, Symbol("####final#317#326")))
+                    end
+                end
+                if var"##318" isa JLFunction
+                    begin
                         var"##return#316" = let
                                 true
                             end
