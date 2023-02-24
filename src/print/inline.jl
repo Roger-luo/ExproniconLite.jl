@@ -332,20 +332,10 @@
                     var"##cache#757" = nothing
                 end
                 var"##756" = ex
-                if var"##756" isa Number
+                if var"##756" isa Char
                     begin
                         var"##return#754" = begin
-                                printstyled(ex, color = c.number)
-                            end
-                        $(Expr(:symbolicgoto, Symbol("####final#755#1060")))
-                    end
-                end
-                if var"##756" isa GlobalRef
-                    begin
-                        var"##return#754" = begin
-                                p(ex.mod)
-                                keyword(".")
-                                p(ex.name)
+                                printstyled(repr(ex), color = c.string)
                             end
                         $(Expr(:symbolicgoto, Symbol("####final#755#1060")))
                     end
@@ -2016,10 +2006,12 @@
                         $(Expr(:symbolicgoto, Symbol("####final#755#1060")))
                     end
                 end
-                if var"##756" isa Char
+                if var"##756" isa GlobalRef
                     begin
                         var"##return#754" = begin
-                                printstyled(repr(ex), color = c.string)
+                                p(ex.mod)
+                                keyword(".")
+                                p(ex.name)
                             end
                         $(Expr(:symbolicgoto, Symbol("####final#755#1060")))
                     end
@@ -2043,6 +2035,14 @@
                                     quoted(ex.value)
                                     keyword(")")
                                 end
+                            end
+                        $(Expr(:symbolicgoto, Symbol("####final#755#1060")))
+                    end
+                end
+                if var"##756" isa Number
+                    begin
+                        var"##return#754" = begin
+                                printstyled(ex, color = c.number)
                             end
                         $(Expr(:symbolicgoto, Symbol("####final#755#1060")))
                     end

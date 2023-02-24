@@ -81,27 +81,13 @@
         begin
             true
             var"##407" = (lhs, rhs)
-            if var"##407" isa Tuple{Variable, Variable}
-                if begin
-                            var"##408" = var"##407"[1]
-                            var"##408" isa Variable
-                        end && begin
-                            var"##409" = var"##407"[2]
-                            var"##409" isa Variable
-                        end
-                    var"##return#405" = begin
-                            return true
-                        end
-                    $(Expr(:symbolicgoto, Symbol("####final#406#456")))
-                end
-            end
             if var"##407" isa Tuple{TypeVar, TypeVar}
                 if begin
-                            var"##410" = var"##407"[1]
-                            var"##410" isa TypeVar
+                            var"##408" = var"##407"[1]
+                            var"##408" isa TypeVar
                         end && begin
-                            var"##411" = var"##407"[2]
-                            var"##411" isa TypeVar
+                            var"##409" = var"##407"[2]
+                            var"##409" isa TypeVar
                         end
                     var"##return#405" = begin
                             compare_expr(m, lhs.lb, rhs.lb) || return false
@@ -113,11 +99,25 @@
             end
             if var"##407" isa Tuple{LineNumberNode, LineNumberNode}
                 if begin
+                            var"##410" = var"##407"[1]
+                            var"##410" isa LineNumberNode
+                        end && begin
+                            var"##411" = var"##407"[2]
+                            var"##411" isa LineNumberNode
+                        end
+                    var"##return#405" = begin
+                            return true
+                        end
+                    $(Expr(:symbolicgoto, Symbol("####final#406#456")))
+                end
+            end
+            if var"##407" isa Tuple{Variable, Variable}
+                if begin
                             var"##412" = var"##407"[1]
-                            var"##412" isa LineNumberNode
+                            var"##412" isa Variable
                         end && begin
                             var"##413" = var"##407"[2]
-                            var"##413" isa LineNumberNode
+                            var"##413" isa Variable
                         end
                     var"##return#405" = begin
                             return true

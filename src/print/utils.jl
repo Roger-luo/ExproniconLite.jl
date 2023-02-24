@@ -1,4 +1,13 @@
 
+    function mapjoin(f, xs, sep = ", ")
+        for (i, x) = enumerate(xs)
+            f(x)
+            if i != length(xs)
+                f(sep)
+            end
+        end
+        return nothing
+    end
     function is_line_no(x)
         x isa LineNumberNode && return true
         x isa Expr && (x.head == :line && return true)
@@ -35,7 +44,7 @@
                         end
                     $(Expr(:symbolicgoto, Symbol("####final#1302#1308")))
                 end
-                error("matching non-exhaustive, at #= none:8 =#")
+                error("matching non-exhaustive, at #= none:18 =#")
                 $(Expr(:symboliclabel, Symbol("####final#1302#1308")))
                 var"##return#1301"
             end
