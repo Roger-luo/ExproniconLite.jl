@@ -143,3 +143,62 @@
                 var"##return#513"
             end
         end
+    function guess_value(m::Module, ex)
+        let
+            begin
+                var"##cache#525" = nothing
+            end
+            var"##return#522" = nothing
+            var"##524" = ex
+            if var"##524" isa Expr
+                if begin
+                            if var"##cache#525" === nothing
+                                var"##cache#525" = Some(((var"##524").head, (var"##524").args))
+                            end
+                            var"##526" = (var"##cache#525").value
+                            var"##526" isa (Tuple{Symbol, var2} where var2 <: AbstractArray)
+                        end && (var"##526"[1] == :. && (begin
+                                    var"##527" = var"##526"[2]
+                                    var"##527" isa AbstractArray
+                                end && (length(var"##527") === 2 && (begin
+                                            var"##528" = var"##527"[1]
+                                            var"##529" = var"##527"[2]
+                                            var"##529" isa QuoteNode
+                                        end && begin
+                                            var"##530" = (var"##529").value
+                                            true
+                                        end))))
+                    var"##return#522" = let name = var"##528", sub = var"##530"
+                            mod = guess_module(m, name)
+                            if mod isa Module
+                                return guess_value(mod, sub)
+                            else
+                                return ex
+                            end
+                        end
+                    $(Expr(:symbolicgoto, Symbol("####final#523#531")))
+                end
+            end
+            if var"##524" isa Symbol
+                begin
+                    var"##return#522" = let
+                            if isdefined(m, ex)
+                                getfield(m, ex)
+                            else
+                                ex
+                            end
+                        end
+                    $(Expr(:symbolicgoto, Symbol("####final#523#531")))
+                end
+            end
+            begin
+                var"##return#522" = let
+                        ex
+                    end
+                $(Expr(:symbolicgoto, Symbol("####final#523#531")))
+            end
+            error("matching non-exhaustive, at #= none:62 =#")
+            $(Expr(:symboliclabel, Symbol("####final#523#531")))
+            var"##return#522"
+        end
+    end
