@@ -112,9 +112,9 @@
                 end
             ex = :(struct Foo
                   end)
-            #= none:134 =# @test_throws AnalysisError JLFunction(ex)
+            #= none:134 =# @test_throws SyntaxError JLFunction(ex)
             ex = :(#= none:135 =# @foo(2, 3))
-            #= none:136 =# @test_throws AnalysisError split_function_head(ex)
+            #= none:136 =# @test_throws SyntaxError split_function_head(ex)
             ex = :(Foo(; a = 1) = begin
                           new(a)
                       end)
@@ -181,7 +181,7 @@
             #= none:208 =# @test (ast.args[4]).head === :struct
             #= none:209 =# @test is_function(((ast.args[4]).args[end]).args[end - 1])
             println(jlstruct)
-            #= none:212 =# @test_throws AnalysisError split_struct_name(:(function Foo end))
+            #= none:212 =# @test_throws SyntaxError split_struct_name(:(function Foo end))
         end
     #= none:215 =# @testset "JLKwStruct" begin
             def = #= none:216 =# @expr(JLKwStruct, struct Trait

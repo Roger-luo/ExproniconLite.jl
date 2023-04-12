@@ -1,4 +1,14 @@
 
+    struct SyntaxError <: Exception
+        msg::AbstractString
+        source::Union{Nothing, LineNumberNode}
+    end
+    SyntaxError(msg::AbstractString; source = nothing) = begin
+            SyntaxError(msg, source)
+        end
+    function Base.showerror(io::IO, err::SyntaxError)
+        print(io, "SyntaxError: ", err.msg, " at ", err.source)
+    end
     struct AnalysisError <: Exception
         expect::String
         got

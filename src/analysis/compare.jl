@@ -95,13 +95,29 @@
                     $(Expr(:symbolicgoto, Symbol("####final#386#436")))
                 end
             end
-            if var"##387" isa Tuple{LineNumberNode, LineNumberNode}
+            if var"##387" isa Tuple{TypeVar, TypeVar}
                 if begin
                             var"##390" = var"##387"[1]
-                            var"##390" isa LineNumberNode
+                            var"##390" isa TypeVar
                         end && begin
                             var"##391" = var"##387"[2]
-                            var"##391" isa LineNumberNode
+                            var"##391" isa TypeVar
+                        end
+                    var"##return#385" = begin
+                            compare_expr(m, lhs.lb, rhs.lb) || return false
+                            compare_expr(m, lhs.ub, rhs.ub) || return false
+                            return true
+                        end
+                    $(Expr(:symbolicgoto, Symbol("####final#386#436")))
+                end
+            end
+            if var"##387" isa Tuple{LineNumberNode, LineNumberNode}
+                if begin
+                            var"##392" = var"##387"[1]
+                            var"##392" isa LineNumberNode
+                        end && begin
+                            var"##393" = var"##387"[2]
+                            var"##393" isa LineNumberNode
                         end
                     var"##return#385" = begin
                             return true
@@ -111,30 +127,14 @@
             end
             if var"##387" isa Tuple{GlobalRef, GlobalRef}
                 if begin
-                            var"##392" = var"##387"[1]
-                            var"##392" isa GlobalRef
+                            var"##394" = var"##387"[1]
+                            var"##394" isa GlobalRef
                         end && begin
-                            var"##393" = var"##387"[2]
-                            var"##393" isa GlobalRef
+                            var"##395" = var"##387"[2]
+                            var"##395" isa GlobalRef
                         end
                     var"##return#385" = begin
                             return lhs === rhs
-                        end
-                    $(Expr(:symbolicgoto, Symbol("####final#386#436")))
-                end
-            end
-            if var"##387" isa Tuple{TypeVar, TypeVar}
-                if begin
-                            var"##394" = var"##387"[1]
-                            var"##394" isa TypeVar
-                        end && begin
-                            var"##395" = var"##387"[2]
-                            var"##395" isa TypeVar
-                        end
-                    var"##return#385" = begin
-                            compare_expr(m, lhs.lb, rhs.lb) || return false
-                            compare_expr(m, lhs.ub, rhs.ub) || return false
-                            return true
                         end
                     $(Expr(:symbolicgoto, Symbol("####final#386#436")))
                 end

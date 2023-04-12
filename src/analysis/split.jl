@@ -125,7 +125,7 @@
                 var"##return#532"
             end
         end
-    #= none:24 =# Core.@doc "    split_function(ex::Expr) -> head, call, body\n\nSplit function head declaration with function body.\n" function split_function(ex::Expr)
+    #= none:24 =# Core.@doc "    split_function(ex::Expr) -> head, call, body\n\nSplit function head declaration with function body.\n" function split_function(ex::Expr; source = nothing)
             let
                 begin
                     var"##cache#566" = nothing
@@ -187,7 +187,7 @@
                 end
                 begin
                     var"##return#563" = let
-                            anlys_error("function", ex)
+                            throw(SyntaxError("expect a function expr, got $(ex)", source))
                         end
                     $(Expr(:symbolicgoto, Symbol("####final#564#579")))
                 end
@@ -196,7 +196,7 @@
                 var"##return#563"
             end
         end
-    #= none:38 =# Core.@doc "    split_function_head(ex::Expr) -> name, args, kw, whereparams, rettype\n\nSplit function head to name, arguments, keyword arguments and where parameters.\n" function split_function_head(ex::Expr)
+    #= none:38 =# Core.@doc "    split_function_head(ex::Expr) -> name, args, kw, whereparams, rettype\n\nSplit function head to name, arguments, keyword arguments and where parameters.\n" function split_function_head(ex::Expr; source = nothing)
             let
                 begin
                     var"##cache#583" = nothing
@@ -392,7 +392,7 @@
                 end
                 begin
                     var"##return#580" = let
-                            anlys_error("function head expr", ex)
+                            throw(SyntaxError("expect a function head, got $(ex)", source))
                         end
                     $(Expr(:symbolicgoto, Symbol("####final#581#631")))
                 end
@@ -401,7 +401,7 @@
                 var"##return#580"
             end
         end
-    #= none:63 =# Core.@doc "    split_struct_name(ex::Expr) -> name, typevars, supertype\n\nSplit the name, type parameters and supertype definition from `struct`\ndeclaration head.\n" function split_struct_name(#= none:69 =# @nospecialize(ex))
+    #= none:63 =# Core.@doc "    split_struct_name(ex::Expr) -> name, typevars, supertype\n\nSplit the name, type parameters and supertype definition from `struct`\ndeclaration head.\n" function split_struct_name(#= none:69 =# @nospecialize(ex); source = nothing)
             return let
                     begin
                         var"##cache#635" = nothing
@@ -487,7 +487,7 @@
                     end
                     begin
                         var"##return#632" = let
-                                anlys_error("struct", ex)
+                                throw(SyntaxError("expect struct got $(ex)", source))
                             end
                         $(Expr(:symbolicgoto, Symbol("####final#633#653")))
                     end
@@ -496,9 +496,9 @@
                     var"##return#632"
                 end
         end
-    #= none:79 =# Core.@doc "    split_struct(ex::Expr) -> ismutable, name, typevars, supertype, body\n\nSplit struct definition head and body.\n" function split_struct(ex::Expr)
-            ex.head === :struct || error("expect a struct expr, got $(ex)")
-            (name, typevars, supertype) = split_struct_name(ex.args[2])
+    #= none:79 =# Core.@doc "    split_struct(ex::Expr) -> ismutable, name, typevars, supertype, body\n\nSplit struct definition head and body.\n" function split_struct(ex::Expr; source = nothing)
+            ex.head === :struct || throw(SyntaxError("expect a struct expr, got $(ex)", source))
+            (name, typevars, supertype) = split_struct_name(ex.args[2]; source)
             body = ex.args[3]
             return (ex.args[1], name, typevars, supertype, body)
         end
@@ -562,7 +562,7 @@
             end
             return uninferrable
         end
-    #= none:161 =# Core.@doc "    split_field_if_match(typename::Symbol, expr, default::Bool=false)\n\nSplit the field definition if it matches the given type name.\nReturns `NamedTuple` with `name`, `type`, `default` and `isconst` fields\nif it matches, otherwise return `nothing`.\n" function split_field_if_match(typename::Symbol, expr, default::Bool = false)
+    #= none:161 =# Core.@doc "    split_field_if_match(typename::Symbol, expr, default::Bool=false)\n\nSplit the field definition if it matches the given type name.\nReturns `NamedTuple` with `name`, `type`, `default` and `isconst` fields\nif it matches, otherwise return `nothing`.\n" function split_field_if_match(typename::Symbol, expr, default::Bool = false; source = nothing)
             begin
                 begin
                     var"##cache#657" = nothing
@@ -621,7 +621,7 @@
                         name = var"##668"
                         var"##return#654" = begin
                                 default && return (; name, type, isconst = true, default = value)
-                                throw(ArgumentError("default value syntax is not allowed"))
+                                throw(SyntaxError("default value syntax is not allowed", source))
                             end
                         $(Expr(:symbolicgoto, Symbol("####final#655#707")))
                     end
@@ -657,7 +657,7 @@
                         name = var"##677"
                         var"##return#654" = begin
                                 default && return (; name, type = Any, isconst = true, default = value)
-                                throw(ArgumentError("default value syntax is not allowed"))
+                                throw(SyntaxError("default value syntax is not allowed", source))
                             end
                         $(Expr(:symbolicgoto, Symbol("####final#655#707")))
                     end
@@ -695,7 +695,7 @@
                         name = var"##685"
                         var"##return#654" = begin
                                 default && return (; name, type, isconst = false, default = value)
-                                throw(ArgumentError("default value syntax is not allowed"))
+                                throw(SyntaxError("default value syntax is not allowed", source))
                             end
                         $(Expr(:symbolicgoto, Symbol("####final#655#707")))
                     end
@@ -716,7 +716,7 @@
                         name = var"##690"
                         var"##return#654" = begin
                                 default && return (; name, type = Any, isconst = false, default = value)
-                                throw(ArgumentError("default value syntax is not allowed"))
+                                throw(SyntaxError("default value syntax is not allowed", source))
                             end
                         $(Expr(:symbolicgoto, Symbol("####final#655#707")))
                     end
