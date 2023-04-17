@@ -1,7 +1,7 @@
 name = "ExproniconLite"
 uuid = "55351af7-c7e9-48d6-89ff-24e801d99491"
 authors = ["Roger-luo <rogerluo.rl18@gmail.com> and contributors"]
-version = "0.10.2"
+version = "0.10.3"
 
 [deps]
 Pkg = "44cfe95a-1eb2-52ea-b672-e2afdf69b78f"

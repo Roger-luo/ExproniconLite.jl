@@ -393,3 +393,6 @@
     #= none:473 =# @testset "compare" begin
             include("analysis/compare.jl")
         end
+    #= none:477 =# @testset "generated" begin
+            include("analysis/generated.jl")
+        end
