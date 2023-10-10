@@ -333,27 +333,13 @@
                     $(Expr(:symbolicgoto, Symbol("####final#319#369")))
                 end
             end
-            if var"##320" isa Tuple{Variable, Variable}
-                if begin
-                            var"##363" = var"##320"[1]
-                            var"##363" isa Variable
-                        end && begin
-                            var"##364" = var"##320"[2]
-                            var"##364" isa Variable
-                        end
-                    var"##return#318" = begin
-                            return true
-                        end
-                    $(Expr(:symbolicgoto, Symbol("####final#319#369")))
-                end
-            end
             if var"##320" isa Tuple{LineNumberNode, LineNumberNode}
                 if begin
-                            var"##365" = var"##320"[1]
-                            var"##365" isa LineNumberNode
+                            var"##363" = var"##320"[1]
+                            var"##363" isa LineNumberNode
                         end && begin
-                            var"##366" = var"##320"[2]
-                            var"##366" isa LineNumberNode
+                            var"##364" = var"##320"[2]
+                            var"##364" isa LineNumberNode
                         end
                     var"##return#318" = begin
                             return true
@@ -363,14 +349,28 @@
             end
             if var"##320" isa Tuple{GlobalRef, GlobalRef}
                 if begin
-                            var"##367" = var"##320"[1]
-                            var"##367" isa GlobalRef
+                            var"##365" = var"##320"[1]
+                            var"##365" isa GlobalRef
                         end && begin
-                            var"##368" = var"##320"[2]
-                            var"##368" isa GlobalRef
+                            var"##366" = var"##320"[2]
+                            var"##366" isa GlobalRef
                         end
                     var"##return#318" = begin
                             return lhs === rhs
+                        end
+                    $(Expr(:symbolicgoto, Symbol("####final#319#369")))
+                end
+            end
+            if var"##320" isa Tuple{Variable, Variable}
+                if begin
+                            var"##367" = var"##320"[1]
+                            var"##367" isa Variable
+                        end && begin
+                            var"##368" = var"##320"[2]
+                            var"##368" isa Variable
+                        end
+                    var"##return#318" = begin
+                            return true
                         end
                     $(Expr(:symbolicgoto, Symbol("####final#319#369")))
                 end

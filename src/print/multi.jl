@@ -439,7 +439,7 @@
                             end
                             printstyled("\"\"\"", color = c.string)
                         end
-                    $(Expr(:symbolicgoto, Symbol("####final#1058#1262")))
+                    $(Expr(:symbolicgoto, Symbol("####final#1058#1265")))
                 end
                 if begin
                             var"##1064" = (var"##cache#1060").value
@@ -480,7 +480,7 @@
                                     keyword("end")
                                 end
                         end
-                    $(Expr(:symbolicgoto, Symbol("####final#1058#1262")))
+                    $(Expr(:symbolicgoto, Symbol("####final#1058#1265")))
                 end
                 if begin
                             var"##1067" = (var"##cache#1060").value
@@ -521,7 +521,7 @@
                             tab()
                             keyword("end")
                         end
-                    $(Expr(:symbolicgoto, Symbol("####final#1058#1262")))
+                    $(Expr(:symbolicgoto, Symbol("####final#1058#1265")))
                 end
                 if begin
                             var"##1074" = (var"##cache#1060").value
@@ -578,7 +578,7 @@
                             tab()
                             keyword("end")
                         end
-                    $(Expr(:symbolicgoto, Symbol("####final#1058#1262")))
+                    $(Expr(:symbolicgoto, Symbol("####final#1058#1265")))
                 end
                 if begin
                             var"##1081" = (var"##cache#1060").value
@@ -615,7 +615,7 @@
                                     keyword("end")
                                 end
                         end
-                    $(Expr(:symbolicgoto, Symbol("####final#1058#1262")))
+                    $(Expr(:symbolicgoto, Symbol("####final#1058#1265")))
                 end
                 if begin
                             var"##1084" = (var"##cache#1060").value
@@ -672,7 +672,7 @@
                             tab()
                             keyword("end")
                         end
-                    $(Expr(:symbolicgoto, Symbol("####final#1058#1262")))
+                    $(Expr(:symbolicgoto, Symbol("####final#1058#1265")))
                 end
                 if begin
                             var"##1096" = (var"##cache#1060").value
@@ -690,7 +690,7 @@
                     var"##return#1057" = begin
                             print_if(cond, body)
                         end
-                    $(Expr(:symbolicgoto, Symbol("####final#1058#1262")))
+                    $(Expr(:symbolicgoto, Symbol("####final#1058#1265")))
                 end
                 if begin
                             var"##1100" = (var"##cache#1060").value
@@ -710,7 +710,7 @@
                     var"##return#1057" = begin
                             print_if(cond, body, otherwise)
                         end
-                    $(Expr(:symbolicgoto, Symbol("####final#1058#1262")))
+                    $(Expr(:symbolicgoto, Symbol("####final#1058#1265")))
                 end
                 if begin
                             var"##1105" = (var"##cache#1060").value
@@ -745,7 +745,7 @@
                     var"##return#1057" = begin
                             print_elseif(cond, body, line)
                         end
-                    $(Expr(:symbolicgoto, Symbol("####final#1058#1262")))
+                    $(Expr(:symbolicgoto, Symbol("####final#1058#1265")))
                 end
                 if begin
                             var"##1114" = (var"##cache#1060").value
@@ -763,7 +763,7 @@
                     var"##return#1057" = begin
                             print_elseif(cond, body)
                         end
-                    $(Expr(:symbolicgoto, Symbol("####final#1058#1262")))
+                    $(Expr(:symbolicgoto, Symbol("####final#1058#1265")))
                 end
                 if begin
                             var"##1118" = (var"##cache#1060").value
@@ -800,7 +800,7 @@
                     var"##return#1057" = begin
                             print_elseif(cond, body, line, otherwise)
                         end
-                    $(Expr(:symbolicgoto, Symbol("####final#1058#1262")))
+                    $(Expr(:symbolicgoto, Symbol("####final#1058#1265")))
                 end
                 if begin
                             var"##1128" = (var"##cache#1060").value
@@ -820,7 +820,7 @@
                     var"##return#1057" = begin
                             print_elseif(cond, body, nothing, otherwise)
                         end
-                    $(Expr(:symbolicgoto, Symbol("####final#1058#1262")))
+                    $(Expr(:symbolicgoto, Symbol("####final#1058#1265")))
                 end
                 if begin
                             var"##1133" = (var"##cache#1060").value
@@ -853,7 +853,7 @@
                             tab()
                             keyword("end")
                         end
-                    $(Expr(:symbolicgoto, Symbol("####final#1058#1262")))
+                    $(Expr(:symbolicgoto, Symbol("####final#1058#1265")))
                 end
                 if begin
                             var"##1137" = (var"##cache#1060").value
@@ -881,7 +881,7 @@
                             tab()
                             keyword("end")
                         end
-                    $(Expr(:symbolicgoto, Symbol("####final#1058#1262")))
+                    $(Expr(:symbolicgoto, Symbol("####final#1058#1265")))
                 end
                 if begin
                             var"##1141" = (var"##cache#1060").value
@@ -933,7 +933,7 @@
                             inline(line)
                             p(ex.args[2])
                         end
-                    $(Expr(:symbolicgoto, Symbol("####final#1058#1262")))
+                    $(Expr(:symbolicgoto, Symbol("####final#1058#1265")))
                 end
                 if begin
                             var"##1153" = (var"##cache#1060").value
@@ -971,7 +971,7 @@
                             leading_tab()
                             inline(ex)
                         end
-                    $(Expr(:symbolicgoto, Symbol("####final#1058#1262")))
+                    $(Expr(:symbolicgoto, Symbol("####final#1058#1265")))
                 end
                 if begin
                             var"##1162" = (var"##cache#1060").value
@@ -992,7 +992,7 @@
                             print(" = ")
                             p(rhs)
                         end
-                    $(Expr(:symbolicgoto, Symbol("####final#1058#1262")))
+                    $(Expr(:symbolicgoto, Symbol("####final#1058#1265")))
                 end
                 if begin
                             var"##1166" = (var"##cache#1060").value
@@ -1010,7 +1010,7 @@
                     var"##return#1057" = begin
                             print_function(:function, call, body)
                         end
-                    $(Expr(:symbolicgoto, Symbol("####final#1058#1262")))
+                    $(Expr(:symbolicgoto, Symbol("####final#1058#1265")))
                 end
                 if begin
                             var"##1170" = (var"##cache#1060").value
@@ -1031,7 +1031,7 @@
                             keyword(" -> ")
                             p(body)
                         end
-                    $(Expr(:symbolicgoto, Symbol("####final#1058#1262")))
+                    $(Expr(:symbolicgoto, Symbol("####final#1058#1265")))
                 end
                 if begin
                             var"##1174" = (var"##cache#1060").value
@@ -1092,7 +1092,7 @@
                             tab()
                             keyword("end")
                         end
-                    $(Expr(:symbolicgoto, Symbol("####final#1058#1262")))
+                    $(Expr(:symbolicgoto, Symbol("####final#1058#1265")))
                 end
                 if begin
                             var"##1187" = (var"##cache#1060").value
@@ -1110,7 +1110,7 @@
                     var"##return#1057" = begin
                             print_function(:macro, call, body)
                         end
-                    $(Expr(:symbolicgoto, Symbol("####final#1058#1262")))
+                    $(Expr(:symbolicgoto, Symbol("####final#1058#1265")))
                 end
                 if begin
                             var"##1191" = (var"##cache#1060").value
@@ -1148,7 +1148,7 @@
                     var"##return#1057" = begin
                             print_switch(item, line, stmts)
                         end
-                    $(Expr(:symbolicgoto, Symbol("####final#1058#1262")))
+                    $(Expr(:symbolicgoto, Symbol("####final#1058#1265")))
                 end
                 if begin
                             var"##1201" = (var"##cache#1060").value
@@ -1183,7 +1183,7 @@
                                 p(code)
                             end
                         end
-                    $(Expr(:symbolicgoto, Symbol("####final#1058#1262")))
+                    $(Expr(:symbolicgoto, Symbol("####final#1058#1265")))
                 end
                 if begin
                             var"##1207" = (var"##cache#1060").value
@@ -1203,7 +1203,7 @@
                     var"##return#1057" = begin
                             print_macrocall(name, line, args)
                         end
-                    $(Expr(:symbolicgoto, Symbol("####final#1058#1262")))
+                    $(Expr(:symbolicgoto, Symbol("####final#1058#1265")))
                 end
                 if begin
                             var"##1212" = (var"##cache#1060").value
@@ -1238,7 +1238,7 @@
                             tab()
                             keyword("end")
                         end
-                    $(Expr(:symbolicgoto, Symbol("####final#1058#1262")))
+                    $(Expr(:symbolicgoto, Symbol("####final#1058#1265")))
                 end
                 if begin
                             var"##1217" = (var"##cache#1060").value
@@ -1262,7 +1262,7 @@
                             tab()
                             keyword("end")
                         end
-                    $(Expr(:symbolicgoto, Symbol("####final#1058#1262")))
+                    $(Expr(:symbolicgoto, Symbol("####final#1058#1265")))
                 end
                 if begin
                             var"##1222" = (var"##cache#1060").value
@@ -1289,7 +1289,7 @@
                             tab()
                             keyword("end")
                         end
-                    $(Expr(:symbolicgoto, Symbol("####final#1058#1262")))
+                    $(Expr(:symbolicgoto, Symbol("####final#1058#1265")))
                 end
                 if begin
                             var"##1228" = (var"##cache#1060").value
@@ -1326,7 +1326,7 @@
                             tab()
                             keyword("end")
                         end
-                    $(Expr(:symbolicgoto, Symbol("####final#1058#1262")))
+                    $(Expr(:symbolicgoto, Symbol("####final#1058#1265")))
                 end
                 if begin
                             var"##1235" = (var"##cache#1060").value
@@ -1360,7 +1360,7 @@
                             tab()
                             keyword("end")
                         end
-                    $(Expr(:symbolicgoto, Symbol("####final#1058#1262")))
+                    $(Expr(:symbolicgoto, Symbol("####final#1058#1265")))
                 end
                 if begin
                             var"##1240" = (var"##cache#1060").value
@@ -1378,7 +1378,7 @@
                             keyword("const ")
                             p(code)
                         end
-                    $(Expr(:symbolicgoto, Symbol("####final#1058#1262")))
+                    $(Expr(:symbolicgoto, Symbol("####final#1058#1265")))
                 end
                 if begin
                             var"##1243" = (var"##cache#1060").value
@@ -1420,7 +1420,7 @@
                     var"##return#1057" = begin
                             inline(ex)
                         end
-                    $(Expr(:symbolicgoto, Symbol("####final#1058#1262")))
+                    $(Expr(:symbolicgoto, Symbol("####final#1058#1265")))
                 end
                 if begin
                             var"##1253" = (var"##cache#1060").value
@@ -1447,7 +1447,7 @@
                     var"##return#1057" = begin
                             inline(ex)
                         end
-                    $(Expr(:symbolicgoto, Symbol("####final#1058#1262")))
+                    $(Expr(:symbolicgoto, Symbol("####final#1058#1265")))
                 end
                 if begin
                             var"##1259" = (var"##cache#1060").value
@@ -1465,7 +1465,26 @@
                             keyword("return ")
                             p(code)
                         end
-                    $(Expr(:symbolicgoto, Symbol("####final#1058#1262")))
+                    $(Expr(:symbolicgoto, Symbol("####final#1058#1265")))
+                end
+                if begin
+                            var"##1262" = (var"##cache#1060").value
+                            var"##1262" isa (Tuple{Symbol, var2} where var2 <: AbstractArray)
+                        end && (var"##1262"[1] == :toplevel && (begin
+                                    var"##1263" = var"##1262"[2]
+                                    var"##1263" isa AbstractArray
+                                end && (length(var"##1263") === 1 && begin
+                                        var"##1264" = var"##1263"[1]
+                                        true
+                                    end)))
+                    code = var"##1264"
+                    var"##return#1057" = begin
+                            leading_tab()
+                            printstyled("#= meta: toplevel =#", color = c.comment)
+                            println()
+                            p(code)
+                        end
+                    $(Expr(:symbolicgoto, Symbol("####final#1058#1265")))
                 end
             end
             if var"##1059" isa String
@@ -1478,22 +1497,22 @@
                             print_multi_lines(ex)
                             printstyled("\"\"\"", color = c.string)
                         end
-                    $(Expr(:symbolicgoto, Symbol("####final#1058#1262")))
+                    $(Expr(:symbolicgoto, Symbol("####final#1058#1265")))
                 end
             end
             begin
                 var"##return#1057" = begin
                         inline(ex)
                     end
-                $(Expr(:symbolicgoto, Symbol("####final#1058#1262")))
+                $(Expr(:symbolicgoto, Symbol("####final#1058#1265")))
             end
             error("matching non-exhaustive, at #= none:246 =#")
-            $(Expr(:symboliclabel, Symbol("####final#1058#1262")))
+            $(Expr(:symboliclabel, Symbol("####final#1058#1265")))
             var"##return#1057"
         end
         return nothing
     end
-    #= none:464 =# Core.@doc "    print_expr([io::IO], ex; kw...)\n\nPrint a given expression. `ex` can be a `Expr` or a syntax type `JLExpr`.\n" print_expr(io::IO, ex; kw...) = begin
+    #= none:468 =# Core.@doc "    print_expr([io::IO], ex; kw...)\n\nPrint a given expression. `ex` can be a `Expr` or a syntax type `JLExpr`.\n" print_expr(io::IO, ex; kw...) = begin
                 (Printer(io; kw...))(ex)
             end
     print_expr(ex; kw...) = begin
