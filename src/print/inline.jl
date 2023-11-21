@@ -2016,6 +2016,22 @@
                         $(Expr(:symbolicgoto, Symbol("####final#717#1022")))
                     end
                 end
+                if var"##718" isa Number
+                    begin
+                        var"##return#716" = begin
+                                printstyled(ex, color = c.number)
+                            end
+                        $(Expr(:symbolicgoto, Symbol("####final#717#1022")))
+                    end
+                end
+                if var"##718" isa String
+                    begin
+                        var"##return#716" = begin
+                                string(ex)
+                            end
+                        $(Expr(:symbolicgoto, Symbol("####final#717#1022")))
+                    end
+                end
                 if var"##718" isa QuoteNode
                     if ex.value in Base.quoted_syms
                         var"##return#716" = begin
@@ -2035,22 +2051,6 @@
                                     quoted(ex.value)
                                     keyword(")")
                                 end
-                            end
-                        $(Expr(:symbolicgoto, Symbol("####final#717#1022")))
-                    end
-                end
-                if var"##718" isa String
-                    begin
-                        var"##return#716" = begin
-                                string(ex)
-                            end
-                        $(Expr(:symbolicgoto, Symbol("####final#717#1022")))
-                    end
-                end
-                if var"##718" isa Number
-                    begin
-                        var"##return#716" = begin
-                                printstyled(ex, color = c.number)
                             end
                         $(Expr(:symbolicgoto, Symbol("####final#717#1022")))
                     end
