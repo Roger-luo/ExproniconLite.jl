@@ -118,8 +118,8 @@
                           end))
         end
     #= none:111 =# @testset "substitute" begin
-            #= none:112 =# @test substitute(:(x + 1), :x => :y) == :(y + 1)
-            #= none:113 =# @test substitute(:(for i = 1:10
+            #= none:112 =# @test_expr substitute(:(x + 1), :x => :y) == :(y + 1)
+            #= none:113 =# @test_expr substitute(:(for i = 1:10
                               x += i
                           end), :x => :y) == :(for i = 1:10
                           y += i

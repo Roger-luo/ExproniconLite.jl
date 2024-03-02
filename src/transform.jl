@@ -51,59 +51,59 @@
     #= none:96 =# Core.@doc "    rm_lineinfo(ex)\n\nRemove `LineNumberNode` in a given expression.\n\n!!! tips\n\n    the `LineNumberNode` inside macro calls won't be removed since\n    the `macrocall` expression requires a `LineNumberNode`. See also\n    [issues/#9](https://github.com/Roger-luo/Expronicon.jl/issues/9).\n" function rm_lineinfo(ex)
             let
                 begin
-                    var"##cache#1277" = nothing
+                    var"##cache#1320" = nothing
                 end
-                var"##return#1274" = nothing
-                var"##1276" = ex
-                if var"##1276" isa Expr
+                var"##return#1317" = nothing
+                var"##1319" = ex
+                if var"##1319" isa Expr
                     if begin
-                                if var"##cache#1277" === nothing
-                                    var"##cache#1277" = Some(((var"##1276").head, (var"##1276").args))
+                                if var"##cache#1320" === nothing
+                                    var"##cache#1320" = Some(((var"##1319").head, (var"##1319").args))
                                 end
-                                var"##1278" = (var"##cache#1277").value
-                                var"##1278" isa (Tuple{Symbol, var2} where var2 <: AbstractArray)
-                            end && (var"##1278"[1] == :macrocall && (begin
-                                        var"##1279" = var"##1278"[2]
-                                        var"##1279" isa AbstractArray
-                                    end && ((ndims(var"##1279") === 1 && length(var"##1279") >= 2) && begin
-                                            var"##1280" = var"##1279"[1]
-                                            var"##1281" = var"##1279"[2]
-                                            var"##1282" = SubArray(var"##1279", (3:length(var"##1279"),))
+                                var"##1321" = (var"##cache#1320").value
+                                var"##1321" isa (Tuple{Symbol, var2} where var2 <: AbstractArray)
+                            end && (var"##1321"[1] == :macrocall && (begin
+                                        var"##1322" = var"##1321"[2]
+                                        var"##1322" isa AbstractArray
+                                    end && ((ndims(var"##1322") === 1 && length(var"##1322") >= 2) && begin
+                                            var"##1323" = var"##1322"[1]
+                                            var"##1324" = var"##1322"[2]
+                                            var"##1325" = SubArray(var"##1322", (3:length(var"##1322"),))
                                             true
                                         end)))
-                        var"##return#1274" = let line = var"##1281", name = var"##1280", args = var"##1282"
+                        var"##return#1317" = let line = var"##1324", name = var"##1323", args = var"##1325"
                                 Expr(:macrocall, name, line, map(rm_lineinfo, args)...)
                             end
-                        $(Expr(:symbolicgoto, Symbol("####final#1275#1287")))
+                        $(Expr(:symbolicgoto, Symbol("####final#1318#1330")))
                     end
                     if begin
-                                var"##1283" = (var"##cache#1277").value
-                                var"##1283" isa (Tuple{var1, var2} where {var2 <: AbstractArray, var1})
+                                var"##1326" = (var"##cache#1320").value
+                                var"##1326" isa (Tuple{var1, var2} where {var2 <: AbstractArray, var1})
                             end && (begin
-                                    var"##1284" = var"##1283"[1]
-                                    var"##1285" = var"##1283"[2]
-                                    var"##1285" isa AbstractArray
-                                end && ((ndims(var"##1285") === 1 && length(var"##1285") >= 0) && begin
-                                        var"##1286" = SubArray(var"##1285", (1:length(var"##1285"),))
+                                    var"##1327" = var"##1326"[1]
+                                    var"##1328" = var"##1326"[2]
+                                    var"##1328" isa AbstractArray
+                                end && ((ndims(var"##1328") === 1 && length(var"##1328") >= 0) && begin
+                                        var"##1329" = SubArray(var"##1328", (1:length(var"##1328"),))
                                         true
                                     end))
-                        var"##return#1274" = let args = var"##1286", head = var"##1284"
+                        var"##return#1317" = let args = var"##1329", head = var"##1327"
                                 Expr(head, map(rm_lineinfo, filter((x->begin
                                                     !(x isa LineNumberNode)
                                                 end), args))...)
                             end
-                        $(Expr(:symbolicgoto, Symbol("####final#1275#1287")))
+                        $(Expr(:symbolicgoto, Symbol("####final#1318#1330")))
                     end
                 end
                 begin
-                    var"##return#1274" = let
+                    var"##return#1317" = let
                             ex
                         end
-                    $(Expr(:symbolicgoto, Symbol("####final#1275#1287")))
+                    $(Expr(:symbolicgoto, Symbol("####final#1318#1330")))
                 end
                 error("matching non-exhaustive, at #= none:108 =#")
-                $(Expr(:symboliclabel, Symbol("####final#1275#1287")))
-                var"##return#1274"
+                $(Expr(:symboliclabel, Symbol("####final#1318#1330")))
+                var"##return#1317"
             end
         end
     #= none:115 =# Base.@kwdef struct PrettifyOptions
@@ -189,25 +189,25 @@
     #= none:208 =# Core.@doc "    rm_nothing(ex)\n\nRemove the constant value `nothing` in given expression `ex`.\n\n# Keyword Arguments\n\n- `preserve_last_nothing`: if `true`, the last `nothing`\n    will be preserved.\n" function rm_nothing(ex; preserve_last_nothing::Bool = false)
             let
                 begin
-                    var"##cache#1291" = nothing
+                    var"##cache#1334" = nothing
                 end
-                var"##return#1288" = nothing
-                var"##1290" = ex
-                if var"##1290" isa Expr
+                var"##return#1331" = nothing
+                var"##1333" = ex
+                if var"##1333" isa Expr
                     if begin
-                                if var"##cache#1291" === nothing
-                                    var"##cache#1291" = Some(((var"##1290").head, (var"##1290").args))
+                                if var"##cache#1334" === nothing
+                                    var"##cache#1334" = Some(((var"##1333").head, (var"##1333").args))
                                 end
-                                var"##1292" = (var"##cache#1291").value
-                                var"##1292" isa (Tuple{Symbol, var2} where var2 <: AbstractArray)
-                            end && (var"##1292"[1] == :block && (begin
-                                        var"##1293" = var"##1292"[2]
-                                        var"##1293" isa AbstractArray
-                                    end && ((ndims(var"##1293") === 1 && length(var"##1293") >= 0) && begin
-                                            var"##1294" = SubArray(var"##1293", (1:length(var"##1293"),))
+                                var"##1335" = (var"##cache#1334").value
+                                var"##1335" isa (Tuple{Symbol, var2} where var2 <: AbstractArray)
+                            end && (var"##1335"[1] == :block && (begin
+                                        var"##1336" = var"##1335"[2]
+                                        var"##1336" isa AbstractArray
+                                    end && ((ndims(var"##1336") === 1 && length(var"##1336") >= 0) && begin
+                                            var"##1337" = SubArray(var"##1336", (1:length(var"##1336"),))
                                             true
                                         end)))
-                        var"##return#1288" = let args = var"##1294"
+                        var"##return#1331" = let args = var"##1337"
                                 if preserve_last_nothing && (!(isempty(args)) && isnothing(last(args)))
                                     Expr(:block, filter((x->begin
                                                     x !== nothing
@@ -218,520 +218,520 @@
                                                 end), args)...)
                                 end
                             end
-                        $(Expr(:symbolicgoto, Symbol("####final#1289#1299")))
+                        $(Expr(:symbolicgoto, Symbol("####final#1332#1342")))
                     end
                     if begin
-                                var"##1295" = (var"##cache#1291").value
-                                var"##1295" isa (Tuple{var1, var2} where {var2 <: AbstractArray, var1})
+                                var"##1338" = (var"##cache#1334").value
+                                var"##1338" isa (Tuple{var1, var2} where {var2 <: AbstractArray, var1})
                             end && (begin
-                                    var"##1296" = var"##1295"[1]
-                                    var"##1297" = var"##1295"[2]
-                                    var"##1297" isa AbstractArray
-                                end && ((ndims(var"##1297") === 1 && length(var"##1297") >= 0) && begin
-                                        var"##1298" = SubArray(var"##1297", (1:length(var"##1297"),))
+                                    var"##1339" = var"##1338"[1]
+                                    var"##1340" = var"##1338"[2]
+                                    var"##1340" isa AbstractArray
+                                end && ((ndims(var"##1340") === 1 && length(var"##1340") >= 0) && begin
+                                        var"##1341" = SubArray(var"##1340", (1:length(var"##1340"),))
                                         true
                                     end))
-                        var"##return#1288" = let args = var"##1298", head = var"##1296"
+                        var"##return#1331" = let args = var"##1341", head = var"##1339"
                                 Expr(head, map(rm_nothing, args)...)
                             end
-                        $(Expr(:symbolicgoto, Symbol("####final#1289#1299")))
+                        $(Expr(:symbolicgoto, Symbol("####final#1332#1342")))
                     end
                 end
                 begin
-                    var"##return#1288" = let
+                    var"##return#1331" = let
                             ex
                         end
-                    $(Expr(:symbolicgoto, Symbol("####final#1289#1299")))
+                    $(Expr(:symbolicgoto, Symbol("####final#1332#1342")))
                 end
                 error("matching non-exhaustive, at #= none:219 =#")
-                $(Expr(:symboliclabel, Symbol("####final#1289#1299")))
-                var"##return#1288"
+                $(Expr(:symboliclabel, Symbol("####final#1332#1342")))
+                var"##return#1331"
             end
         end
     #= none:232 =# Core.@doc "    canonicalize_lambda_head(ex)\n\nCanonicalize the `Expr(:function, Expr(:block, x, Expr(:(=), key, default)), body)` to\n\n```julia\nExpr(:function, Expr(:tuple, Expr(:parameters, Expr(:kw, key, default)), x), body)\n```\n" function canonicalize_lambda_head(ex)
             let
                 begin
-                    var"##cache#1303" = nothing
+                    var"##cache#1346" = nothing
                 end
-                var"##return#1300" = nothing
-                var"##1302" = ex
-                if var"##1302" isa Expr
+                var"##return#1343" = nothing
+                var"##1345" = ex
+                if var"##1345" isa Expr
                     if begin
-                                if var"##cache#1303" === nothing
-                                    var"##cache#1303" = Some(((var"##1302").head, (var"##1302").args))
+                                if var"##cache#1346" === nothing
+                                    var"##cache#1346" = Some(((var"##1345").head, (var"##1345").args))
                                 end
-                                var"##1304" = (var"##cache#1303").value
-                                var"##1304" isa (Tuple{Symbol, var2} where var2 <: AbstractArray)
-                            end && (var"##1304"[1] == :function && (begin
-                                        var"##1305" = var"##1304"[2]
-                                        var"##1305" isa AbstractArray
-                                    end && (length(var"##1305") === 2 && (begin
+                                var"##1347" = (var"##cache#1346").value
+                                var"##1347" isa (Tuple{Symbol, var2} where var2 <: AbstractArray)
+                            end && (var"##1347"[1] == :function && (begin
+                                        var"##1348" = var"##1347"[2]
+                                        var"##1348" isa AbstractArray
+                                    end && (length(var"##1348") === 2 && (begin
                                                 begin
-                                                    var"##cache#1307" = nothing
+                                                    var"##cache#1350" = nothing
                                                 end
-                                                var"##1306" = var"##1305"[1]
-                                                var"##1306" isa Expr
+                                                var"##1349" = var"##1348"[1]
+                                                var"##1349" isa Expr
                                             end && (begin
-                                                    if var"##cache#1307" === nothing
-                                                        var"##cache#1307" = Some(((var"##1306").head, (var"##1306").args))
+                                                    if var"##cache#1350" === nothing
+                                                        var"##cache#1350" = Some(((var"##1349").head, (var"##1349").args))
                                                     end
-                                                    var"##1308" = (var"##cache#1307").value
-                                                    var"##1308" isa (Tuple{Symbol, var2} where var2 <: AbstractArray)
-                                                end && (var"##1308"[1] == :block && (begin
-                                                            var"##1309" = var"##1308"[2]
-                                                            var"##1309" isa AbstractArray
-                                                        end && (length(var"##1309") === 2 && begin
-                                                                var"##1310" = var"##1309"[1]
-                                                                var"##1311" = var"##1309"[2]
-                                                                var"##1312" = var"##1305"[2]
+                                                    var"##1351" = (var"##cache#1350").value
+                                                    var"##1351" isa (Tuple{Symbol, var2} where var2 <: AbstractArray)
+                                                end && (var"##1351"[1] == :block && (begin
+                                                            var"##1352" = var"##1351"[2]
+                                                            var"##1352" isa AbstractArray
+                                                        end && (length(var"##1352") === 2 && begin
+                                                                var"##1353" = var"##1352"[1]
+                                                                var"##1354" = var"##1352"[2]
+                                                                var"##1355" = var"##1348"[2]
                                                                 true
                                                             end))))))))
-                        var"##return#1300" = let y = var"##1311", body = var"##1312", x = var"##1310"
+                        var"##return#1343" = let y = var"##1354", body = var"##1355", x = var"##1353"
                                 Expr(:function, Expr(:tuple, Expr(:parameters, y), x), body)
                             end
-                        $(Expr(:symbolicgoto, Symbol("####final#1301#1356")))
+                        $(Expr(:symbolicgoto, Symbol("####final#1344#1399")))
                     end
                     if begin
-                                var"##1313" = (var"##cache#1303").value
-                                var"##1313" isa (Tuple{Symbol, var2} where var2 <: AbstractArray)
-                            end && (var"##1313"[1] == :function && (begin
-                                        var"##1314" = var"##1313"[2]
-                                        var"##1314" isa AbstractArray
-                                    end && (length(var"##1314") === 2 && (begin
+                                var"##1356" = (var"##cache#1346").value
+                                var"##1356" isa (Tuple{Symbol, var2} where var2 <: AbstractArray)
+                            end && (var"##1356"[1] == :function && (begin
+                                        var"##1357" = var"##1356"[2]
+                                        var"##1357" isa AbstractArray
+                                    end && (length(var"##1357") === 2 && (begin
                                                 begin
-                                                    var"##cache#1316" = nothing
+                                                    var"##cache#1359" = nothing
                                                 end
-                                                var"##1315" = var"##1314"[1]
-                                                var"##1315" isa Expr
+                                                var"##1358" = var"##1357"[1]
+                                                var"##1358" isa Expr
                                             end && (begin
-                                                    if var"##cache#1316" === nothing
-                                                        var"##cache#1316" = Some(((var"##1315").head, (var"##1315").args))
+                                                    if var"##cache#1359" === nothing
+                                                        var"##cache#1359" = Some(((var"##1358").head, (var"##1358").args))
                                                     end
-                                                    var"##1317" = (var"##cache#1316").value
-                                                    var"##1317" isa (Tuple{Symbol, var2} where var2 <: AbstractArray)
-                                                end && (var"##1317"[1] == :block && (begin
-                                                            var"##1318" = var"##1317"[2]
-                                                            var"##1318" isa AbstractArray
-                                                        end && (length(var"##1318") === 3 && (begin
-                                                                    var"##1319" = var"##1318"[1]
-                                                                    var"##1320" = var"##1318"[2]
-                                                                    var"##1320" isa LineNumberNode
+                                                    var"##1360" = (var"##cache#1359").value
+                                                    var"##1360" isa (Tuple{Symbol, var2} where var2 <: AbstractArray)
+                                                end && (var"##1360"[1] == :block && (begin
+                                                            var"##1361" = var"##1360"[2]
+                                                            var"##1361" isa AbstractArray
+                                                        end && (length(var"##1361") === 3 && (begin
+                                                                    var"##1362" = var"##1361"[1]
+                                                                    var"##1363" = var"##1361"[2]
+                                                                    var"##1363" isa LineNumberNode
                                                                 end && begin
-                                                                    var"##1321" = var"##1318"[3]
-                                                                    var"##1322" = var"##1314"[2]
+                                                                    var"##1364" = var"##1361"[3]
+                                                                    var"##1365" = var"##1357"[2]
                                                                     true
                                                                 end)))))))))
-                        var"##return#1300" = let y = var"##1321", body = var"##1322", x = var"##1319"
+                        var"##return#1343" = let y = var"##1364", body = var"##1365", x = var"##1362"
                                 Expr(:function, Expr(:tuple, Expr(:parameters, y), x), body)
                             end
-                        $(Expr(:symbolicgoto, Symbol("####final#1301#1356")))
+                        $(Expr(:symbolicgoto, Symbol("####final#1344#1399")))
                     end
                     if begin
-                                var"##1323" = (var"##cache#1303").value
-                                var"##1323" isa (Tuple{Symbol, var2} where var2 <: AbstractArray)
-                            end && (var"##1323"[1] == :function && (begin
-                                        var"##1324" = var"##1323"[2]
-                                        var"##1324" isa AbstractArray
-                                    end && (length(var"##1324") === 2 && (begin
+                                var"##1366" = (var"##cache#1346").value
+                                var"##1366" isa (Tuple{Symbol, var2} where var2 <: AbstractArray)
+                            end && (var"##1366"[1] == :function && (begin
+                                        var"##1367" = var"##1366"[2]
+                                        var"##1367" isa AbstractArray
+                                    end && (length(var"##1367") === 2 && (begin
                                                 begin
-                                                    var"##cache#1326" = nothing
+                                                    var"##cache#1369" = nothing
                                                 end
-                                                var"##1325" = var"##1324"[1]
-                                                var"##1325" isa Expr
+                                                var"##1368" = var"##1367"[1]
+                                                var"##1368" isa Expr
                                             end && (begin
-                                                    if var"##cache#1326" === nothing
-                                                        var"##cache#1326" = Some(((var"##1325").head, (var"##1325").args))
+                                                    if var"##cache#1369" === nothing
+                                                        var"##cache#1369" = Some(((var"##1368").head, (var"##1368").args))
                                                     end
-                                                    var"##1327" = (var"##cache#1326").value
-                                                    var"##1327" isa (Tuple{Symbol, var2} where var2 <: AbstractArray)
-                                                end && (var"##1327"[1] == :block && (begin
-                                                            var"##1328" = var"##1327"[2]
-                                                            var"##1328" isa AbstractArray
-                                                        end && (length(var"##1328") === 2 && (begin
-                                                                    var"##1329" = var"##1328"[1]
+                                                    var"##1370" = (var"##cache#1369").value
+                                                    var"##1370" isa (Tuple{Symbol, var2} where var2 <: AbstractArray)
+                                                end && (var"##1370"[1] == :block && (begin
+                                                            var"##1371" = var"##1370"[2]
+                                                            var"##1371" isa AbstractArray
+                                                        end && (length(var"##1371") === 2 && (begin
+                                                                    var"##1372" = var"##1371"[1]
                                                                     begin
-                                                                        var"##cache#1331" = nothing
+                                                                        var"##cache#1374" = nothing
                                                                     end
-                                                                    var"##1330" = var"##1328"[2]
-                                                                    var"##1330" isa Expr
+                                                                    var"##1373" = var"##1371"[2]
+                                                                    var"##1373" isa Expr
                                                                 end && (begin
-                                                                        if var"##cache#1331" === nothing
-                                                                            var"##cache#1331" = Some(((var"##1330").head, (var"##1330").args))
+                                                                        if var"##cache#1374" === nothing
+                                                                            var"##cache#1374" = Some(((var"##1373").head, (var"##1373").args))
                                                                         end
-                                                                        var"##1332" = (var"##cache#1331").value
-                                                                        var"##1332" isa (Tuple{Symbol, var2} where var2 <: AbstractArray)
-                                                                    end && (var"##1332"[1] == :(=) && (begin
-                                                                                var"##1333" = var"##1332"[2]
-                                                                                var"##1333" isa AbstractArray
-                                                                            end && (length(var"##1333") === 2 && begin
-                                                                                    var"##1334" = var"##1333"[1]
-                                                                                    var"##1335" = var"##1333"[2]
-                                                                                    var"##1336" = var"##1324"[2]
+                                                                        var"##1375" = (var"##cache#1374").value
+                                                                        var"##1375" isa (Tuple{Symbol, var2} where var2 <: AbstractArray)
+                                                                    end && (var"##1375"[1] == :(=) && (begin
+                                                                                var"##1376" = var"##1375"[2]
+                                                                                var"##1376" isa AbstractArray
+                                                                            end && (length(var"##1376") === 2 && begin
+                                                                                    var"##1377" = var"##1376"[1]
+                                                                                    var"##1378" = var"##1376"[2]
+                                                                                    var"##1379" = var"##1367"[2]
                                                                                     true
                                                                                 end)))))))))))))
-                        var"##return#1300" = let default = var"##1335", key = var"##1334", body = var"##1336", x = var"##1329"
+                        var"##return#1343" = let default = var"##1378", key = var"##1377", body = var"##1379", x = var"##1372"
                                 Expr(:function, Expr(:tuple, Expr(:parameters, Expr(:kw, key, default)), x), body)
                             end
-                        $(Expr(:symbolicgoto, Symbol("####final#1301#1356")))
+                        $(Expr(:symbolicgoto, Symbol("####final#1344#1399")))
                     end
                     if begin
-                                var"##1337" = (var"##cache#1303").value
-                                var"##1337" isa (Tuple{Symbol, var2} where var2 <: AbstractArray)
-                            end && (var"##1337"[1] == :function && (begin
-                                        var"##1338" = var"##1337"[2]
-                                        var"##1338" isa AbstractArray
-                                    end && (length(var"##1338") === 2 && (begin
+                                var"##1380" = (var"##cache#1346").value
+                                var"##1380" isa (Tuple{Symbol, var2} where var2 <: AbstractArray)
+                            end && (var"##1380"[1] == :function && (begin
+                                        var"##1381" = var"##1380"[2]
+                                        var"##1381" isa AbstractArray
+                                    end && (length(var"##1381") === 2 && (begin
                                                 begin
-                                                    var"##cache#1340" = nothing
+                                                    var"##cache#1383" = nothing
                                                 end
-                                                var"##1339" = var"##1338"[1]
-                                                var"##1339" isa Expr
+                                                var"##1382" = var"##1381"[1]
+                                                var"##1382" isa Expr
                                             end && (begin
-                                                    if var"##cache#1340" === nothing
-                                                        var"##cache#1340" = Some(((var"##1339").head, (var"##1339").args))
+                                                    if var"##cache#1383" === nothing
+                                                        var"##cache#1383" = Some(((var"##1382").head, (var"##1382").args))
                                                     end
-                                                    var"##1341" = (var"##cache#1340").value
-                                                    var"##1341" isa (Tuple{Symbol, var2} where var2 <: AbstractArray)
-                                                end && (var"##1341"[1] == :block && (begin
-                                                            var"##1342" = var"##1341"[2]
-                                                            var"##1342" isa AbstractArray
-                                                        end && (length(var"##1342") === 3 && (begin
-                                                                    var"##1343" = var"##1342"[1]
-                                                                    var"##1344" = var"##1342"[2]
-                                                                    var"##1344" isa LineNumberNode
+                                                    var"##1384" = (var"##cache#1383").value
+                                                    var"##1384" isa (Tuple{Symbol, var2} where var2 <: AbstractArray)
+                                                end && (var"##1384"[1] == :block && (begin
+                                                            var"##1385" = var"##1384"[2]
+                                                            var"##1385" isa AbstractArray
+                                                        end && (length(var"##1385") === 3 && (begin
+                                                                    var"##1386" = var"##1385"[1]
+                                                                    var"##1387" = var"##1385"[2]
+                                                                    var"##1387" isa LineNumberNode
                                                                 end && (begin
                                                                         begin
-                                                                            var"##cache#1346" = nothing
+                                                                            var"##cache#1389" = nothing
                                                                         end
-                                                                        var"##1345" = var"##1342"[3]
-                                                                        var"##1345" isa Expr
+                                                                        var"##1388" = var"##1385"[3]
+                                                                        var"##1388" isa Expr
                                                                     end && (begin
-                                                                            if var"##cache#1346" === nothing
-                                                                                var"##cache#1346" = Some(((var"##1345").head, (var"##1345").args))
+                                                                            if var"##cache#1389" === nothing
+                                                                                var"##cache#1389" = Some(((var"##1388").head, (var"##1388").args))
                                                                             end
-                                                                            var"##1347" = (var"##cache#1346").value
-                                                                            var"##1347" isa (Tuple{Symbol, var2} where var2 <: AbstractArray)
-                                                                        end && (var"##1347"[1] == :(=) && (begin
-                                                                                    var"##1348" = var"##1347"[2]
-                                                                                    var"##1348" isa AbstractArray
-                                                                                end && (length(var"##1348") === 2 && begin
-                                                                                        var"##1349" = var"##1348"[1]
-                                                                                        var"##1350" = var"##1348"[2]
-                                                                                        var"##1351" = var"##1338"[2]
+                                                                            var"##1390" = (var"##cache#1389").value
+                                                                            var"##1390" isa (Tuple{Symbol, var2} where var2 <: AbstractArray)
+                                                                        end && (var"##1390"[1] == :(=) && (begin
+                                                                                    var"##1391" = var"##1390"[2]
+                                                                                    var"##1391" isa AbstractArray
+                                                                                end && (length(var"##1391") === 2 && begin
+                                                                                        var"##1392" = var"##1391"[1]
+                                                                                        var"##1393" = var"##1391"[2]
+                                                                                        var"##1394" = var"##1381"[2]
                                                                                         true
                                                                                     end))))))))))))))
-                        var"##return#1300" = let default = var"##1350", key = var"##1349", body = var"##1351", x = var"##1343"
+                        var"##return#1343" = let default = var"##1393", key = var"##1392", body = var"##1394", x = var"##1386"
                                 Expr(:function, Expr(:tuple, Expr(:parameters, Expr(:kw, key, default)), x), body)
                             end
-                        $(Expr(:symbolicgoto, Symbol("####final#1301#1356")))
+                        $(Expr(:symbolicgoto, Symbol("####final#1344#1399")))
                     end
                     if begin
-                                var"##1352" = (var"##cache#1303").value
-                                var"##1352" isa (Tuple{var1, var2} where {var2 <: AbstractArray, var1})
+                                var"##1395" = (var"##cache#1346").value
+                                var"##1395" isa (Tuple{var1, var2} where {var2 <: AbstractArray, var1})
                             end && (begin
-                                    var"##1353" = var"##1352"[1]
-                                    var"##1354" = var"##1352"[2]
-                                    var"##1354" isa AbstractArray
-                                end && ((ndims(var"##1354") === 1 && length(var"##1354") >= 0) && begin
-                                        var"##1355" = SubArray(var"##1354", (1:length(var"##1354"),))
+                                    var"##1396" = var"##1395"[1]
+                                    var"##1397" = var"##1395"[2]
+                                    var"##1397" isa AbstractArray
+                                end && ((ndims(var"##1397") === 1 && length(var"##1397") >= 0) && begin
+                                        var"##1398" = SubArray(var"##1397", (1:length(var"##1397"),))
                                         true
                                     end))
-                        var"##return#1300" = let args = var"##1355", head = var"##1353"
+                        var"##return#1343" = let args = var"##1398", head = var"##1396"
                                 Expr(head, map(canonicalize_lambda_head, args)...)
                             end
-                        $(Expr(:symbolicgoto, Symbol("####final#1301#1356")))
+                        $(Expr(:symbolicgoto, Symbol("####final#1344#1399")))
                     end
                 end
                 begin
-                    var"##return#1300" = let
+                    var"##return#1343" = let
                             ex
                         end
-                    $(Expr(:symbolicgoto, Symbol("####final#1301#1356")))
+                    $(Expr(:symbolicgoto, Symbol("####final#1344#1399")))
                 end
                 error("matching non-exhaustive, at #= none:242 =#")
-                $(Expr(:symboliclabel, Symbol("####final#1301#1356")))
-                var"##return#1300"
+                $(Expr(:symboliclabel, Symbol("####final#1344#1399")))
+                var"##return#1343"
             end
         end
     function rm_single_block(ex)
         let
             begin
-                var"##cache#1360" = nothing
+                var"##cache#1403" = nothing
             end
-            var"##return#1357" = nothing
-            var"##1359" = ex
-            if var"##1359" isa Expr
+            var"##return#1400" = nothing
+            var"##1402" = ex
+            if var"##1402" isa Expr
                 if begin
-                            if var"##cache#1360" === nothing
-                                var"##cache#1360" = Some(((var"##1359").head, (var"##1359").args))
+                            if var"##cache#1403" === nothing
+                                var"##cache#1403" = Some(((var"##1402").head, (var"##1402").args))
                             end
-                            var"##1361" = (var"##cache#1360").value
-                            var"##1361" isa (Tuple{Symbol, var2} where var2 <: AbstractArray)
-                        end && (var"##1361"[1] == :(=) && (begin
-                                    var"##1362" = var"##1361"[2]
-                                    var"##1362" isa AbstractArray
-                                end && (ndims(var"##1362") === 1 && length(var"##1362") >= 0)))
-                    var"##return#1357" = let
+                            var"##1404" = (var"##cache#1403").value
+                            var"##1404" isa (Tuple{Symbol, var2} where var2 <: AbstractArray)
+                        end && (var"##1404"[1] == :(=) && (begin
+                                    var"##1405" = var"##1404"[2]
+                                    var"##1405" isa AbstractArray
+                                end && (ndims(var"##1405") === 1 && length(var"##1405") >= 0)))
+                    var"##return#1400" = let
                             ex
                         end
-                    $(Expr(:symbolicgoto, Symbol("####final#1358#1425")))
+                    $(Expr(:symbolicgoto, Symbol("####final#1401#1468")))
                 end
                 if begin
-                            var"##1363" = (var"##cache#1360").value
-                            var"##1363" isa (Tuple{Symbol, var2} where var2 <: AbstractArray)
-                        end && (var"##1363"[1] == :-> && (begin
-                                    var"##1364" = var"##1363"[2]
-                                    var"##1364" isa AbstractArray
-                                end && (ndims(var"##1364") === 1 && length(var"##1364") >= 0)))
-                    var"##return#1357" = let
+                            var"##1406" = (var"##cache#1403").value
+                            var"##1406" isa (Tuple{Symbol, var2} where var2 <: AbstractArray)
+                        end && (var"##1406"[1] == :-> && (begin
+                                    var"##1407" = var"##1406"[2]
+                                    var"##1407" isa AbstractArray
+                                end && (ndims(var"##1407") === 1 && length(var"##1407") >= 0)))
+                    var"##return#1400" = let
                             ex
                         end
-                    $(Expr(:symbolicgoto, Symbol("####final#1358#1425")))
+                    $(Expr(:symbolicgoto, Symbol("####final#1401#1468")))
                 end
                 if begin
-                            var"##1365" = (var"##cache#1360").value
-                            var"##1365" isa (Tuple{Symbol, var2} where var2 <: AbstractArray)
-                        end && (var"##1365"[1] == :quote && (begin
-                                    var"##1366" = var"##1365"[2]
-                                    var"##1366" isa AbstractArray
-                                end && ((ndims(var"##1366") === 1 && length(var"##1366") >= 0) && begin
-                                        var"##1367" = SubArray(var"##1366", (1:length(var"##1366"),))
+                            var"##1408" = (var"##cache#1403").value
+                            var"##1408" isa (Tuple{Symbol, var2} where var2 <: AbstractArray)
+                        end && (var"##1408"[1] == :quote && (begin
+                                    var"##1409" = var"##1408"[2]
+                                    var"##1409" isa AbstractArray
+                                end && ((ndims(var"##1409") === 1 && length(var"##1409") >= 0) && begin
+                                        var"##1410" = SubArray(var"##1409", (1:length(var"##1409"),))
                                         true
                                     end)))
-                    var"##return#1357" = let xs = var"##1367"
+                    var"##return#1400" = let xs = var"##1410"
                             ex
                         end
-                    $(Expr(:symbolicgoto, Symbol("####final#1358#1425")))
+                    $(Expr(:symbolicgoto, Symbol("####final#1401#1468")))
                 end
                 if begin
-                            var"##1368" = (var"##cache#1360").value
-                            var"##1368" isa (Tuple{Symbol, var2} where var2 <: AbstractArray)
-                        end && (var"##1368"[1] == :block && (begin
-                                    var"##1369" = var"##1368"[2]
-                                    var"##1369" isa AbstractArray
-                                end && (length(var"##1369") === 1 && (begin
+                            var"##1411" = (var"##cache#1403").value
+                            var"##1411" isa (Tuple{Symbol, var2} where var2 <: AbstractArray)
+                        end && (var"##1411"[1] == :block && (begin
+                                    var"##1412" = var"##1411"[2]
+                                    var"##1412" isa AbstractArray
+                                end && (length(var"##1412") === 1 && (begin
                                             begin
-                                                var"##cache#1371" = nothing
+                                                var"##cache#1414" = nothing
                                             end
-                                            var"##1370" = var"##1369"[1]
-                                            var"##1370" isa Expr
+                                            var"##1413" = var"##1412"[1]
+                                            var"##1413" isa Expr
                                         end && (begin
-                                                if var"##cache#1371" === nothing
-                                                    var"##cache#1371" = Some(((var"##1370").head, (var"##1370").args))
+                                                if var"##cache#1414" === nothing
+                                                    var"##cache#1414" = Some(((var"##1413").head, (var"##1413").args))
                                                 end
-                                                var"##1372" = (var"##cache#1371").value
-                                                var"##1372" isa (Tuple{Symbol, var2} where var2 <: AbstractArray)
-                                            end && (var"##1372"[1] == :quote && (begin
-                                                        var"##1373" = var"##1372"[2]
-                                                        var"##1373" isa AbstractArray
-                                                    end && ((ndims(var"##1373") === 1 && length(var"##1373") >= 0) && begin
-                                                            var"##1374" = SubArray(var"##1373", (1:length(var"##1373"),))
+                                                var"##1415" = (var"##cache#1414").value
+                                                var"##1415" isa (Tuple{Symbol, var2} where var2 <: AbstractArray)
+                                            end && (var"##1415"[1] == :quote && (begin
+                                                        var"##1416" = var"##1415"[2]
+                                                        var"##1416" isa AbstractArray
+                                                    end && ((ndims(var"##1416") === 1 && length(var"##1416") >= 0) && begin
+                                                            var"##1417" = SubArray(var"##1416", (1:length(var"##1416"),))
                                                             true
                                                         end))))))))
-                    var"##return#1357" = let xs = var"##1374"
+                    var"##return#1400" = let xs = var"##1417"
                             ex
                         end
-                    $(Expr(:symbolicgoto, Symbol("####final#1358#1425")))
+                    $(Expr(:symbolicgoto, Symbol("####final#1401#1468")))
                 end
                 if begin
-                            var"##1375" = (var"##cache#1360").value
-                            var"##1375" isa (Tuple{Symbol, var2} where var2 <: AbstractArray)
-                        end && (var"##1375"[1] == :try && (begin
-                                    var"##1376" = var"##1375"[2]
-                                    var"##1376" isa AbstractArray
-                                end && (length(var"##1376") === 4 && (begin
-                                            begin
-                                                var"##cache#1378" = nothing
-                                            end
-                                            var"##1377" = var"##1376"[1]
-                                            var"##1377" isa Expr
-                                        end && (begin
-                                                if var"##cache#1378" === nothing
-                                                    var"##cache#1378" = Some(((var"##1377").head, (var"##1377").args))
-                                                end
-                                                var"##1379" = (var"##cache#1378").value
-                                                var"##1379" isa (Tuple{Symbol, var2} where var2 <: AbstractArray)
-                                            end && (var"##1379"[1] == :block && (begin
-                                                        var"##1380" = var"##1379"[2]
-                                                        var"##1380" isa AbstractArray
-                                                    end && ((ndims(var"##1380") === 1 && length(var"##1380") >= 0) && (begin
-                                                                var"##1381" = SubArray(var"##1380", (1:length(var"##1380"),))
-                                                                var"##1376"[2] === false
-                                                            end && (var"##1376"[3] === false && (begin
-                                                                        begin
-                                                                            var"##cache#1383" = nothing
-                                                                        end
-                                                                        var"##1382" = var"##1376"[4]
-                                                                        var"##1382" isa Expr
-                                                                    end && (begin
-                                                                            if var"##cache#1383" === nothing
-                                                                                var"##cache#1383" = Some(((var"##1382").head, (var"##1382").args))
-                                                                            end
-                                                                            var"##1384" = (var"##cache#1383").value
-                                                                            var"##1384" isa (Tuple{Symbol, var2} where var2 <: AbstractArray)
-                                                                        end && (var"##1384"[1] == :block && (begin
-                                                                                    var"##1385" = var"##1384"[2]
-                                                                                    var"##1385" isa AbstractArray
-                                                                                end && ((ndims(var"##1385") === 1 && length(var"##1385") >= 0) && begin
-                                                                                        var"##1386" = SubArray(var"##1385", (1:length(var"##1385"),))
-                                                                                        true
-                                                                                    end)))))))))))))))
-                    var"##return#1357" = let try_stmts = var"##1381", finally_stmts = var"##1386"
-                            Expr(:try, Expr(:block, rm_single_block.(try_stmts)...), false, false, Expr(:block, rm_single_block.(finally_stmts)...))
-                        end
-                    $(Expr(:symbolicgoto, Symbol("####final#1358#1425")))
-                end
-                if begin
-                            var"##1387" = (var"##cache#1360").value
-                            var"##1387" isa (Tuple{Symbol, var2} where var2 <: AbstractArray)
-                        end && (var"##1387"[1] == :try && (begin
-                                    var"##1388" = var"##1387"[2]
-                                    var"##1388" isa AbstractArray
-                                end && (length(var"##1388") === 3 && (begin
-                                            begin
-                                                var"##cache#1390" = nothing
-                                            end
-                                            var"##1389" = var"##1388"[1]
-                                            var"##1389" isa Expr
-                                        end && (begin
-                                                if var"##cache#1390" === nothing
-                                                    var"##cache#1390" = Some(((var"##1389").head, (var"##1389").args))
-                                                end
-                                                var"##1391" = (var"##cache#1390").value
-                                                var"##1391" isa (Tuple{Symbol, var2} where var2 <: AbstractArray)
-                                            end && (var"##1391"[1] == :block && (begin
-                                                        var"##1392" = var"##1391"[2]
-                                                        var"##1392" isa AbstractArray
-                                                    end && ((ndims(var"##1392") === 1 && length(var"##1392") >= 0) && (begin
-                                                                var"##1393" = SubArray(var"##1392", (1:length(var"##1392"),))
-                                                                var"##1394" = var"##1388"[2]
-                                                                begin
-                                                                    var"##cache#1396" = nothing
-                                                                end
-                                                                var"##1395" = var"##1388"[3]
-                                                                var"##1395" isa Expr
-                                                            end && (begin
-                                                                    if var"##cache#1396" === nothing
-                                                                        var"##cache#1396" = Some(((var"##1395").head, (var"##1395").args))
-                                                                    end
-                                                                    var"##1397" = (var"##cache#1396").value
-                                                                    var"##1397" isa (Tuple{Symbol, var2} where var2 <: AbstractArray)
-                                                                end && (var"##1397"[1] == :block && (begin
-                                                                            var"##1398" = var"##1397"[2]
-                                                                            var"##1398" isa AbstractArray
-                                                                        end && ((ndims(var"##1398") === 1 && length(var"##1398") >= 0) && begin
-                                                                                var"##1399" = SubArray(var"##1398", (1:length(var"##1398"),))
-                                                                                true
-                                                                            end)))))))))))))
-                    var"##return#1357" = let try_stmts = var"##1393", catch_stmts = var"##1399", catch_var = var"##1394"
-                            Expr(:try, Expr(:block, rm_single_block.(try_stmts)...), catch_var, Expr(:block, rm_single_block.(catch_stmts)...))
-                        end
-                    $(Expr(:symbolicgoto, Symbol("####final#1358#1425")))
-                end
-                if begin
-                            var"##1400" = (var"##cache#1360").value
-                            var"##1400" isa (Tuple{Symbol, var2} where var2 <: AbstractArray)
-                        end && (var"##1400"[1] == :try && (begin
-                                    var"##1401" = var"##1400"[2]
-                                    var"##1401" isa AbstractArray
-                                end && (length(var"##1401") === 4 && (begin
-                                            begin
-                                                var"##cache#1403" = nothing
-                                            end
-                                            var"##1402" = var"##1401"[1]
-                                            var"##1402" isa Expr
-                                        end && (begin
-                                                if var"##cache#1403" === nothing
-                                                    var"##cache#1403" = Some(((var"##1402").head, (var"##1402").args))
-                                                end
-                                                var"##1404" = (var"##cache#1403").value
-                                                var"##1404" isa (Tuple{Symbol, var2} where var2 <: AbstractArray)
-                                            end && (var"##1404"[1] == :block && (begin
-                                                        var"##1405" = var"##1404"[2]
-                                                        var"##1405" isa AbstractArray
-                                                    end && ((ndims(var"##1405") === 1 && length(var"##1405") >= 0) && (begin
-                                                                var"##1406" = SubArray(var"##1405", (1:length(var"##1405"),))
-                                                                var"##1407" = var"##1401"[2]
-                                                                begin
-                                                                    var"##cache#1409" = nothing
-                                                                end
-                                                                var"##1408" = var"##1401"[3]
-                                                                var"##1408" isa Expr
-                                                            end && (begin
-                                                                    if var"##cache#1409" === nothing
-                                                                        var"##cache#1409" = Some(((var"##1408").head, (var"##1408").args))
-                                                                    end
-                                                                    var"##1410" = (var"##cache#1409").value
-                                                                    var"##1410" isa (Tuple{Symbol, var2} where var2 <: AbstractArray)
-                                                                end && (var"##1410"[1] == :block && (begin
-                                                                            var"##1411" = var"##1410"[2]
-                                                                            var"##1411" isa AbstractArray
-                                                                        end && ((ndims(var"##1411") === 1 && length(var"##1411") >= 0) && (begin
-                                                                                    var"##1412" = SubArray(var"##1411", (1:length(var"##1411"),))
-                                                                                    begin
-                                                                                        var"##cache#1414" = nothing
-                                                                                    end
-                                                                                    var"##1413" = var"##1401"[4]
-                                                                                    var"##1413" isa Expr
-                                                                                end && (begin
-                                                                                        if var"##cache#1414" === nothing
-                                                                                            var"##cache#1414" = Some(((var"##1413").head, (var"##1413").args))
-                                                                                        end
-                                                                                        var"##1415" = (var"##cache#1414").value
-                                                                                        var"##1415" isa (Tuple{Symbol, var2} where var2 <: AbstractArray)
-                                                                                    end && (var"##1415"[1] == :block && (begin
-                                                                                                var"##1416" = var"##1415"[2]
-                                                                                                var"##1416" isa AbstractArray
-                                                                                            end && ((ndims(var"##1416") === 1 && length(var"##1416") >= 0) && begin
-                                                                                                    var"##1417" = SubArray(var"##1416", (1:length(var"##1416"),))
-                                                                                                    true
-                                                                                                end))))))))))))))))))
-                    var"##return#1357" = let try_stmts = var"##1406", catch_stmts = var"##1412", catch_var = var"##1407", finally_stmts = var"##1417"
-                            Expr(:try, Expr(:block, rm_single_block.(try_stmts)...), catch_var, Expr(:block, rm_single_block.(catch_stmts)...), Expr(:block, rm_single_block.(finally_stmts)...))
-                        end
-                    $(Expr(:symbolicgoto, Symbol("####final#1358#1425")))
-                end
-                if begin
-                            var"##1418" = (var"##cache#1360").value
+                            var"##1418" = (var"##cache#1403").value
                             var"##1418" isa (Tuple{Symbol, var2} where var2 <: AbstractArray)
-                        end && (var"##1418"[1] == :block && (begin
+                        end && (var"##1418"[1] == :try && (begin
                                     var"##1419" = var"##1418"[2]
                                     var"##1419" isa AbstractArray
-                                end && (length(var"##1419") === 1 && begin
-                                        var"##1420" = var"##1419"[1]
-                                        true
-                                    end)))
-                    var"##return#1357" = let stmt = var"##1420"
-                            stmt
+                                end && (length(var"##1419") === 4 && (begin
+                                            begin
+                                                var"##cache#1421" = nothing
+                                            end
+                                            var"##1420" = var"##1419"[1]
+                                            var"##1420" isa Expr
+                                        end && (begin
+                                                if var"##cache#1421" === nothing
+                                                    var"##cache#1421" = Some(((var"##1420").head, (var"##1420").args))
+                                                end
+                                                var"##1422" = (var"##cache#1421").value
+                                                var"##1422" isa (Tuple{Symbol, var2} where var2 <: AbstractArray)
+                                            end && (var"##1422"[1] == :block && (begin
+                                                        var"##1423" = var"##1422"[2]
+                                                        var"##1423" isa AbstractArray
+                                                    end && ((ndims(var"##1423") === 1 && length(var"##1423") >= 0) && (begin
+                                                                var"##1424" = SubArray(var"##1423", (1:length(var"##1423"),))
+                                                                var"##1419"[2] === false
+                                                            end && (var"##1419"[3] === false && (begin
+                                                                        begin
+                                                                            var"##cache#1426" = nothing
+                                                                        end
+                                                                        var"##1425" = var"##1419"[4]
+                                                                        var"##1425" isa Expr
+                                                                    end && (begin
+                                                                            if var"##cache#1426" === nothing
+                                                                                var"##cache#1426" = Some(((var"##1425").head, (var"##1425").args))
+                                                                            end
+                                                                            var"##1427" = (var"##cache#1426").value
+                                                                            var"##1427" isa (Tuple{Symbol, var2} where var2 <: AbstractArray)
+                                                                        end && (var"##1427"[1] == :block && (begin
+                                                                                    var"##1428" = var"##1427"[2]
+                                                                                    var"##1428" isa AbstractArray
+                                                                                end && ((ndims(var"##1428") === 1 && length(var"##1428") >= 0) && begin
+                                                                                        var"##1429" = SubArray(var"##1428", (1:length(var"##1428"),))
+                                                                                        true
+                                                                                    end)))))))))))))))
+                    var"##return#1400" = let try_stmts = var"##1424", finally_stmts = var"##1429"
+                            Expr(:try, Expr(:block, rm_single_block.(try_stmts)...), false, false, Expr(:block, rm_single_block.(finally_stmts)...))
                         end
-                    $(Expr(:symbolicgoto, Symbol("####final#1358#1425")))
+                    $(Expr(:symbolicgoto, Symbol("####final#1401#1468")))
                 end
                 if begin
-                            var"##1421" = (var"##cache#1360").value
-                            var"##1421" isa (Tuple{var1, var2} where {var2 <: AbstractArray, var1})
+                            var"##1430" = (var"##cache#1403").value
+                            var"##1430" isa (Tuple{Symbol, var2} where var2 <: AbstractArray)
+                        end && (var"##1430"[1] == :try && (begin
+                                    var"##1431" = var"##1430"[2]
+                                    var"##1431" isa AbstractArray
+                                end && (length(var"##1431") === 3 && (begin
+                                            begin
+                                                var"##cache#1433" = nothing
+                                            end
+                                            var"##1432" = var"##1431"[1]
+                                            var"##1432" isa Expr
+                                        end && (begin
+                                                if var"##cache#1433" === nothing
+                                                    var"##cache#1433" = Some(((var"##1432").head, (var"##1432").args))
+                                                end
+                                                var"##1434" = (var"##cache#1433").value
+                                                var"##1434" isa (Tuple{Symbol, var2} where var2 <: AbstractArray)
+                                            end && (var"##1434"[1] == :block && (begin
+                                                        var"##1435" = var"##1434"[2]
+                                                        var"##1435" isa AbstractArray
+                                                    end && ((ndims(var"##1435") === 1 && length(var"##1435") >= 0) && (begin
+                                                                var"##1436" = SubArray(var"##1435", (1:length(var"##1435"),))
+                                                                var"##1437" = var"##1431"[2]
+                                                                begin
+                                                                    var"##cache#1439" = nothing
+                                                                end
+                                                                var"##1438" = var"##1431"[3]
+                                                                var"##1438" isa Expr
+                                                            end && (begin
+                                                                    if var"##cache#1439" === nothing
+                                                                        var"##cache#1439" = Some(((var"##1438").head, (var"##1438").args))
+                                                                    end
+                                                                    var"##1440" = (var"##cache#1439").value
+                                                                    var"##1440" isa (Tuple{Symbol, var2} where var2 <: AbstractArray)
+                                                                end && (var"##1440"[1] == :block && (begin
+                                                                            var"##1441" = var"##1440"[2]
+                                                                            var"##1441" isa AbstractArray
+                                                                        end && ((ndims(var"##1441") === 1 && length(var"##1441") >= 0) && begin
+                                                                                var"##1442" = SubArray(var"##1441", (1:length(var"##1441"),))
+                                                                                true
+                                                                            end)))))))))))))
+                    var"##return#1400" = let try_stmts = var"##1436", catch_stmts = var"##1442", catch_var = var"##1437"
+                            Expr(:try, Expr(:block, rm_single_block.(try_stmts)...), catch_var, Expr(:block, rm_single_block.(catch_stmts)...))
+                        end
+                    $(Expr(:symbolicgoto, Symbol("####final#1401#1468")))
+                end
+                if begin
+                            var"##1443" = (var"##cache#1403").value
+                            var"##1443" isa (Tuple{Symbol, var2} where var2 <: AbstractArray)
+                        end && (var"##1443"[1] == :try && (begin
+                                    var"##1444" = var"##1443"[2]
+                                    var"##1444" isa AbstractArray
+                                end && (length(var"##1444") === 4 && (begin
+                                            begin
+                                                var"##cache#1446" = nothing
+                                            end
+                                            var"##1445" = var"##1444"[1]
+                                            var"##1445" isa Expr
+                                        end && (begin
+                                                if var"##cache#1446" === nothing
+                                                    var"##cache#1446" = Some(((var"##1445").head, (var"##1445").args))
+                                                end
+                                                var"##1447" = (var"##cache#1446").value
+                                                var"##1447" isa (Tuple{Symbol, var2} where var2 <: AbstractArray)
+                                            end && (var"##1447"[1] == :block && (begin
+                                                        var"##1448" = var"##1447"[2]
+                                                        var"##1448" isa AbstractArray
+                                                    end && ((ndims(var"##1448") === 1 && length(var"##1448") >= 0) && (begin
+                                                                var"##1449" = SubArray(var"##1448", (1:length(var"##1448"),))
+                                                                var"##1450" = var"##1444"[2]
+                                                                begin
+                                                                    var"##cache#1452" = nothing
+                                                                end
+                                                                var"##1451" = var"##1444"[3]
+                                                                var"##1451" isa Expr
+                                                            end && (begin
+                                                                    if var"##cache#1452" === nothing
+                                                                        var"##cache#1452" = Some(((var"##1451").head, (var"##1451").args))
+                                                                    end
+                                                                    var"##1453" = (var"##cache#1452").value
+                                                                    var"##1453" isa (Tuple{Symbol, var2} where var2 <: AbstractArray)
+                                                                end && (var"##1453"[1] == :block && (begin
+                                                                            var"##1454" = var"##1453"[2]
+                                                                            var"##1454" isa AbstractArray
+                                                                        end && ((ndims(var"##1454") === 1 && length(var"##1454") >= 0) && (begin
+                                                                                    var"##1455" = SubArray(var"##1454", (1:length(var"##1454"),))
+                                                                                    begin
+                                                                                        var"##cache#1457" = nothing
+                                                                                    end
+                                                                                    var"##1456" = var"##1444"[4]
+                                                                                    var"##1456" isa Expr
+                                                                                end && (begin
+                                                                                        if var"##cache#1457" === nothing
+                                                                                            var"##cache#1457" = Some(((var"##1456").head, (var"##1456").args))
+                                                                                        end
+                                                                                        var"##1458" = (var"##cache#1457").value
+                                                                                        var"##1458" isa (Tuple{Symbol, var2} where var2 <: AbstractArray)
+                                                                                    end && (var"##1458"[1] == :block && (begin
+                                                                                                var"##1459" = var"##1458"[2]
+                                                                                                var"##1459" isa AbstractArray
+                                                                                            end && ((ndims(var"##1459") === 1 && length(var"##1459") >= 0) && begin
+                                                                                                    var"##1460" = SubArray(var"##1459", (1:length(var"##1459"),))
+                                                                                                    true
+                                                                                                end))))))))))))))))))
+                    var"##return#1400" = let try_stmts = var"##1449", catch_stmts = var"##1455", catch_var = var"##1450", finally_stmts = var"##1460"
+                            Expr(:try, Expr(:block, rm_single_block.(try_stmts)...), catch_var, Expr(:block, rm_single_block.(catch_stmts)...), Expr(:block, rm_single_block.(finally_stmts)...))
+                        end
+                    $(Expr(:symbolicgoto, Symbol("####final#1401#1468")))
+                end
+                if begin
+                            var"##1461" = (var"##cache#1403").value
+                            var"##1461" isa (Tuple{Symbol, var2} where var2 <: AbstractArray)
+                        end && (var"##1461"[1] == :block && (begin
+                                    var"##1462" = var"##1461"[2]
+                                    var"##1462" isa AbstractArray
+                                end && (length(var"##1462") === 1 && begin
+                                        var"##1463" = var"##1462"[1]
+                                        true
+                                    end)))
+                    var"##return#1400" = let stmt = var"##1463"
+                            stmt
+                        end
+                    $(Expr(:symbolicgoto, Symbol("####final#1401#1468")))
+                end
+                if begin
+                            var"##1464" = (var"##cache#1403").value
+                            var"##1464" isa (Tuple{var1, var2} where {var2 <: AbstractArray, var1})
                         end && (begin
-                                var"##1422" = var"##1421"[1]
-                                var"##1423" = var"##1421"[2]
-                                var"##1423" isa AbstractArray
-                            end && ((ndims(var"##1423") === 1 && length(var"##1423") >= 0) && begin
-                                    var"##1424" = SubArray(var"##1423", (1:length(var"##1423"),))
+                                var"##1465" = var"##1464"[1]
+                                var"##1466" = var"##1464"[2]
+                                var"##1466" isa AbstractArray
+                            end && ((ndims(var"##1466") === 1 && length(var"##1466") >= 0) && begin
+                                    var"##1467" = SubArray(var"##1466", (1:length(var"##1466"),))
                                     true
                                 end))
-                    var"##return#1357" = let args = var"##1424", head = var"##1422"
+                    var"##return#1400" = let args = var"##1467", head = var"##1465"
                             Expr(head, map(rm_single_block, args)...)
                         end
-                    $(Expr(:symbolicgoto, Symbol("####final#1358#1425")))
+                    $(Expr(:symbolicgoto, Symbol("####final#1401#1468")))
                 end
             end
             begin
-                var"##return#1357" = let
+                var"##return#1400" = let
                         ex
                     end
-                $(Expr(:symbolicgoto, Symbol("####final#1358#1425")))
+                $(Expr(:symbolicgoto, Symbol("####final#1401#1468")))
             end
             error("matching non-exhaustive, at #= none:258 =#")
-            $(Expr(:symboliclabel, Symbol("####final#1358#1425")))
-            var"##return#1357"
+            $(Expr(:symboliclabel, Symbol("####final#1401#1468")))
+            var"##return#1400"
         end
     end
     #= none:286 =# Core.@doc "    rm_annotations(x)\n\nRemove type annotation of given expression.\n" function rm_annotations(x)
