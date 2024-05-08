@@ -2,30 +2,30 @@
     #= none:1 =# Core.@doc "    guess_module(m, ex)\n\nGuess the module of given expression `ex` (of a module)\nin module `m`. If `ex` is not a module, or cannot be\ndetermined return `nothing`.\n" function guess_module(m::Module, ex)
             begin
                 begin
-                    var"##cache#475" = nothing
+                    var"##cache#472" = nothing
                 end
-                var"##474" = ex
-                if var"##474" isa Expr
+                var"##471" = ex
+                if var"##471" isa Expr
                     if begin
-                                if var"##cache#475" === nothing
-                                    var"##cache#475" = Some(((var"##474").head, (var"##474").args))
+                                if var"##cache#472" === nothing
+                                    var"##cache#472" = Some(((var"##471").head, (var"##471").args))
                                 end
-                                var"##476" = (var"##cache#475").value
-                                var"##476" isa (Tuple{Symbol, var2} where var2 <: AbstractArray)
-                            end && (var"##476"[1] == :. && (begin
-                                        var"##477" = var"##476"[2]
-                                        var"##477" isa AbstractArray
-                                    end && (length(var"##477") === 2 && (begin
-                                                var"##478" = var"##477"[1]
-                                                var"##479" = var"##477"[2]
-                                                var"##479" isa QuoteNode
+                                var"##473" = (var"##cache#472").value
+                                var"##473" isa (Tuple{Symbol, var2} where var2 <: AbstractArray)
+                            end && (var"##473"[1] == :. && (begin
+                                        var"##474" = var"##473"[2]
+                                        var"##474" isa AbstractArray
+                                    end && (length(var"##474") === 2 && (begin
+                                                var"##475" = var"##474"[1]
+                                                var"##476" = var"##474"[2]
+                                                var"##476" isa QuoteNode
                                             end && begin
-                                                var"##480" = (var"##479").value
+                                                var"##477" = (var"##476").value
                                                 true
                                             end))))
-                        name = var"##478"
-                        sub = var"##480"
-                        var"##return#472" = begin
+                        name = var"##475"
+                        sub = var"##477"
+                        var"##return#469" = begin
                                 mod = guess_module(m, name)
                                 if mod isa Module
                                     return guess_module(mod, sub)
@@ -33,62 +33,62 @@
                                     return ex
                                 end
                             end
-                        $(Expr(:symbolicgoto, Symbol("####final#473#481")))
+                        $(Expr(:symbolicgoto, Symbol("####final#470#478")))
                     end
                 end
-                if var"##474" isa Symbol
+                if var"##471" isa Symbol
                     if isdefined(m, ex)
-                        var"##return#472" = begin
+                        var"##return#469" = begin
                                 maybe_m = getproperty(m, ex)
                                 maybe_m isa Module && return maybe_m
                                 return ex
                             end
-                        $(Expr(:symbolicgoto, Symbol("####final#473#481")))
+                        $(Expr(:symbolicgoto, Symbol("####final#470#478")))
                     end
                 end
-                if var"##474" isa Module
+                if var"##471" isa Module
                     begin
-                        var"##return#472" = begin
+                        var"##return#469" = begin
                                 return ex
                             end
-                        $(Expr(:symbolicgoto, Symbol("####final#473#481")))
+                        $(Expr(:symbolicgoto, Symbol("####final#470#478")))
                     end
                 end
                 begin
-                    var"##return#472" = begin
+                    var"##return#469" = begin
                             return ex
                         end
-                    $(Expr(:symbolicgoto, Symbol("####final#473#481")))
+                    $(Expr(:symbolicgoto, Symbol("####final#470#478")))
                 end
                 error("matching non-exhaustive, at #= none:9 =#")
-                $(Expr(:symboliclabel, Symbol("####final#473#481")))
-                var"##return#472"
+                $(Expr(:symboliclabel, Symbol("####final#470#478")))
+                var"##return#469"
             end
         end
     #= none:28 =# Core.@doc "    guess_type(m::Module, ex)\n\nGuess the actual type of expression `ex` (of a type) in module `m`.\nReturns the type if it can be determined, otherwise returns the\nexpression. This function is used in [`compare_expr`](@ref).\n" function guess_type(m::Module, ex)
             begin
                 begin
-                    var"##cache#485" = nothing
+                    var"##cache#482" = nothing
                 end
-                var"##484" = ex
-                if var"##484" isa Expr
+                var"##481" = ex
+                if var"##481" isa Expr
                     if begin
-                                if var"##cache#485" === nothing
-                                    var"##cache#485" = Some(((var"##484").head, (var"##484").args))
+                                if var"##cache#482" === nothing
+                                    var"##cache#482" = Some(((var"##481").head, (var"##481").args))
                                 end
-                                var"##486" = (var"##cache#485").value
-                                var"##486" isa (Tuple{Symbol, var2} where var2 <: AbstractArray)
-                            end && (var"##486"[1] == :curly && (begin
-                                        var"##487" = var"##486"[2]
-                                        var"##487" isa AbstractArray
-                                    end && ((ndims(var"##487") === 1 && length(var"##487") >= 1) && begin
-                                            var"##488" = var"##487"[1]
-                                            var"##489" = SubArray(var"##487", (2:length(var"##487"),))
+                                var"##483" = (var"##cache#482").value
+                                var"##483" isa (Tuple{Symbol, var2} where var2 <: AbstractArray)
+                            end && (var"##483"[1] == :curly && (begin
+                                        var"##484" = var"##483"[2]
+                                        var"##484" isa AbstractArray
+                                    end && ((ndims(var"##484") === 1 && length(var"##484") >= 1) && begin
+                                            var"##485" = var"##484"[1]
+                                            var"##486" = SubArray(var"##484", (2:length(var"##484"),))
                                             true
                                         end)))
-                        typevars = var"##489"
-                        name = var"##488"
-                        var"##return#482" = begin
+                        typevars = var"##486"
+                        name = var"##485"
+                        var"##return#479" = begin
                                 type = guess_type(m, name)
                                 typevars = map(typevars) do typevar
                                         guess_type(m, typevar)
@@ -104,71 +104,71 @@
                                     return ex
                                 end
                             end
-                        $(Expr(:symbolicgoto, Symbol("####final#483#490")))
+                        $(Expr(:symbolicgoto, Symbol("####final#480#487")))
                     end
                 end
-                if var"##484" isa Symbol
+                if var"##481" isa Symbol
                     begin
-                        var"##return#482" = begin
+                        var"##return#479" = begin
                                 isdefined(m, ex) || return ex
                                 return getproperty(m, ex)
                             end
-                        $(Expr(:symbolicgoto, Symbol("####final#483#490")))
+                        $(Expr(:symbolicgoto, Symbol("####final#480#487")))
                     end
                 end
-                if var"##484" isa Type
+                if var"##481" isa Type
                     begin
-                        var"##return#482" = begin
+                        var"##return#479" = begin
                                 return ex
                             end
-                        $(Expr(:symbolicgoto, Symbol("####final#483#490")))
+                        $(Expr(:symbolicgoto, Symbol("####final#480#487")))
                     end
                 end
-                if var"##484" isa QuoteNode
+                if var"##481" isa QuoteNode
                     begin
-                        var"##return#482" = begin
+                        var"##return#479" = begin
                                 return ex
                             end
-                        $(Expr(:symbolicgoto, Symbol("####final#483#490")))
+                        $(Expr(:symbolicgoto, Symbol("####final#480#487")))
                     end
                 end
                 begin
-                    var"##return#482" = begin
+                    var"##return#479" = begin
                             return ex
                         end
-                    $(Expr(:symbolicgoto, Symbol("####final#483#490")))
+                    $(Expr(:symbolicgoto, Symbol("####final#480#487")))
                 end
                 error("matching non-exhaustive, at #= none:36 =#")
-                $(Expr(:symboliclabel, Symbol("####final#483#490")))
-                var"##return#482"
+                $(Expr(:symboliclabel, Symbol("####final#480#487")))
+                var"##return#479"
             end
         end
     function guess_value(m::Module, ex)
         let
             begin
-                var"##cache#494" = nothing
+                var"##cache#491" = nothing
             end
-            var"##return#491" = nothing
-            var"##493" = ex
-            if var"##493" isa Expr
+            var"##return#488" = nothing
+            var"##490" = ex
+            if var"##490" isa Expr
                 if begin
-                            if var"##cache#494" === nothing
-                                var"##cache#494" = Some(((var"##493").head, (var"##493").args))
+                            if var"##cache#491" === nothing
+                                var"##cache#491" = Some(((var"##490").head, (var"##490").args))
                             end
-                            var"##495" = (var"##cache#494").value
-                            var"##495" isa (Tuple{Symbol, var2} where var2 <: AbstractArray)
-                        end && (var"##495"[1] == :. && (begin
-                                    var"##496" = var"##495"[2]
-                                    var"##496" isa AbstractArray
-                                end && (length(var"##496") === 2 && (begin
-                                            var"##497" = var"##496"[1]
-                                            var"##498" = var"##496"[2]
-                                            var"##498" isa QuoteNode
+                            var"##492" = (var"##cache#491").value
+                            var"##492" isa (Tuple{Symbol, var2} where var2 <: AbstractArray)
+                        end && (var"##492"[1] == :. && (begin
+                                    var"##493" = var"##492"[2]
+                                    var"##493" isa AbstractArray
+                                end && (length(var"##493") === 2 && (begin
+                                            var"##494" = var"##493"[1]
+                                            var"##495" = var"##493"[2]
+                                            var"##495" isa QuoteNode
                                         end && begin
-                                            var"##499" = (var"##498").value
+                                            var"##496" = (var"##495").value
                                             true
                                         end))))
-                    var"##return#491" = let name = var"##497", sub = var"##499"
+                    var"##return#488" = let name = var"##494", sub = var"##496"
                             mod = guess_module(m, name)
                             if mod isa Module
                                 return guess_value(mod, sub)
@@ -176,29 +176,29 @@
                                 return ex
                             end
                         end
-                    $(Expr(:symbolicgoto, Symbol("####final#492#500")))
+                    $(Expr(:symbolicgoto, Symbol("####final#489#497")))
                 end
             end
-            if var"##493" isa Symbol
+            if var"##490" isa Symbol
                 begin
-                    var"##return#491" = let
+                    var"##return#488" = let
                             if isdefined(m, ex)
                                 getfield(m, ex)
                             else
                                 ex
                             end
                         end
-                    $(Expr(:symbolicgoto, Symbol("####final#492#500")))
+                    $(Expr(:symbolicgoto, Symbol("####final#489#497")))
                 end
             end
             begin
-                var"##return#491" = let
+                var"##return#488" = let
                         ex
                     end
-                $(Expr(:symbolicgoto, Symbol("####final#492#500")))
+                $(Expr(:symbolicgoto, Symbol("####final#489#497")))
             end
             error("matching non-exhaustive, at #= none:62 =#")
-            $(Expr(:symboliclabel, Symbol("####final#492#500")))
-            var"##return#491"
+            $(Expr(:symboliclabel, Symbol("####final#489#497")))
+            var"##return#488"
         end
     end
