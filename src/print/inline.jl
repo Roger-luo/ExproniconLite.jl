@@ -342,6 +342,14 @@
                         $(Expr(:symbolicgoto, Symbol("####final#802#1107")))
                     end
                 end
+                if var"##803" isa Number
+                    begin
+                        var"##return#801" = begin
+                                printstyled(ex, color = c.number)
+                            end
+                        $(Expr(:symbolicgoto, Symbol("####final#802#1107")))
+                    end
+                end
                 if var"##803" isa Nothing
                     begin
                         var"##return#801" = begin
@@ -354,14 +362,6 @@
                     begin
                         var"##return#801" = begin
                                 symbol(ex)
-                            end
-                        $(Expr(:symbolicgoto, Symbol("####final#802#1107")))
-                    end
-                end
-                if var"##803" isa Number
-                    begin
-                        var"##return#801" = begin
-                                printstyled(ex, color = c.number)
                             end
                         $(Expr(:symbolicgoto, Symbol("####final#802#1107")))
                     end
@@ -2039,18 +2039,18 @@
                         $(Expr(:symbolicgoto, Symbol("####final#802#1107")))
                     end
                 end
-                if var"##803" isa Char
-                    begin
-                        var"##return#801" = begin
-                                printstyled(repr(ex), color = c.string)
-                            end
-                        $(Expr(:symbolicgoto, Symbol("####final#802#1107")))
-                    end
-                end
                 if var"##803" isa String
                     begin
                         var"##return#801" = begin
                                 string(ex)
+                            end
+                        $(Expr(:symbolicgoto, Symbol("####final#802#1107")))
+                    end
+                end
+                if var"##803" isa Char
+                    begin
+                        var"##return#801" = begin
+                                printstyled(repr(ex), color = c.string)
                             end
                         $(Expr(:symbolicgoto, Symbol("####final#802#1107")))
                     end

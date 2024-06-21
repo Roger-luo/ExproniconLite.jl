@@ -43,7 +43,7 @@
                 if fn.rettype !== nothing
                     call = Expr(:(::), call, fn.rettype)
                 end
-                if fn.whereparams !== nothing
+                if fn.whereparams !== nothing && !(isempty(fn.whereparams))
                     call = Expr(:where, call, fn.whereparams...)
                 end
                 fn_def = Expr(fn.head, call, maybe_wrap_block(codegen_ast(fn.body)))
@@ -64,7 +64,7 @@
                 if fn.rettype !== nothing
                     call = Expr(:(::), call, fn.rettype)
                 end
-                if fn.whereparams !== nothing
+                if fn.whereparams !== nothing && !(isempty(fn.whereparams))
                     call = Expr(:where, call, fn.whereparams...)
                 end
                 fn_def = Expr(fn.head, call, maybe_wrap_block(codegen_ast(fn.body)))
