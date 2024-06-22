@@ -317,17 +317,15 @@
                     $(Expr(:symbolicgoto, Symbol("####final#316#366")))
                 end
             end
-            if var"##317" isa Tuple{TypeVar, TypeVar}
+            if var"##317" isa Tuple{Variable, Variable}
                 if begin
                             var"##358" = var"##317"[1]
-                            var"##358" isa TypeVar
+                            var"##358" isa Variable
                         end && begin
                             var"##359" = var"##317"[2]
-                            var"##359" isa TypeVar
+                            var"##359" isa Variable
                         end
                     var"##return#315" = begin
-                            compare_expr(m, lhs.lb, rhs.lb) || return false
-                            compare_expr(m, lhs.ub, rhs.ub) || return false
                             return true
                         end
                     $(Expr(:symbolicgoto, Symbol("####final#316#366")))
@@ -361,15 +359,17 @@
                     $(Expr(:symbolicgoto, Symbol("####final#316#366")))
                 end
             end
-            if var"##317" isa Tuple{Variable, Variable}
+            if var"##317" isa Tuple{TypeVar, TypeVar}
                 if begin
                             var"##364" = var"##317"[1]
-                            var"##364" isa Variable
+                            var"##364" isa TypeVar
                         end && begin
                             var"##365" = var"##317"[2]
-                            var"##365" isa Variable
+                            var"##365" isa TypeVar
                         end
                     var"##return#315" = begin
+                            compare_expr(m, lhs.lb, rhs.lb) || return false
+                            compare_expr(m, lhs.ub, rhs.ub) || return false
                             return true
                         end
                     $(Expr(:symbolicgoto, Symbol("####final#316#366")))
