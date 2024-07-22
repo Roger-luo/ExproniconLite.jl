@@ -20,7 +20,7 @@
             whereparams::Maybe{Vector{Any}}
             body::Any
             line::Maybe{LineNumberNode}
-            doc::Maybe{String}
+            doc::Maybe{Union{String, Expr}}
         end
     function JLFunction(; head = :function, name = nothing, args = [], kwargs = nothing, rettype = nothing, generated = false, whereparams = nothing, body = Expr(:block), line = nothing, doc = nothing)
         head in [:function, :(=), :->] || throw(ArgumentError("function head can only take `:function`, `:(=)` or `:(->)`"))
@@ -42,7 +42,7 @@
             name::Symbol
             type::Any
             isconst::Bool
-            doc::Maybe{String}
+            doc::Maybe{Union{String, Expr}}
             line::Maybe{LineNumberNode}
         end
     function JLField(; name, isconst = false, type = Any, doc = nothing, line = nothing)
@@ -52,7 +52,7 @@
             name::Symbol
             type::Any
             isconst::Bool
-            doc::Maybe{String}
+            doc::Maybe{Union{String, Expr}}
             line::Maybe{LineNumberNode}
             default::Any
         end
@@ -67,7 +67,7 @@
             fields::Vector{JLField}
             constructors::Vector{JLFunction}
             line::Maybe{LineNumberNode}
-            doc::Maybe{String}
+            doc::Maybe{Union{String, Expr}}
             misc::Any
         end
     function JLStruct(; name::Symbol, ismutable::Bool = false, typevars = [], supertype = nothing, fields = JLField[], constructors = JLFunction[], line = nothing, doc = nothing, misc = nothing)
@@ -82,7 +82,7 @@
             fields::Vector{JLKwField}
             constructors::Vector{JLFunction}
             line::Maybe{LineNumberNode}
-            doc::Maybe{String}
+            doc::Maybe{Union{String, Expr}}
             misc::Any
         end
     function JLKwStruct(; name::Symbol, typealias::Maybe{String} = nothing, ismutable::Bool = false, typevars = [], supertype = nothing, fields = JLKwField[], constructors = JLFunction[], line = nothing, doc = nothing, misc = nothing)

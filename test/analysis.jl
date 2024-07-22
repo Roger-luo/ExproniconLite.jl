@@ -158,23 +158,30 @@
             #= none:169 =# @test jlf.whereparams == Any[:T]
             #= none:170 =# @test jlf.args == Any[:(x::T), :y]
             #= none:171 =# @test jlf.rettype == :T
+            ex = quote
+                    #= none:175 =# Core.@doc "foo $(bar)" f(x) = begin
+                                x + 1
+                            end
+                end
+            jlf = JLFunction(ex)
+            #= none:180 =# @test jlf.doc == Expr(:string, "foo ", :bar)
         end
-    #= none:174 =# @testset "JLStruct(ex)" begin
-            #= none:175 =# @test (JLField(; name = :x)).name === :x
-            #= none:176 =# @test (JLField(; name = :x)).type === Any
-            #= none:177 =# @test (JLStruct(; name = :Foo)).name === :Foo
+    #= none:183 =# @testset "JLStruct(ex)" begin
+            #= none:184 =# @test (JLField(; name = :x)).name === :x
+            #= none:185 =# @test (JLField(; name = :x)).type === Any
+            #= none:186 =# @test (JLStruct(; name = :Foo)).name === :Foo
             ex = :(struct Foo
                       x::Int
                   end)
             jlstruct = JLStruct(ex)
             println(jlstruct)
-            #= none:185 =# @test jlstruct.name === :Foo
-            #= none:186 =# @test jlstruct.ismutable === false
-            #= none:187 =# @test length(jlstruct.fields) == 1
-            #= none:188 =# @test (jlstruct.fields[1]).name === :x
-            #= none:189 =# @test (jlstruct.fields[1]).type === :Int
-            #= none:190 =# @test (jlstruct.fields[1]).line isa LineNumberNode
-            #= none:191 =# @test codegen_ast(jlstruct) == ex
+            #= none:194 =# @test jlstruct.name === :Foo
+            #= none:195 =# @test jlstruct.ismutable === false
+            #= none:196 =# @test length(jlstruct.fields) == 1
+            #= none:197 =# @test (jlstruct.fields[1]).name === :x
+            #= none:198 =# @test (jlstruct.fields[1]).type === :Int
+            #= none:199 =# @test (jlstruct.fields[1]).line isa LineNumberNode
+            #= none:200 =# @test codegen_ast(jlstruct) == ex
             ex = :(mutable struct Foo{T, S <: Real} <: AbstractArray
                       a::Float64
                       function foo(x, y, z)
@@ -183,14 +190,14 @@
                   end)
             jlstruct = JLStruct(ex)
             println(jlstruct)
-            #= none:203 =# @test jlstruct.ismutable == true
-            #= none:204 =# @test jlstruct.name === :Foo
-            #= none:205 =# @test jlstruct.typevars == Any[:T, :(S <: Real)]
-            #= none:206 =# @test jlstruct.supertype == :AbstractArray
-            #= none:207 =# @test jlstruct.misc[1] == (ex.args[3]).args[end]
-            #= none:208 =# @test rm_lineinfo(codegen_ast(jlstruct)) == rm_lineinfo(ex)
+            #= none:212 =# @test jlstruct.ismutable == true
+            #= none:213 =# @test jlstruct.name === :Foo
+            #= none:214 =# @test jlstruct.typevars == Any[:T, :(S <: Real)]
+            #= none:215 =# @test jlstruct.supertype == :AbstractArray
+            #= none:216 =# @test jlstruct.misc[1] == (ex.args[3]).args[end]
+            #= none:217 =# @test rm_lineinfo(codegen_ast(jlstruct)) == rm_lineinfo(ex)
             ex = quote
-                    #= none:211 =# Core.@doc "Foo\n" struct Foo
+                    #= none:220 =# Core.@doc "Foo\n" struct Foo
                             "xyz"
                             x::Int
                             y
@@ -202,44 +209,44 @@
                 end
             ex = ex.args[2]
             jlstruct = JLStruct(ex)
-            #= none:225 =# @test jlstruct.doc == "Foo\n"
-            #= none:226 =# @test (jlstruct.fields[1]).doc == "xyz"
-            #= none:227 =# @test (jlstruct.fields[2]).type === Any
-            #= none:228 =# @test (jlstruct.constructors[1]).name === :Foo
-            #= none:229 =# @test (jlstruct.constructors[1]).args[1] === :x
-            #= none:230 =# @test jlstruct.misc[1] == :(1 + 1)
+            #= none:234 =# @test jlstruct.doc == "Foo\n"
+            #= none:235 =# @test (jlstruct.fields[1]).doc == "xyz"
+            #= none:236 =# @test (jlstruct.fields[2]).type === Any
+            #= none:237 =# @test (jlstruct.constructors[1]).name === :Foo
+            #= none:238 =# @test (jlstruct.constructors[1]).args[1] === :x
+            #= none:239 =# @test jlstruct.misc[1] == :(1 + 1)
             ast = codegen_ast(jlstruct)
-            #= none:232 =# @test ast.args[1] == GlobalRef(Core, Symbol("@doc"))
-            #= none:233 =# @test ast.args[3] == "Foo\n"
-            #= none:234 =# @test (ast.args[4]).head === :struct
-            #= none:235 =# @test is_function(((ast.args[4]).args[end]).args[end - 1])
+            #= none:241 =# @test ast.args[1] == GlobalRef(Core, Symbol("@doc"))
+            #= none:242 =# @test ast.args[3] == "Foo\n"
+            #= none:243 =# @test (ast.args[4]).head === :struct
+            #= none:244 =# @test is_function(((ast.args[4]).args[end]).args[end - 1])
             println(jlstruct)
-            #= none:238 =# @test_throws SyntaxError split_struct_name(:(function Foo end))
+            #= none:247 =# @test_throws SyntaxError split_struct_name(:(function Foo end))
         end
-    #= none:241 =# @testset "JLKwStruct" begin
-            def = #= none:242 =# @expr(JLKwStruct, struct Trait
+    #= none:250 =# @testset "JLKwStruct" begin
+            def = #= none:251 =# @expr(JLKwStruct, struct Trait
                     end)
-            #= none:243 =# @test_expr codegen_ast_kwfn(def) == quote
+            #= none:252 =# @test_expr codegen_ast_kwfn(def) == quote
                         nothing
                     end
-            #= none:247 =# @test (JLKwField(; name = :x)).name === :x
-            #= none:248 =# @test (JLKwField(; name = :x)).type === Any
-            #= none:249 =# @test (JLKwStruct(; name = :Foo)).name === :Foo
-            def = #= none:251 =# @expr(JLKwStruct, struct ConvertOption
+            #= none:256 =# @test (JLKwField(; name = :x)).name === :x
+            #= none:257 =# @test (JLKwField(; name = :x)).type === Any
+            #= none:258 =# @test (JLKwStruct(; name = :Foo)).name === :Foo
+            def = #= none:260 =# @expr(JLKwStruct, struct ConvertOption
                         include_defaults::Bool = false
                         exclude_nothing::Bool = false
                     end)
-            #= none:256 =# @test_expr codegen_ast_kwfn(def, :create) == quote
+            #= none:265 =# @test_expr codegen_ast_kwfn(def, :create) == quote
                         function create(::Type{S}; include_defaults = false, exclude_nothing = false) where S <: ConvertOption
                             ConvertOption(include_defaults, exclude_nothing)
                         end
                         nothing
                     end
-            def = #= none:263 =# @expr(JLKwStruct, struct Foo1{N, T}
+            def = #= none:272 =# @expr(JLKwStruct, struct Foo1{N, T}
                         x::T = 1
                     end)
             println(def)
-            #= none:268 =# @test_expr codegen_ast_kwfn(def, :create) == quote
+            #= none:277 =# @test_expr codegen_ast_kwfn(def, :create) == quote
                         function create(::Type{S}; x = 1) where {N, T, S <: Foo1{N, T}}
                             Foo1{N, T}(x)
                         end
@@ -247,7 +254,7 @@
                             Foo1{N}(x)
                         end
                     end
-            #= none:277 =# @test_expr codegen_ast(def) == quote
+            #= none:286 =# @test_expr codegen_ast(def) == quote
                         struct Foo1{N, T}
                             x::T
                         end
@@ -259,11 +266,11 @@
                         end
                         nothing
                     end
-            def = #= none:290 =# @expr(JLKwStruct, struct Foo2 <: AbstractFoo
+            def = #= none:299 =# @expr(JLKwStruct, struct Foo2 <: AbstractFoo
                         x = 1
                         y::Int
                     end)
-            #= none:295 =# @test_expr codegen_ast(def) == quote
+            #= none:304 =# @test_expr codegen_ast(def) == quote
                         struct Foo2 <: AbstractFoo
                             x
                             y::Int
@@ -274,7 +281,7 @@
                         nothing
                     end
             ex = quote
-                    #= none:307 =# Core.@doc "Foo\n" mutable struct Foo
+                    #= none:316 =# Core.@doc "Foo\n" mutable struct Foo
                             "abc"
                             a::Int = 1
                             b
@@ -286,19 +293,19 @@
                 end
             ex = ex.args[2]
             jlstruct = JLKwStruct(ex)
-            #= none:321 =# @test jlstruct.doc == "Foo\n"
-            #= none:322 =# @test (jlstruct.fields[1]).doc == "abc"
-            #= none:323 =# @test (jlstruct.fields[2]).name === :b
-            #= none:324 =# @test (jlstruct.constructors[1]).name === :Foo
-            #= none:325 =# @test jlstruct.misc[1] == :(1 + 1)
+            #= none:330 =# @test jlstruct.doc == "Foo\n"
+            #= none:331 =# @test (jlstruct.fields[1]).doc == "abc"
+            #= none:332 =# @test (jlstruct.fields[2]).name === :b
+            #= none:333 =# @test (jlstruct.constructors[1]).name === :Foo
+            #= none:334 =# @test jlstruct.misc[1] == :(1 + 1)
             println(jlstruct)
-            def = #= none:328 =# @expr(JLKwStruct, struct Foo3
+            def = #= none:337 =# @expr(JLKwStruct, struct Foo3
                         a::Int = 1
                         Foo3(; a = 1) = begin
                                 new(a)
                             end
                     end)
-            #= none:333 =# @test_expr codegen_ast(def) == quote
+            #= none:342 =# @test_expr codegen_ast(def) == quote
                         struct Foo3
                             a::Int
                             Foo3(; a = 1) = begin
@@ -307,28 +314,28 @@
                         end
                         nothing
                     end
-            def = #= none:341 =# @expr(JLKwStruct, struct Potts{Q}
+            def = #= none:350 =# @expr(JLKwStruct, struct Potts{Q}
                         L::Int
                         beta::Float64 = 1.0
                         neighbors::Neighbors = square_lattice_neighbors(L)
                     end)
-            #= none:347 =# @test_expr codegen_ast_kwfn(def, :create) == quote
+            #= none:356 =# @test_expr codegen_ast_kwfn(def, :create) == quote
                         function create(::Type{S}; L, beta = 1.0, neighbors = square_lattice_neighbors(L)) where {Q, S <: Potts{Q}}
                             Potts{Q}(L, beta, neighbors)
                         end
                         nothing
                     end
-            def = #= none:354 =# @expr(JLKwStruct, struct Flatten
+            def = #= none:363 =# @expr(JLKwStruct, struct Flatten
                         x = 1
                         begin
                             y = 1
                         end
                     end)
-            #= none:361 =# @test (def.fields[1]).name === :x
-            #= none:362 =# @test (def.fields[2]).name === :y
+            #= none:370 =# @test (def.fields[1]).name === :x
+            #= none:371 =# @test (def.fields[2]).name === :y
         end
-    #= none:365 =# @test sprint(showerror, AnalysisError("a", "b")) == "expect a expression, got b."
-    #= none:367 =# @testset "JLIfElse" begin
+    #= none:374 =# @test sprint(showerror, AnalysisError("a", "b")) == "expect a expression, got b."
+    #= none:376 =# @testset "JLIfElse" begin
             jl = JLIfElse()
             jl[:(foo(x))] = :(x = 1 + 1)
             jl[:(goo(x))] = :(y = 1 + 2)
@@ -336,51 +343,51 @@
             println(jl)
             ex = codegen_ast(jl)
             dst = JLIfElse(ex)
-            #= none:376 =# @test_expr dst[:(foo(x))] == :(x = 1 + 1)
-            #= none:377 =# @test_expr dst[:(goo(x))] == :(y = 1 + 2)
-            #= none:378 =# @test_expr dst.otherwise == :(error("abc"))
+            #= none:385 =# @test_expr dst[:(foo(x))] == :(x = 1 + 1)
+            #= none:386 =# @test_expr dst[:(goo(x))] == :(y = 1 + 2)
+            #= none:387 =# @test_expr dst.otherwise == :(error("abc"))
         end
-    #= none:381 =# @testset "JLFor" begin
+    #= none:390 =# @testset "JLFor" begin
             ex = :(for i = 1:10, j = 1:20, k = 1:10
                       1 + 1
                   end)
             jl = JLFor(ex)
             println(jl)
-            #= none:388 =# @test codegen_ast(jl) == ex
+            #= none:397 =# @test codegen_ast(jl) == ex
             jl = JLFor(; vars = [:x], iterators = [:itr], kernel = :(x + 1))
             ex = codegen_ast(jl)
-            #= none:392 =# @test ex.head === :for
-            #= none:393 =# @test (ex.args[1]).args[1] == :(x = itr)
-            #= none:394 =# @test ex.args[2] == :(x + 1)
+            #= none:401 =# @test ex.head === :for
+            #= none:402 =# @test (ex.args[1]).args[1] == :(x = itr)
+            #= none:403 =# @test ex.args[2] == :(x + 1)
             ex = :(for i = 1:10
                       1 + 1
                   end)
             jl = JLFor(ex)
             println(jl)
-            #= none:401 =# @test jl.vars == [:i]
-            #= none:402 =# @test jl.iterators == [:(1:10)]
+            #= none:410 =# @test jl.vars == [:i]
+            #= none:411 =# @test jl.iterators == [:(1:10)]
         end
-    #= none:405 =# @testset "is_matrix_expr" begin
-            ex = #= none:406 =# @expr([1 2; 3 4])
-            #= none:407 =# @test is_matrix_expr(ex) == true
-            ex = #= none:408 =# @expr([1 2 3 4])
-            #= none:409 =# @test is_matrix_expr(ex) == true
-            ex = #= none:411 =# @expr(Float64[1 2; 3 4])
-            #= none:412 =# @test is_matrix_expr(ex) == true
-            ex = #= none:413 =# @expr([1 2 3 4])
-            #= none:414 =# @test is_matrix_expr(ex) == true
-            for ex = [#= none:418 =# @expr([1, 2, 3, 4]), #= none:419 =# @expr([1, 2, 3, 4]), #= none:420 =# @expr(Float64[1, 2, 3, 4])]
-                #= none:422 =# @test is_matrix_expr(ex) == false
+    #= none:414 =# @testset "is_matrix_expr" begin
+            ex = #= none:415 =# @expr([1 2; 3 4])
+            #= none:416 =# @test is_matrix_expr(ex) == true
+            ex = #= none:417 =# @expr([1 2 3 4])
+            #= none:418 =# @test is_matrix_expr(ex) == true
+            ex = #= none:420 =# @expr(Float64[1 2; 3 4])
+            #= none:421 =# @test is_matrix_expr(ex) == true
+            ex = #= none:422 =# @expr([1 2 3 4])
+            #= none:423 =# @test is_matrix_expr(ex) == true
+            for ex = [#= none:427 =# @expr([1, 2, 3, 4]), #= none:428 =# @expr([1, 2, 3, 4]), #= none:429 =# @expr(Float64[1, 2, 3, 4])]
+                #= none:431 =# @test is_matrix_expr(ex) == false
             end
-            for ex = [#= none:426 =# @expr([1 2;;; 3 4;;; 4 5]), #= none:427 =# @expr(Float64[1 2;;; 3 4;;; 4 5])]
-                #= none:429 =# @static if VERSION > v"1.7-"
-                        #= none:430 =# @test is_matrix_expr(ex) == false
+            for ex = [#= none:435 =# @expr([1 2;;; 3 4;;; 4 5]), #= none:436 =# @expr(Float64[1 2;;; 3 4;;; 4 5])]
+                #= none:438 =# @static if VERSION > v"1.7-"
+                        #= none:439 =# @test is_matrix_expr(ex) == false
                     else
-                        #= none:432 =# @test is_matrix_expr(ex) == true
+                        #= none:441 =# @test is_matrix_expr(ex) == true
                     end
             end
         end
-    #= none:437 =# @testset "assert_equal_expr" begin
+    #= none:446 =# @testset "assert_equal_expr" begin
             lhs = quote
                     function foo(x)
                         x + 1
@@ -392,40 +399,40 @@
                     end
                     nothing
                 end
-            #= none:451 =# @test_throws ExprNotEqual assert_equal_expr(Main, lhs, rhs)
-            #= none:453 =# @test sprint(showerror, ExprNotEqual(Int64, :Int)) == "expression not equal due to:\n  lhs: Int64::DataType\n  rhs: :Int::Symbol\n"
-            #= none:459 =# @test sprint(showerror, ExprNotEqual(empty_line, :Int)) == "expression not equal due to:\n  lhs: <empty line>\n  rhs: :Int::Symbol\n"
+            #= none:460 =# @test_throws ExprNotEqual assert_equal_expr(Main, lhs, rhs)
+            #= none:462 =# @test sprint(showerror, ExprNotEqual(Int64, :Int)) == "expression not equal due to:\n  lhs: Int64::DataType\n  rhs: :Int::Symbol\n"
+            #= none:468 =# @test sprint(showerror, ExprNotEqual(empty_line, :Int)) == "expression not equal due to:\n  lhs: <empty line>\n  rhs: :Int::Symbol\n"
         end
-    #= none:466 =# @testset "compare_expr" begin
-            #= none:467 =# @test compare_expr(:(Vector{Int}), Vector{Int})
-            #= none:468 =# @test compare_expr(:(Vector{Int}), :(Vector{$(nameof(Int))}))
-            #= none:469 =# @test compare_expr(:(NotDefined{Int}), :(NotDefined{$(nameof(Int))}))
-            #= none:470 =# @test compare_expr(:(NotDefined{Int, Float64}), :(NotDefined{$(nameof(Int)), Float64}))
-            #= none:471 =# @test compare_expr(LineNumberNode(1, :foo), LineNumberNode(1, :foo))
+    #= none:475 =# @testset "compare_expr" begin
+            #= none:476 =# @test compare_expr(:(Vector{Int}), Vector{Int})
+            #= none:477 =# @test compare_expr(:(Vector{Int}), :(Vector{$(nameof(Int))}))
+            #= none:478 =# @test compare_expr(:(NotDefined{Int}), :(NotDefined{$(nameof(Int))}))
+            #= none:479 =# @test compare_expr(:(NotDefined{Int, Float64}), :(NotDefined{$(nameof(Int)), Float64}))
+            #= none:480 =# @test compare_expr(LineNumberNode(1, :foo), LineNumberNode(1, :foo))
         end
-    #= none:474 =# @testset "guess_module" begin
-            #= none:475 =# @test guess_module(Main, Base) === Base
-            #= none:476 =# @test guess_module(Main, :Base) === Base
-            #= none:477 =# @test guess_module(Main, :(1 + 1)) == :(1 + 1)
+    #= none:483 =# @testset "guess_module" begin
+            #= none:484 =# @test guess_module(Main, Base) === Base
+            #= none:485 =# @test guess_module(Main, :Base) === Base
+            #= none:486 =# @test guess_module(Main, :(1 + 1)) == :(1 + 1)
         end
-    #= none:480 =# @testset "guess_type" begin
-            #= none:481 =# @test guess_type(Main, Int) === Int
-            #= none:482 =# @test guess_type(Main, :Int) === Int
-            #= none:483 =# @test guess_type(Main, :Foo) === :Foo
-            #= none:484 =# @test guess_type(Main, :(Array{Int, 1})) === Array{Int, 1}
-            #= none:486 =# @test guess_type(Main, :(Array{<:Real, 1})) == :(Array{<:Real, 1})
+    #= none:489 =# @testset "guess_type" begin
+            #= none:490 =# @test guess_type(Main, Int) === Int
+            #= none:491 =# @test guess_type(Main, :Int) === Int
+            #= none:492 =# @test guess_type(Main, :Foo) === :Foo
+            #= none:493 =# @test guess_type(Main, :(Array{Int, 1})) === Array{Int, 1}
+            #= none:495 =# @test guess_type(Main, :(Array{<:Real, 1})) == :(Array{<:Real, 1})
         end
-    #= none:489 =# @static if VERSION > v"1.8-"
-            #= none:490 =# @testset "const <field> = <value>" begin
+    #= none:498 =# @static if VERSION > v"1.8-"
+            #= none:499 =# @testset "const <field> = <value>" begin
                     include("analysis/const.jl")
                 end
         end
-    #= none:495 =# @testset "check" begin
+    #= none:504 =# @testset "check" begin
             include("analysis/check.jl")
         end
-    #= none:499 =# @testset "compare" begin
+    #= none:508 =# @testset "compare" begin
             include("analysis/compare.jl")
         end
-    #= none:503 =# @testset "generated" begin
+    #= none:512 =# @testset "generated" begin
             include("analysis/generated.jl")
         end
