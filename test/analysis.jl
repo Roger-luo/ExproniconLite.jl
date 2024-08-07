@@ -422,17 +422,23 @@
             #= none:493 =# @test guess_type(Main, :(Array{Int, 1})) === Array{Int, 1}
             #= none:495 =# @test guess_type(Main, :(Array{<:Real, 1})) == :(Array{<:Real, 1})
         end
-    #= none:498 =# @static if VERSION > v"1.8-"
-            #= none:499 =# @testset "const <field> = <value>" begin
+    #= none:498 =# @testset "split_signature" begin
+            #= none:499 =# @test_expr split_signature(:(foo(x::Int, y::Float64))) == :(($Base).Tuple{($Base).typeof(foo), Int, Float64})
+            #= none:500 =# @test_expr split_signature(:(foo(x::Int, y::Float64...))) == :(($Base).Tuple{($Base).typeof(foo), Int, ($Base).Vararg{Float64}})
+            #= none:501 =# @test_expr split_signature(:(foo(x::Int, y...))) == :(($Base).Tuple{($Base).typeof(foo), Int, ($Base).Vararg{$Any}})
+            #= none:502 =# @test_expr split_signature(:(foo(x::Int, y::T...) where T)) == :(($Base).Tuple{($Base).typeof(foo), Int, ($Base).Vararg{T}} where T)
+        end
+    #= none:505 =# @static if VERSION > v"1.8-"
+            #= none:506 =# @testset "const <field> = <value>" begin
                     include("analysis/const.jl")
                 end
         end
-    #= none:504 =# @testset "check" begin
+    #= none:511 =# @testset "check" begin
             include("analysis/check.jl")
         end
-    #= none:508 =# @testset "compare" begin
+    #= none:515 =# @testset "compare" begin
             include("analysis/compare.jl")
         end
-    #= none:512 =# @testset "generated" begin
+    #= none:519 =# @testset "generated" begin
             include("analysis/generated.jl")
         end
