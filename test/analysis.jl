@@ -427,18 +427,19 @@
             #= none:500 =# @test_expr split_signature(:(foo(x::Int, y::Float64...))) == :(($Base).Tuple{($Base).typeof(foo), Int, ($Base).Vararg{Float64}})
             #= none:501 =# @test_expr split_signature(:(foo(x::Int, y...))) == :(($Base).Tuple{($Base).typeof(foo), Int, ($Base).Vararg{$Any}})
             #= none:502 =# @test_expr split_signature(:(foo(x::Int, y::T...) where T)) == :(($Base).Tuple{($Base).typeof(foo), Int, ($Base).Vararg{T}} where T)
+            #= none:503 =# @test_expr split_signature(:(foo(x::Int, y::T = 2) where T)) == :(($Base).Tuple{($Base).typeof(foo), Int, T} where T)
         end
-    #= none:505 =# @static if VERSION > v"1.8-"
-            #= none:506 =# @testset "const <field> = <value>" begin
+    #= none:506 =# @static if VERSION > v"1.8-"
+            #= none:507 =# @testset "const <field> = <value>" begin
                     include("analysis/const.jl")
                 end
         end
-    #= none:511 =# @testset "check" begin
+    #= none:512 =# @testset "check" begin
             include("analysis/check.jl")
         end
-    #= none:515 =# @testset "compare" begin
+    #= none:516 =# @testset "compare" begin
             include("analysis/compare.jl")
         end
-    #= none:519 =# @testset "generated" begin
+    #= none:520 =# @testset "generated" begin
             include("analysis/generated.jl")
         end

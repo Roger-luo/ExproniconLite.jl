@@ -1,5 +1,5 @@
 
-    #= none:1 =# Core.@doc "    split_doc(ex::Expr) -> line, doc, expr\n\nSplit doc string from given expression.\n" function split_doc(ex::Expr)
+    #= none:1 =# Core.@doc "    split_doc(ex::Expr) -> line, doc, expr\n\nSplit doc string from given expression.\n" function split_doc(ex)
             begin
                 begin
                     var"##cache#506" = nothing
@@ -125,12 +125,12 @@
                 var"##return#503"
             end
         end
-    #= none:24 =# Core.@doc "    split_function(ex::Expr) -> head, call, body\n\nSplit function head declaration with function body.\n" function split_function(ex::Expr; source = nothing)
+    #= none:24 =# Core.@doc "    split_function(ex::Expr) -> head, call, body\n\nSplit function head declaration with function body.\n" function split_function(ex; source = nothing)
             ret = split_function_nothrow(ex)
             isnothing(ret) && throw(SyntaxError("expect a function expr, got $(ex)", source))
             ret
         end
-    function split_function_nothrow(ex::Expr)
+    function split_function_nothrow(ex)
         let
             begin
                 var"##cache#537" = nothing
@@ -1238,6 +1238,8 @@
             Expr(:where, split_signature(call.args[1]), call.args[2:end]...)
         elseif Meta.isexpr(call, :call)
             :(($Base).Tuple{($Base).typeof($(call.args[1])), $(arg2type.(call.args[2:end])...)})
+        elseif Meta.isexpr(call, :(::))
+            return split_signature(call.args[1])
         else
             error("invalid signature: $(call)")
         end
@@ -1266,7 +1268,7 @@
                     var"##return#770" = let type = var"##776"
                             type
                         end
-                    $(Expr(:symbolicgoto, Symbol("####final#771#789")))
+                    $(Expr(:symbolicgoto, Symbol("####final#771#793")))
                 end
                 if begin
                             var"##777" = (var"##cache#773").value
@@ -1281,7 +1283,7 @@
                     var"##return#770" = let type = var"##779"
                             type
                         end
-                    $(Expr(:symbolicgoto, Symbol("####final#771#789")))
+                    $(Expr(:symbolicgoto, Symbol("####final#771#793")))
                 end
                 if begin
                             var"##780" = (var"##cache#773").value
@@ -1311,7 +1313,7 @@
                     var"##return#770" = let type = var"##786"
                             Core._expr(:curly, Core._expr(:., Base, $(Expr(:copyast, :($(QuoteNode(:(:Vararg))))))), type)
                         end
-                    $(Expr(:symbolicgoto, Symbol("####final#771#789")))
+                    $(Expr(:symbolicgoto, Symbol("####final#771#793")))
                 end
                 if begin
                             var"##787" = (var"##cache#773").value
@@ -1323,7 +1325,23 @@
                     var"##return#770" = let
                             Core._expr(:curly, Core._expr(:., Base, $(Expr(:copyast, :($(QuoteNode(:(:Vararg))))))), Any)
                         end
-                    $(Expr(:symbolicgoto, Symbol("####final#771#789")))
+                    $(Expr(:symbolicgoto, Symbol("####final#771#793")))
+                end
+                if begin
+                            var"##789" = (var"##cache#773").value
+                            var"##789" isa (Tuple{Symbol, var2} where var2 <: AbstractArray)
+                        end && (var"##789"[1] == :kw && (begin
+                                    var"##790" = var"##789"[2]
+                                    var"##790" isa AbstractArray
+                                end && (length(var"##790") === 2 && begin
+                                        var"##791" = var"##790"[1]
+                                        var"##792" = var"##790"[2]
+                                        true
+                                    end)))
+                    var"##return#770" = let arg = var"##791", value = var"##792"
+                            arg2type(arg)
+                        end
+                    $(Expr(:symbolicgoto, Symbol("####final#771#793")))
                 end
             end
             if var"##772" isa Symbol
@@ -1331,17 +1349,17 @@
                     var"##return#770" = let
                             Any
                         end
-                    $(Expr(:symbolicgoto, Symbol("####final#771#789")))
+                    $(Expr(:symbolicgoto, Symbol("####final#771#793")))
                 end
             end
             begin
                 var"##return#770" = let
                         error("invalid argument type: $(arg)")
                     end
-                $(Expr(:symbolicgoto, Symbol("####final#771#789")))
+                $(Expr(:symbolicgoto, Symbol("####final#771#793")))
             end
-            error("matching non-exhaustive, at #= none:284 =#")
-            $(Expr(:symboliclabel, Symbol("####final#771#789")))
+            error("matching non-exhaustive, at #= none:286 =#")
+            $(Expr(:symboliclabel, Symbol("####final#771#793")))
             var"##return#770"
         end
     end

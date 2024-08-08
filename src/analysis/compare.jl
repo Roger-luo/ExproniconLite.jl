@@ -317,27 +317,13 @@
                     $(Expr(:symbolicgoto, Symbol("####final#321#371")))
                 end
             end
-            if var"##322" isa Tuple{Variable, Variable}
-                if begin
-                            var"##363" = var"##322"[1]
-                            var"##363" isa Variable
-                        end && begin
-                            var"##364" = var"##322"[2]
-                            var"##364" isa Variable
-                        end
-                    var"##return#320" = begin
-                            return true
-                        end
-                    $(Expr(:symbolicgoto, Symbol("####final#321#371")))
-                end
-            end
             if var"##322" isa Tuple{TypeVar, TypeVar}
                 if begin
-                            var"##365" = var"##322"[1]
-                            var"##365" isa TypeVar
+                            var"##363" = var"##322"[1]
+                            var"##363" isa TypeVar
                         end && begin
-                            var"##366" = var"##322"[2]
-                            var"##366" isa TypeVar
+                            var"##364" = var"##322"[2]
+                            var"##364" isa TypeVar
                         end
                     var"##return#320" = begin
                             compare_expr(m, lhs.lb, rhs.lb) || return false
@@ -349,11 +335,11 @@
             end
             if var"##322" isa Tuple{LineNumberNode, LineNumberNode}
                 if begin
-                            var"##367" = var"##322"[1]
-                            var"##367" isa LineNumberNode
+                            var"##365" = var"##322"[1]
+                            var"##365" isa LineNumberNode
                         end && begin
-                            var"##368" = var"##322"[2]
-                            var"##368" isa LineNumberNode
+                            var"##366" = var"##322"[2]
+                            var"##366" isa LineNumberNode
                         end
                     var"##return#320" = begin
                             return true
@@ -363,14 +349,28 @@
             end
             if var"##322" isa Tuple{GlobalRef, GlobalRef}
                 if begin
-                            var"##369" = var"##322"[1]
-                            var"##369" isa GlobalRef
+                            var"##367" = var"##322"[1]
+                            var"##367" isa GlobalRef
                         end && begin
-                            var"##370" = var"##322"[2]
-                            var"##370" isa GlobalRef
+                            var"##368" = var"##322"[2]
+                            var"##368" isa GlobalRef
                         end
                     var"##return#320" = begin
                             return lhs === rhs
+                        end
+                    $(Expr(:symbolicgoto, Symbol("####final#321#371")))
+                end
+            end
+            if var"##322" isa Tuple{Variable, Variable}
+                if begin
+                            var"##369" = var"##322"[1]
+                            var"##369" isa Variable
+                        end && begin
+                            var"##370" = var"##322"[2]
+                            var"##370" isa Variable
+                        end
+                    var"##return#320" = begin
+                            return true
                         end
                     $(Expr(:symbolicgoto, Symbol("####final#321#371")))
                 end
