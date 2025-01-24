@@ -347,30 +347,30 @@
                     $(Expr(:symbolicgoto, Symbol("####final#321#371")))
                 end
             end
-            if var"##322" isa Tuple{GlobalRef, GlobalRef}
+            if var"##322" isa Tuple{Variable, Variable}
                 if begin
                             var"##367" = var"##322"[1]
-                            var"##367" isa GlobalRef
+                            var"##367" isa Variable
                         end && begin
                             var"##368" = var"##322"[2]
-                            var"##368" isa GlobalRef
+                            var"##368" isa Variable
                         end
                     var"##return#320" = begin
-                            return lhs === rhs
+                            return true
                         end
                     $(Expr(:symbolicgoto, Symbol("####final#321#371")))
                 end
             end
-            if var"##322" isa Tuple{Variable, Variable}
+            if var"##322" isa Tuple{GlobalRef, GlobalRef}
                 if begin
                             var"##369" = var"##322"[1]
-                            var"##369" isa Variable
+                            var"##369" isa GlobalRef
                         end && begin
                             var"##370" = var"##322"[2]
-                            var"##370" isa Variable
+                            var"##370" isa GlobalRef
                         end
                     var"##return#320" = begin
-                            return true
+                            return lhs === rhs
                         end
                     $(Expr(:symbolicgoto, Symbol("####final#321#371")))
                 end

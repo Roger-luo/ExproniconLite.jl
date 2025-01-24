@@ -102,6 +102,14 @@
                 true
                 var"##return#234" = nothing
                 var"##236" = def
+                if var"##236" isa JLFunction
+                    begin
+                        var"##return#234" = let
+                                true
+                            end
+                        $(Expr(:symbolicgoto, Symbol("####final#235#237")))
+                    end
+                end
                 if var"##236" isa Expr
                     begin
                         var"##return#234" = let
@@ -134,14 +142,6 @@
                                     end
                                 isnothing(split_head_tuple) && return false
                                 (name, args, kw, whereparams, rettype) = split_head_tuple
-                                true
-                            end
-                        $(Expr(:symbolicgoto, Symbol("####final#235#237")))
-                    end
-                end
-                if var"##236" isa JLFunction
-                    begin
-                        var"##return#234" = let
                                 true
                             end
                         $(Expr(:symbolicgoto, Symbol("####final#235#237")))
