@@ -8,10 +8,10 @@
             #= none:8 =# @test name_only(:(Foo{T})) == :Foo
             #= none:9 =# @test name_only(:(module Foo
                           begin
-                              #= /Users/roger/Code/Julia/Expronicon/lib/ZhanKai/src/process.jl:221 =# @static if !(isdefined(#= /Users/roger/Code/Julia/Expronicon/lib/ZhanKai/src/process.jl:221 =# @__MODULE__(), :include_generated))
+                              #= /Users/roger/Code/julia/Expronicon/lib/ZhanKai/src/process.jl:221 =# @static if !(isdefined(#= /Users/roger/Code/julia/Expronicon/lib/ZhanKai/src/process.jl:221 =# @__MODULE__(), :include_generated))
                                       function __include_generated__(_path::String)
-                                          #= /Users/roger/Code/Julia/Expronicon/lib/ZhanKai/src/process.jl:223 =# Base.@_noinline_meta
-                                          mod = #= /Users/roger/Code/Julia/Expronicon/lib/ZhanKai/src/process.jl:224 =# @__MODULE__()
+                                          #= /Users/roger/Code/julia/Expronicon/lib/ZhanKai/src/process.jl:223 =# Base.@_noinline_meta
+                                          mod = #= /Users/roger/Code/julia/Expronicon/lib/ZhanKai/src/process.jl:224 =# @__MODULE__()
                                           (path, prev) = Base._include_dependency(mod, _path)
                                           code = read(path, String)
                                           tls = task_local_storage()
@@ -52,7 +52,7 @@
                             true
                         end
                 end
-            #= none:35 =# @test ((rm_lineinfo(ex)).args[1]).args[end] == rm_lineinfo(:(mutable struct D
+            #= none:35 =# @test ((rm_lineinfo(ex)).args[1]).args[var"end"] == rm_lineinfo(:(mutable struct D
                               field1::Union{ID, Missing, Nothing} = nothing
                           end))
             #= none:38 =# @test (rm_lineinfo(ex)).args[2] == rm_lineinfo(:(StructTypes.StructType(::Type{D}) = begin

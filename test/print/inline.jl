@@ -8,10 +8,10 @@
     print_inline(:(var"##step_1_l#259" = 1 << (var"##plain_locs#258"[1] - 1)))
     print_inline(:(module A
           begin
-              #= /Users/roger/Code/Julia/Expronicon/lib/ZhanKai/src/process.jl:221 =# @static if !(isdefined(#= /Users/roger/Code/Julia/Expronicon/lib/ZhanKai/src/process.jl:221 =# @__MODULE__(), :include_generated))
+              #= /Users/roger/Code/julia/Expronicon/lib/ZhanKai/src/process.jl:221 =# @static if !(isdefined(#= /Users/roger/Code/julia/Expronicon/lib/ZhanKai/src/process.jl:221 =# @__MODULE__(), :include_generated))
                       function __include_generated__(_path::String)
-                          #= /Users/roger/Code/Julia/Expronicon/lib/ZhanKai/src/process.jl:223 =# Base.@_noinline_meta
-                          mod = #= /Users/roger/Code/Julia/Expronicon/lib/ZhanKai/src/process.jl:224 =# @__MODULE__()
+                          #= /Users/roger/Code/julia/Expronicon/lib/ZhanKai/src/process.jl:223 =# Base.@_noinline_meta
+                          mod = #= /Users/roger/Code/julia/Expronicon/lib/ZhanKai/src/process.jl:224 =# @__MODULE__()
                           (path, prev) = Base._include_dependency(mod, _path)
                           code = read(path, String)
                           tls = task_local_storage()
@@ -73,7 +73,7 @@
     print_inline(:(1:10))
     print_inline(:((p::InlinePrinter)(x, xs...; delim = ", ")))
     print_inline(:(Base.:(==)(a::Variant, b::Variant)))
-    print_inline(:(foo() do 
+    print_inline(:(foo() do
           end))
     print_inline(:(foo() do x
           end))

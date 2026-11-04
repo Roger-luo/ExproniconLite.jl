@@ -23,7 +23,7 @@
             push!(stmt.args, rm_single_block(Expr(:block, codegen_ast(action))))
             if k !== length(def)
                 push!(stmt.args, Expr(:elseif))
-                stmt = stmt.args[end]
+                stmt = stmt.args[var"end"]
             end
         end
         def.otherwise === nothing || push!(stmt.args, codegen_ast(def.otherwise))
