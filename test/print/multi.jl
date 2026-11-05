@@ -200,10 +200,10 @@
     print_expr(ex)
     ex = #= none:229 =# @expr(module ABC
             begin
-                #= /Users/roger/Code/julia/Expronicon/lib/ZhanKai/src/process.jl:221 =# @static if !(isdefined(#= /Users/roger/Code/julia/Expronicon/lib/ZhanKai/src/process.jl:221 =# @__MODULE__(), :include_generated))
+                #= /Users/roger/Code/julia/Expronicon/lib/ZhanKai/src/process.jl:234 =# @static if !(isdefined(#= /Users/roger/Code/julia/Expronicon/lib/ZhanKai/src/process.jl:234 =# @__MODULE__(), :include_generated))
                         function __include_generated__(_path::String)
-                            #= /Users/roger/Code/julia/Expronicon/lib/ZhanKai/src/process.jl:223 =# Base.@_noinline_meta
-                            mod = #= /Users/roger/Code/julia/Expronicon/lib/ZhanKai/src/process.jl:224 =# @__MODULE__()
+                            #= /Users/roger/Code/julia/Expronicon/lib/ZhanKai/src/process.jl:236 =# Base.@_noinline_meta
+                            mod = #= /Users/roger/Code/julia/Expronicon/lib/ZhanKai/src/process.jl:237 =# @__MODULE__()
                             (path, prev) = Base._include_dependency(mod, _path)
                             code = read(path, String)
                             tls = task_local_storage()
@@ -226,7 +226,8 @@
             2 + 2
             end)
     print_expr(ex)
-    ex = #= none:236 =# @expr(const X = if a == 1
+    print_expr(Expr(:module, v"1.14.0", true, :ABC, Expr(:block, :(1 + 1))))
+    ex = #= none:237 =# @expr(const X = if a == 1
                         1 + 1
                         2 + 2
                     else
@@ -234,7 +235,7 @@
                         4 + 4
                     end)
     print_expr(ex)
-    ex = #= none:247 =# @expr(if x > 100
+    ex = #= none:248 =# @expr(if x > 100
                 x + 1
             elseif x > 90
                 x + 2
@@ -258,7 +259,7 @@
               1 + 1
               2 + 2
           end))
-    ex = #= none:265 =# @expr(function (p::InlinePrinter)(x, xs...; delim = ", ")
+    ex = #= none:266 =# @expr(function (p::InlinePrinter)(x, xs...; delim = ", ")
                 p(x)
                 for x = xs
                     printstyled(p.io, delim; color = p.color.keyword)
@@ -266,12 +267,12 @@
                 end
             end)
     print_expr(ex)
-    ex = #= none:275 =# @expr(function InlinePrinter(io::IO; color::ColorScheme = Monokai256(), line::Bool = false)
+    ex = #= none:276 =# @expr(function InlinePrinter(io::IO; color::ColorScheme = Monokai256(), line::Bool = false)
                 InlinePrinter(io, color, line, InlinePrinterState())
             end)
     print_expr(ex)
-    print_expr(:(#= none:281 =# @foo("aaaaa", a, b, c)))
-    print_expr(:(#= none:282 =# @foo("aaaaa\naaaaa", a, b, c)))
+    print_expr(:(#= none:282 =# @foo("aaaaa", a, b, c)))
+    print_expr(:(#= none:283 =# @foo("aaaaa\naaaaa", a, b, c)))
     ex = quote
             function foo()
                 msg = :("expect $($nargs) arguments, got $(length(args)) arguments")

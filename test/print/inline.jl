@@ -8,10 +8,10 @@
     print_inline(:(var"##step_1_l#259" = 1 << (var"##plain_locs#258"[1] - 1)))
     print_inline(:(module A
           begin
-              #= /Users/roger/Code/julia/Expronicon/lib/ZhanKai/src/process.jl:221 =# @static if !(isdefined(#= /Users/roger/Code/julia/Expronicon/lib/ZhanKai/src/process.jl:221 =# @__MODULE__(), :include_generated))
+              #= /Users/roger/Code/julia/Expronicon/lib/ZhanKai/src/process.jl:234 =# @static if !(isdefined(#= /Users/roger/Code/julia/Expronicon/lib/ZhanKai/src/process.jl:234 =# @__MODULE__(), :include_generated))
                       function __include_generated__(_path::String)
-                          #= /Users/roger/Code/julia/Expronicon/lib/ZhanKai/src/process.jl:223 =# Base.@_noinline_meta
-                          mod = #= /Users/roger/Code/julia/Expronicon/lib/ZhanKai/src/process.jl:224 =# @__MODULE__()
+                          #= /Users/roger/Code/julia/Expronicon/lib/ZhanKai/src/process.jl:236 =# Base.@_noinline_meta
+                          mod = #= /Users/roger/Code/julia/Expronicon/lib/ZhanKai/src/process.jl:237 =# @__MODULE__()
                           (path, prev) = Base._include_dependency(mod, _path)
                           code = read(path, String)
                           tls = task_local_storage()
@@ -31,6 +31,7 @@
                   end
           end
           end))
+    print_inline(Expr(:module, v"1.14.0", true, :A, Expr(:block)))
     print_inline(:(using A, B))
     print_inline(:(using A: a, b))
     print_inline(:(import A, B))
@@ -65,7 +66,7 @@
     print_inline(:(foo(x, y, z)))
     print_inline(:(foo(x, y, z...)))
     print_inline(:(foo(x, y, z; a, b = 2)))
-    print_inline(:(#= none:39 =# @mymacro(begin
+    print_inline(:(#= none:40 =# @mymacro(begin
                   x + 1
                   x + 2
               end, y, z + 1)))
@@ -114,7 +115,7 @@
             x + 1
             y + 1
         end)
-    print_inline(#= none:72 =# @expr(:($(Expr(:using, :($(Expr(:., :($(Expr(:$, :(&name))))))))))))
+    print_inline(#= none:73 =# @expr(:($(Expr(:using, :($(Expr(:., :($(Expr(:$, :(&name))))))))))))
     print_inline(Expr(:string, "aaa", :x, "bbb"))
     print_inline(:(:x))
     print_inline(:(quote
